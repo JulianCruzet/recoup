@@ -1,0 +1,859 @@
+[
+  {
+    "id": "c01",
+    "name": "Helen M.",
+    "summary": "Widowed at 79 and living on Old Age Security and a small pension.",
+    "facts": [
+      { "field": "person.age", "value": 79, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "widowed", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "citizen", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 9640, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2025, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "benefits.receivesOas", "value": true, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "benefits.receivesGis", "value": false, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c02",
+    "name": "Joseph A.",
+    "summary": "Married retiree whose spouse also has a small income.",
+    "facts": [
+      { "field": "person.age", "value": 71, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "married", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "citizen", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 13870, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.familyNetIncome", "value": 22410, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2025, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "benefits.receivesOas", "value": true, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "benefits.receivesGis", "value": false, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c03",
+    "name": "Lucy C.",
+    "summary": "Single senior who moved to Canada as an adult and rents a small apartment.",
+    "facts": [
+      { "field": "person.age", "value": 68, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "single", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "permanent_resident", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.yearsInCanadaSince18", "value": 31, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 17620, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2025, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "benefits.receivesOas", "value": true, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "benefits.receivesGis", "value": false, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c04",
+    "name": "Tariq H.",
+    "summary": "Married senior who has not filed a return since 2023.",
+    "facts": [
+      { "field": "person.age", "value": 82, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "married", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "citizen", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 11240, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.familyNetIncome", "value": 19980, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2023, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "benefits.receivesOas", "value": true, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "benefits.receivesGis", "value": false, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c05",
+    "name": "Ingrid B.",
+    "summary": "Divorced senior living alone on pension income.",
+    "facts": [
+      { "field": "person.age", "value": 74, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "divorced", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "citizen", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 15900, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2025, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "benefits.receivesOas", "value": true, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "benefits.receivesGis", "value": false, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c06",
+    "name": "Winston G.",
+    "summary": "Widowed senior receiving the Guaranteed Income Supplement; last filed in 2022.",
+    "facts": [
+      { "field": "person.age", "value": 66, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "widowed", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "citizen", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 9310, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2022, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "benefits.receivesOas", "value": true, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "benefits.receivesGis", "value": true, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c07",
+    "name": "Svetlana P.",
+    "summary": "Married senior whose husband handles the household bills.",
+    "facts": [
+      { "field": "person.age", "value": 77, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "married", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "permanent_resident", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 12650, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.familyNetIncome", "value": 21700, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2025, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "benefits.receivesOas", "value": true, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "benefits.receivesGis", "value": false, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c08",
+    "name": "Dolores F.",
+    "summary": "Widowed senior in her eighties on a fixed income.",
+    "facts": [
+      { "field": "person.age", "value": 85, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "widowed", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "citizen", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 18450, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2025, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "benefits.receivesOas", "value": true, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "benefits.receivesGis", "value": false, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c09",
+    "name": "Kwame A.",
+    "summary": "Single senior who has not filed taxes since 2021.",
+    "facts": [
+      { "field": "person.age", "value": 70, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "single", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "citizen", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.yearsInCanadaSince18", "value": 52, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 14080, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2021, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "benefits.receivesOas", "value": true, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "benefits.receivesGis", "value": false, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c10",
+    "name": "Marisol R.",
+    "summary": "Separated senior with a low income who lives with a relative.",
+    "facts": [
+      { "field": "person.age", "value": 88, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "separated", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "permanent_resident", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 10200, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2025, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "benefits.receivesOas", "value": true, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "benefits.receivesGis", "value": true, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c11",
+    "name": "Gordon L.",
+    "summary": "Married senior with a small part-time pension.",
+    "facts": [
+      { "field": "person.age", "value": 65, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "married", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "citizen", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 16700, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.familyNetIncome", "value": 24300, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2025, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "benefits.receivesOas", "value": true, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "benefits.receivesGis", "value": false, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c12",
+    "name": "Fatima S.",
+    "summary": "Widowed senior who has not filed a return since 2023.",
+    "facts": [
+      { "field": "person.age", "value": 80, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "widowed", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "citizen", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 9870, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2023, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "benefits.receivesOas", "value": true, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "benefits.receivesGis", "value": false, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c13",
+    "name": "Priya N.",
+    "summary": "Married parent of two children, with one income in the household.",
+    "facts": [
+      { "field": "person.age", "value": 34, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "married", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "citizen", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 41200, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.familyNetIncome", "value": 68400, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2025, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "household.childCount", "value": 2, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "child.0.age", "value": 7, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "child.1.age", "value": 11, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "benefits.receivesCcb", "value": true, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c14",
+    "name": "Diego R.",
+    "summary": "Married parent of three children on a steady income.",
+    "facts": [
+      { "field": "person.age", "value": 41, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "married", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "permanent_resident", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 52300, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.familyNetIncome", "value": 79800, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2025, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "household.childCount", "value": 3, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "child.0.age", "value": 3, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "child.1.age", "value": 9, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "benefits.receivesCcb", "value": true, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c15",
+    "name": "Chloe W.",
+    "summary": "Separated parent raising one child on her own.",
+    "facts": [
+      { "field": "person.age", "value": 29, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "separated", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "citizen", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 31500, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.familyNetIncome", "value": 31500, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2025, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "household.childCount", "value": 1, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "child.0.age", "value": 4, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "benefits.receivesCcb", "value": true, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c16",
+    "name": "Amir K.",
+    "summary": "Married parent of two young children and a mortgage-free rental.",
+    "facts": [
+      { "field": "person.age", "value": 38, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "married", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "citizen", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 34600, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.familyNetIncome", "value": 57900, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2025, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "household.childCount", "value": 2, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "child.0.age", "value": 2, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "child.1.age", "value": 6, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "benefits.receivesCcb", "value": true, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c17",
+    "name": "Nadia O.",
+    "summary": "Common-law parent of a toddler, working part of the year.",
+    "facts": [
+      { "field": "person.age", "value": 33, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "common_law", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "permanent_resident", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 26100, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.familyNetIncome", "value": 44250, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2025, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "household.childCount", "value": 1, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "child.0.age", "value": 1, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "benefits.receivesCcb", "value": true, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c18",
+    "name": "Samuel D.",
+    "summary": "Married parent of three; the youngest child has a mental health condition.",
+    "facts": [
+      { "field": "person.age", "value": 45, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "married", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "citizen", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 47900, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.familyNetIncome", "value": 88100, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2025, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "household.childCount", "value": 3, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "child.0.age", "value": 5, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "child.0.limitation.mental_functions", "value": true, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "child.0.limitation.sinceYear", "value": 2021, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "child.0.dtcApproved", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "child.1.age", "value": 12, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "benefits.receivesCcb", "value": true, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c19",
+    "name": "Grace E.",
+    "summary": "Single parent of two school-age children.",
+    "facts": [
+      { "field": "person.age", "value": 36, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "single", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "citizen", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 28650, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.familyNetIncome", "value": 28650, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2025, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "household.childCount", "value": 2, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "child.0.age", "value": 8, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "child.1.age", "value": 10, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "benefits.receivesCcb", "value": true, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c20",
+    "name": "Ravi J.",
+    "summary": "Married parent of a teenager who uses a wheelchair part of the time.",
+    "facts": [
+      { "field": "person.age", "value": 43, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "married", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "citizen", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 39800, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.familyNetIncome", "value": 61200, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2025, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "household.childCount", "value": 1, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "child.0.age", "value": 13, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "child.0.limitation.walking", "value": true, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "child.0.limitation.sinceYear", "value": 2019, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "child.0.dtcApproved", "value": true, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "benefits.receivesCcb", "value": true, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c21",
+    "name": "Olivia T.",
+    "summary": "Divorced parent of two; her child support is not counted here.",
+    "facts": [
+      { "field": "person.age", "value": 31, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "divorced", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "citizen", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 36400, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.familyNetIncome", "value": 36400, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2024, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "household.childCount", "value": 2, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "child.0.age", "value": 3, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "child.1.age", "value": 5, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "benefits.receivesCcb", "value": false, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c22",
+    "name": "Mateo V.",
+    "summary": "Common-law parent of two; the older child has a learning-related limitation.",
+    "facts": [
+      { "field": "person.age", "value": 39, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "common_law", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "permanent_resident", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 30250, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.familyNetIncome", "value": 49700, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2025, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "household.childCount", "value": 2, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "child.0.age", "value": 6, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "child.0.limitation.mental_functions", "value": true, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "child.0.limitation.sinceYear", "value": 2016, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "child.0.dtcApproved", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "child.1.age", "value": 9, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "benefits.receivesCcb", "value": true, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c23",
+    "name": "Hannah L.",
+    "summary": "Married parent of a toddler, with a second income in the house.",
+    "facts": [
+      { "field": "person.age", "value": 27, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "married", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "citizen", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 42300, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.familyNetIncome", "value": 74900, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2025, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "household.childCount", "value": 1, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "child.0.age", "value": 2, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "benefits.receivesCcb", "value": true, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c24",
+    "name": "Oluwaseun B.",
+    "summary": "Married parent of two children with a stable job and a good income.",
+    "facts": [
+      { "field": "person.age", "value": 42, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "married", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "citizen", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 54800, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.familyNetIncome", "value": 92600, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2025, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "household.childCount", "value": 2, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "child.0.age", "value": 9, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "child.1.age", "value": 14, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "benefits.receivesCcb", "value": true, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c25",
+    "name": "Daniel F.",
+    "summary": "Single adult who cannot walk far and has not worked since 2021.",
+    "facts": [
+      { "field": "person.age", "value": 52, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "single", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "citizen", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 14200, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2025, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "limitation.walking", "value": true, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "limitation.sinceYear", "value": 2015, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "benefits.dtcApproved", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.pastAnnualIncome", "value": 44000, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "work.stoppedYear", "value": 2021, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c26",
+    "name": "Rebecca H.",
+    "summary": "Separated adult with low vision who lives on part-time income.",
+    "facts": [
+      { "field": "person.age", "value": 41, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "separated", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "citizen", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 22800, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2025, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "limitation.vision", "value": true, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "limitation.sinceYear", "value": 2019, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "benefits.dtcApproved", "value": true, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c27",
+    "name": "Trevor M.",
+    "summary": "Married adult with a mental health condition; his spouse is the only earner.",
+    "facts": [
+      { "field": "person.age", "value": 47, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "married", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "permanent_resident", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 0, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.familyNetIncome", "value": 26400, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2025, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "limitation.mental_functions", "value": true, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "limitation.sinceYear", "value": 2012, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.pastAnnualIncome", "value": 52000, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "work.stoppedYear", "value": 2020, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c28",
+    "name": "Lina A.",
+    "summary": "Single adult who walks with a cane and works occasional shifts.",
+    "facts": [
+      { "field": "person.age", "value": 33, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "single", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "citizen", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 9800, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2025, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "limitation.walking", "value": true, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "limitation.sinceYear", "value": 2021, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "benefits.dtcApproved", "value": false, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c29",
+    "name": "Sean P.",
+    "summary": "Divorced adult with a back injury; stopped working in 2022.",
+    "facts": [
+      { "field": "person.age", "value": 58, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "divorced", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "citizen", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 6400, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2025, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "limitation.walking", "value": true, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "limitation.sinceYear", "value": 2008, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "benefits.dtcApproved", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.pastAnnualIncome", "value": 41000, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "work.stoppedYear", "value": 2022, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c30",
+    "name": "Beatriz G.",
+    "summary": "Single adult with a long-standing memory condition, living on disability payments.",
+    "facts": [
+      { "field": "person.age", "value": 29, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "single", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "permanent_resident", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 4500, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2024, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "limitation.mental_functions", "value": true, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "limitation.sinceYear", "value": 2017, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "benefits.dtcApproved", "value": false, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c31",
+    "name": "Michael K.",
+    "summary": "Widowed adult with low vision, approved for the disability credit.",
+    "facts": [
+      { "field": "person.age", "value": 61, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "widowed", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "citizen", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 17300, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2025, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "limitation.vision", "value": true, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "limitation.sinceYear", "value": 2003, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "benefits.dtcApproved", "value": true, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c32",
+    "name": "Yuki S.",
+    "summary": "Common-law adult with a walking limitation; stopped working in 2024.",
+    "facts": [
+      { "field": "person.age", "value": 44, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "common_law", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "citizen", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 0, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.familyNetIncome", "value": 21800, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2025, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "limitation.walking", "value": true, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "limitation.sinceYear", "value": 2018, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.pastAnnualIncome", "value": 36500, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "work.stoppedYear", "value": 2024, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c33",
+    "name": "Jordan W.",
+    "summary": "Single young adult working a part-time retail job.",
+    "facts": [
+      { "field": "person.age", "value": 24, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "single", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "citizen", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 16800, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.workingIncome", "value": 16800, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2025, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c34",
+    "name": "Anita D.",
+    "summary": "Married adult working full-time while her spouse studies.",
+    "facts": [
+      { "field": "person.age", "value": 37, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "married", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "citizen", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 29400, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.workingIncome", "value": 29400, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.familyNetIncome", "value": 41000, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2025, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c35",
+    "name": "Connor B.",
+    "summary": "Single adult working in warehouse logistics.",
+    "facts": [
+      { "field": "person.age", "value": 52, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "single", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "citizen", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 38700, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.workingIncome", "value": 38700, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2025, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c36",
+    "name": "Esther M.",
+    "summary": "Common-law adult working as a home care aide.",
+    "facts": [
+      { "field": "person.age", "value": 28, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "common_law", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "permanent_resident", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 12250, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.workingIncome", "value": 12250, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.familyNetIncome", "value": 27600, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2025, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c37",
+    "name": "Luis C.",
+    "summary": "Married adult working as an electrician's helper.",
+    "facts": [
+      { "field": "person.age", "value": 45, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "married", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "citizen", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 31900, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.workingIncome", "value": 31900, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.familyNetIncome", "value": 58400, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2025, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c38",
+    "name": "Sofia N.",
+    "summary": "Young adult working weekends at a café.",
+    "facts": [
+      { "field": "person.age", "value": 19, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "single", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "citizen", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 8300, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.workingIncome", "value": 8300, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2025, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c39",
+    "name": "Patrick O.",
+    "summary": "Married adult nearing retirement, working part-time.",
+    "facts": [
+      { "field": "person.age", "value": 60, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "married", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "citizen", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 22800, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.workingIncome", "value": 22800, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.familyNetIncome", "value": 35500, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2025, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c40",
+    "name": "Mei L.",
+    "summary": "Single adult working as a bookkeeper.",
+    "facts": [
+      { "field": "person.age", "value": 33, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "single", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "permanent_resident", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 24600, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.workingIncome", "value": 24600, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2025, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c41",
+    "name": "Kofi A.",
+    "summary": "Separated adult working in a grocery warehouse; last filed in 2024.",
+    "facts": [
+      { "field": "person.age", "value": 49, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "separated", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "citizen", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 14950, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.workingIncome", "value": 14950, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2024, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c42",
+    "name": "Rachel V.",
+    "summary": "Married adult working as a nurse's aide with a spouse who also works.",
+    "facts": [
+      { "field": "person.age", "value": 56, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "married", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "citizen", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 39500, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.workingIncome", "value": 39500, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.familyNetIncome", "value": 52000, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2025, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c43",
+    "name": "Richard S.",
+    "summary": "Married professional with a household income well above the limits.",
+    "facts": [
+      { "field": "person.age", "value": 54, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "married", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "citizen", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 112000, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.workingIncome", "value": 112000, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.familyNetIncome", "value": 138000, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2025, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c44",
+    "name": "Julia H.",
+    "summary": "Single professional with private dental coverage through work.",
+    "facts": [
+      { "field": "person.age", "value": 42, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "single", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "citizen", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 96400, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.workingIncome", "value": 96400, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": true, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2025, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c45",
+    "name": "Alan W.",
+    "summary": "Married engineer; income is above the dental and benefit limits.",
+    "facts": [
+      { "field": "person.age", "value": 39, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "married", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "citizen", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 91500, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.workingIncome", "value": 91500, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.familyNetIncome", "value": 104000, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2025, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c46",
+    "name": "Eleanor P.",
+    "summary": "Widowed senior with private dental coverage from a former employer.",
+    "facts": [
+      { "field": "person.age", "value": 71, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "widowed", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "citizen", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 27000, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": true, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2025, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "benefits.receivesOas", "value": true, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "benefits.receivesGis", "value": false, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c47",
+    "name": "Omar J.",
+    "summary": "Married adult with a high combined income and a permanent residence.",
+    "facts": [
+      { "field": "person.age", "value": 62, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "married", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "permanent_resident", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 95000, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.workingIncome", "value": 95000, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.familyNetIncome", "value": 118000, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2025, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c48",
+    "name": "Ruth K.",
+    "summary": "Widowed senior with private dental coverage and a small pension.",
+    "facts": [
+      { "field": "person.age", "value": 68, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "widowed", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "citizen", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 19000, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": true, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2025, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "benefits.receivesOas", "value": true, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "benefits.receivesGis", "value": false, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c49",
+    "name": "Carlos M.",
+    "summary": "Common-law professional with a combined income above the limits.",
+    "facts": [
+      { "field": "person.age", "value": 46, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "common_law", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "permanent_resident", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 150000, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.workingIncome", "value": 150000, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.familyNetIncome", "value": 176000, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2025, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  },
+  {
+    "id": "c50",
+    "name": "Hyun-woo L.",
+    "summary": "Married professional who earns just above the income ceiling.",
+    "facts": [
+      { "field": "person.age", "value": 35, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "married", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "citizen", "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.netIncome", "value": 90800, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.workingIncome", "value": 90800, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.familyNetIncome", "value": 90800, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": false, "source": "staff", "confidence": 1, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2025, "source": "staff", "confidence": 1, "confirmed": true }
+    ]
+  }
+]
