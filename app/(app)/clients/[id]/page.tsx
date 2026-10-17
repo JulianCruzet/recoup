@@ -32,12 +32,15 @@ async function ClientResults({ params }: { params: Promise<{ id: string }> }) {
         <Link href="/clients" className="text-sm text-ink-soft hover:text-ink">
           ← Clients
         </Link>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap justify-end gap-2">
           <Link href={`/clients/${id}/session`} className="rounded-full border border-ink/20 bg-white/60 px-5 py-2.5 text-sm font-semibold">
             Replay intake
           </Link>
           <Link href={`/clients/${id}/intake`} className="rounded-full bg-night px-5 py-2.5 text-sm font-semibold text-white">
             New intake
+          </Link>
+          <Link href={`/clients/${id}/packages`} className="rounded-full border border-ink/20 bg-white/60 px-5 py-2.5 text-sm font-semibold">
+            Paperwork
           </Link>
         </div>
       </div>
