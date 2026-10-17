@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { defaultContext } from "./framework";
-import { evaluateGis, evaluateOas, gisIncome, gisSingleMonthly } from "./gis-oas";
+import { evaluateGis, evaluateOas, gisCoupleMonthly, gisIncome, gisSingleMonthly } from "./gis-oas";
 import { facts } from "./test-helpers";
 
 describe("GIS single, Oct–Dec 2026 (official table rows)", () => {
@@ -18,6 +18,37 @@ describe("GIS single, Oct–Dec 2026 (official table rows)", () => {
   it("excludes OAS and part of earnings from counted income", () => {
     expect(gisIncome(8791, 0, 8791)).toBe(0);
     expect(gisIncome(20000, 12000, 0)).toBe(20000 - 5000 - 3500);
+  });
+});
+
+describe("GIS couple, both on OAS, Oct–Dec 2026 (official table rows)", () => {
+  it.each([
+    [0, 685.56],
+    [4096, 599.56],
+    [8800, 452.57],
+    [16800, 285.57],
+    [30480, 0.57],
+  ])("combined income %d pays %d a month each", (income, monthly) => {
+    expect(gisCoupleMonthly(income)).toBeCloseTo(monthly, 2);
+  });
+
+  it("a married senior gets a couple estimate, not a blank", () => {
+    const result = evaluateGis(
+      facts({ "person.age": 71, "person.maritalStatus": "married", "money.familyNetIncome": 22410, "benefits.receivesOas": true, "tax.lastYearFiled": 2025 }),
+      defaultContext(),
+    )!;
+    expect(result.status).toBe("likely");
+    // 22,410 minus two OAS pensions of 8,791 leaves 4,828 combined.
+    expect(result.annualEstimate).toBe(Math.round(gisCoupleMonthly(4828) * 12));
+    expect(result.assumptions.join(" ")).toMatch(/spouse also receives OAS/);
+  });
+
+  it("a couple above the combined limit is not eligible", () => {
+    const result = evaluateGis(
+      facts({ "person.age": 70, "person.maritalStatus": "married", "money.familyNetIncome": 60000, "benefits.receivesOas": true }),
+      defaultContext(),
+    )!;
+    expect(result.status).toBe("not_eligible");
   });
 });
 

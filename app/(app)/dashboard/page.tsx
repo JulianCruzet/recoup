@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { connection } from "next/server";
 import { Suspense } from "react";
 import { MoneyAmount } from "@/components/ui/MoneyAmount";
@@ -13,7 +14,12 @@ export default function DashboardPage() {
   return (
     <>
       <h1 className="font-display text-4xl font-extrabold tracking-tight">Dashboard</h1>
-      <p className="mt-1 text-ink-soft">What the centre has found for clients, what&rsquo;s been sent, and what has actually arrived.</p>
+      <p className="mt-1 text-ink-soft">
+        What the centre has found for clients, what&rsquo;s been sent, and what has actually arrived.{" "}
+        <Link href="/dashboard/month" className="font-semibold text-ink underline underline-offset-2">
+          See a simulated month
+        </Link>
+      </p>
       <Suspense fallback={<p className="mt-8 text-ink-soft">Loading…</p>}>
         <Numbers />
       </Suspense>

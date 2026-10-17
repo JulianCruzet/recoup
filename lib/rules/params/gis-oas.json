@@ -55,5 +55,41 @@
     "benefitYear": "Oct 2025 - Dec 2026",
     "sourceUrl": "https://data.ontario.ca/dataset/9ae4eb3f-8b65-47f5-98be-57f536db9ac7",
     "note": "GIS single maximum per quarter, for back pay"
+  },
+  "gisCoupleMaxMonthly": {
+    "value": 685.56,
+    "benefitYear": "Oct-Dec 2026",
+    "sourceUrl": "https://www.canada.ca/en/employment-social-development/programs/pensions/pension/statistics/2026-quarterly-october-december.html",
+    "note": "each partner, when the spouse also receives OAS"
+  },
+  "gisCoupleTopUpMonthly": {
+    "value": 49.99,
+    "benefitYear": "Oct-Dec 2026",
+    "sourceUrl": "https://data.ontario.ca/dataset/9ae4eb3f-8b65-47f5-98be-57f536db9ac7/resource/e9ac388c-4dd7-4725-94ef-5d9ff1d63610/download/gains_rate_tables_65-74_oct_1_to_dec_31_2026-married-couple-en.csv",
+    "note": "derived; reproduces all 686 rows of the official couple table"
+  },
+  "gisCoupleIncomeCutoff": {
+    "value": 30528,
+    "benefitYear": "Oct-Dec 2026",
+    "sourceUrl": "https://www.canada.ca/en/employment-social-development/programs/pensions/pension/statistics/2026-quarterly-october-december.html",
+    "note": "combined income, both partners receive OAS"
+  },
+  "coupleTopUpExemption": {
+    "value": 4000,
+    "benefitYear": "Oct-Dec 2026",
+    "sourceUrl": "https://data.ontario.ca/dataset/9ae4eb3f-8b65-47f5-98be-57f536db9ac7/resource/e9ac388c-4dd7-4725-94ef-5d9ff1d63610/download/gains_rate_tables_65-74_oct_1_to_dec_31_2026-married-couple-en.csv",
+    "note": "combined ($2,000 each); derived from the official couple table"
+  },
+  "pastQuarterMaxCouple": {
+    "value": {
+      "2025-Q4": 665.41,
+      "2026-Q1": 667.41,
+      "2026-Q2": 668.08,
+      "2026-Q3": 676.09,
+      "2026-Q4": 685.56
+    },
+    "benefitYear": "Oct 2025 - Dec 2026",
+    "sourceUrl": "https://www.canada.ca/en/employment-social-development/programs/pensions/pension/statistics.html",
+    "note": "GIS maximum per partner per quarter (both receive OAS), from the ESDC quarterly pages, for back pay"
   }
 }

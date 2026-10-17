@@ -21,6 +21,17 @@ export function gisSingleMonthly(annualIncome: number, max = GIS_OAS.gisSingleMa
   return round2(base + Math.max(0, topUp - counted / 4));
 }
 
+/**
+ * Monthly GIS for each partner of a couple where both receive OAS, from the official Oct–Dec 2026 table.
+ * Income is the couple's combined income without OAS.
+ */
+export function gisCoupleMonthly(combinedIncome: number, max = GIS_OAS.gisCoupleMaxMonthly.value): number {
+  const topUp = GIS_OAS.gisCoupleTopUpMonthly.value;
+  const base = Math.max(0, max - topUp - Math.floor(combinedIncome / 48));
+  const overExemption = Math.max(0, combinedIncome - GIS_OAS.coupleTopUpExemption.value);
+  return round2(base + Math.max(0, topUp - Math.floor(overExemption / 96)));
+}
+
 /** Income GIS counts: last year's income minus OAS and part of any earnings. */
 export function gisIncome(netIncome: number, workingIncome: number, oasReceived: number): number {
   const { full, halfOfNext } = GIS_OAS.earningsExemption.value;
@@ -43,10 +54,7 @@ export function evaluateGis(book: FactBook, ctx: RuleContext): EligibilityResult
 
   const status = book.string("person.maritalStatus");
   if (status === undefined) r.need("person.maritalStatus");
-  if (status === "married" || status === "common_law") {
-    r.because("Couple GIS rates depend on both incomes; this estimate isn't modelled yet.");
-    return r.done("possible");
-  }
+  if (status === "married" || status === "common_law") return coupleGis(book, ctx, r, age);
 
   const net = book.number("money.netIncome");
   if (net === undefined) return r.need("money.netIncome").done("possible");
@@ -80,6 +88,40 @@ export function evaluateGis(book: FactBook, ctx: RuleContext): EligibilityResult
     r.because(`GIS is based on last year's income, so the ${lastTaxYear - 1} and ${lastTaxYear} tax returns need to be filed first.`);
   }
   r.assume("Single-pensioner rates; back pay counts the 11 months before this month at each quarter's rate.");
+
+  return r.done("likely", { annual: round2(monthly * 12), backPay: round2(backPay) });
+}
+
+/** GIS for one partner of a couple. Assumes the spouse also gets OAS, the lower of the two couple rates. */
+function coupleGis(book: FactBook, ctx: RuleContext, r: ResultBuilder, age: number): EligibilityResult {
+  const family = book.number("money.familyNetIncome");
+  if (family === undefined) return r.need("money.familyNetIncome").done("possible");
+  const oasPaid = OAS_HISTORY.oasPaidAge65to74.value["2025"] ?? 0;
+  const ownOas = book.bool("benefits.receivesOas") ? oasPaid : 0;
+  const income = gisIncome(family, book.number("money.workingIncome") ?? 0, ownOas + oasPaid);
+  r.citeParams("GIS rates for couples", GIS_OAS.gisCoupleMaxMonthly, GIS_OAS.gisCoupleIncomeCutoff);
+
+  if (income >= GIS_OAS.gisCoupleIncomeCutoff.value) {
+    r.because(`Combined income of $${income.toLocaleString()} is above the $${GIS_OAS.gisCoupleIncomeCutoff.value.toLocaleString()} limit for a couple.`);
+    return r.done("not_eligible");
+  }
+
+  const monthly = gisCoupleMonthly(income);
+  r.because(`${age}, in a couple with $${income.toLocaleString()} of combined income besides OAS: about $${monthly.toFixed(2)} a month.`);
+  r.because("Their spouse can apply for their own GIS too.");
+  if (!book.bool("benefits.receivesOas")) r.because("GIS is only paid with Old Age Security, so apply for both together (form ISP-3550).");
+
+  const reduction = GIS_OAS.gisCoupleMaxMonthly.value - monthly;
+  const months = monthsBefore(ctx.asOf, GIS_OAS.backPayMonths.value);
+  const backPay = sum(
+    months.map((m) => Math.max(0, (GIS_OAS.pastQuarterMaxCouple.value[quarterKey(m)] ?? GIS_OAS.gisCoupleMaxMonthly.value) - reduction)),
+  );
+
+  const lastFiled = book.number("tax.lastYearFiled");
+  const lastTaxYear = ctx.asOf.getFullYear() - 1;
+  if (lastFiled === undefined) r.need("tax.lastYearFiled");
+  else if (lastFiled < lastTaxYear) r.because(`GIS is based on last year's income, so both partners need to file their ${lastTaxYear} returns first.`);
+  r.assume("Assumes the spouse also receives OAS. If they don't, the couple rate is higher, so this is the cautious figure.");
 
   return r.done("likely", { annual: round2(monthly * 12), backPay: round2(backPay) });
 }

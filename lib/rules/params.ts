@@ -49,6 +49,11 @@ export const GIS_OAS = gisOasJson as {
   earningsExemption: Param<{ full: number; halfOfNext: number }>;
   backPayMonths: Param;
   pastQuarterMax: ByKey;
+  gisCoupleMaxMonthly: Param;
+  gisCoupleTopUpMonthly: Param;
+  gisCoupleIncomeCutoff: Param;
+  coupleTopUpExemption: Param;
+  pastQuarterMaxCouple: ByKey;
 };
 
 export const OAS_HISTORY = oasHistoryJson as {
