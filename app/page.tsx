@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { AppNav } from "@/components/AppNav";
+import { LiquidGlass } from "@/components/glass/LiquidGlass";
 import { HowItWorks, type Sample } from "@/components/landing/HowItWorks";
+import { LogoMark } from "@/components/ui/Logo";
 import { formatMoney } from "@/lib/format";
 import { PROGRAMS } from "@/lib/programs";
 import { evaluate } from "@/lib/rules";
@@ -88,7 +90,8 @@ export default function Landing() {
         </section>
       </div>
 
-      <div className="rounded-t-[2.5rem] bg-sheet px-4 pt-14 pb-10 shadow-[0_-30px_60px_-30px_rgb(29_31_33/0.35)] sm:px-6 sm:pt-20">
+      {/* The sheet closes before the footer, so the page ends back on the photo it started on. */}
+      <div className="rounded-[2.5rem] bg-sheet px-4 pt-14 pb-20 shadow-[0_-30px_60px_-30px_rgb(29_31_33/0.35),0_30px_60px_-30px_rgb(29_31_33/0.35)] sm:px-6 sm:pt-20">
         <div className="mx-auto grid w-full max-w-6xl gap-12 lg:grid-cols-[minmax(0,26rem)_1fr] lg:gap-20">
           <section aria-labelledby="receipt-title" className="lg:-mt-40">
             <div className="rotate-[-0.8deg] border border-ink/15 bg-white p-6 shadow-[0_18px_40px_-22px_rgb(29_31_33/0.5)] sm:p-7">
@@ -165,14 +168,46 @@ export default function Landing() {
           </Link>
         </section>
 
-        <footer className="mx-auto mt-16 w-full max-w-6xl text-xs text-ink-soft">
-          Photo by{" "}
-          <a className="underline" href="https://unsplash.com/photos/green-hills-and-a-beautiful-blue-sky-Kn1eMkcZ1BU">
-            Jimmy Liu
-          </a>{" "}
-          on Unsplash
-        </footer>
       </div>
+
+      <footer className="px-4 pt-[12vh] pb-6 sm:px-6">
+        <LiquidGlass
+          tint="frost"
+          radius={30}
+          bezel={26}
+          strength={48}
+          className="mx-auto grid w-full max-w-6xl gap-8 p-7 sm:grid-cols-[1fr_auto] sm:items-end sm:p-9"
+        >
+          <div>
+            {/* Same marigold mark and wordmark as the nav. */}
+            <span className="font-display inline-flex items-center gap-2.5 text-2xl font-extrabold tracking-tight text-accent-ink">
+              <LogoMark size={36} marigold />
+              Recoup
+            </span>
+            <p className="mt-3 max-w-md text-ink-soft">
+              Free for clients, never a cut of their money. Recoup never submits anything to the government.
+            </p>
+          </div>
+          <nav aria-label="Footer" className="flex flex-wrap items-center gap-x-5 gap-y-3 text-sm font-semibold sm:justify-end">
+            <Link href="/trust" className="underline-offset-4 hover:underline">
+              How it decides
+            </Link>
+            <Link
+              href="/login"
+              className="rounded-full bg-night px-5 py-2.5 text-white transition-transform hover:scale-[1.03]"
+            >
+              Open Recoup
+            </Link>
+          </nav>
+          <p className="border-t border-ink/15 pt-4 text-xs text-ink-soft sm:col-span-2">
+            Demo with synthetic clients and watermarked mock forms. Photo by{" "}
+            <a className="underline" href="https://unsplash.com/photos/green-hills-and-a-beautiful-blue-sky-Kn1eMkcZ1BU">
+              Jimmy Liu
+            </a>{" "}
+            on Unsplash.
+          </p>
+        </LiquidGlass>
+      </footer>
     </main>
   );
 }
