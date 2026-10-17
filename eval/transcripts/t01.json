@@ -1,0 +1,32 @@
+{
+  "id": "t01",
+  "turns": [
+    { "speaker": "staff", "text": "Hi, thanks for coming in today. Can you tell me a little about yourself?" },
+    { "speaker": "client", "text": "Sure. I'm Ruth. I'm seventy... no, sorry, I'm seventy-two." },
+    { "speaker": "staff", "text": "No problem. Are you married, or are you on your own?" },
+    { "speaker": "client", "text": "My husband passed away three years ago, so I'm widowed." },
+    { "speaker": "staff", "text": "I'm sorry to hear that. What income do you have right now?" },
+    { "speaker": "client", "text": "Just Old Age Security. I think it's around eight thousand eight hundred a year, but I'd have to check." },
+    { "speaker": "staff", "text": "Do you also get the Guaranteed Income Supplement?" },
+    { "speaker": "client", "text": "No, I don't get that one." },
+    { "speaker": "staff", "text": "Do you pay rent?" },
+    { "speaker": "client", "text": "Yes, I rent a one-bedroom. It's twelve hundred a month." },
+    { "speaker": "staff", "text": "Got it. When did you last file your taxes?" },
+    { "speaker": "client", "text": "It's been a while, honestly. I think the last time was for 2021." },
+    { "speaker": "staff", "text": "Do you have any dental coverage through work or a private plan?" },
+    { "speaker": "client", "text": "No, nothing private. I just go to the clinic when I need to." },
+    { "speaker": "staff", "text": "Thank you. Last question: are you a Canadian citizen?" },
+    { "speaker": "client", "text": "Yes, I've been a citizen for decades." }
+  ],
+  "expected": {
+    "person.age": 72,
+    "person.maritalStatus": "widowed",
+    "money.netIncome": 8800,
+    "benefits.receivesOas": true,
+    "benefits.receivesGis": false,
+    "money.rentPaid": 14400,
+    "tax.lastYearFiled": 2021,
+    "money.hasPrivateDental": false,
+    "person.residencyStatus": "citizen"
+  }
+}

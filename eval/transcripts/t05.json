@@ -1,0 +1,27 @@
+{
+  "id": "t05",
+  "turns": [
+    { "speaker": "staff", "text": "Hi! Thanks for booking. How old are you?" },
+    { "speaker": "client", "text": "I'm twenty-six. Honestly, I'm a bit nervous about all this paperwork." },
+    { "speaker": "staff", "text": "That's completely normal. We'll take it step by step. Are you single or in a relationship?" },
+    { "speaker": "client", "text": "Single. No kids, just me and my cat." },
+    { "speaker": "staff", "text": "Great. Tell me about work. What do you earn?" },
+    { "speaker": "client", "text": "I work at a warehouse, and I made about nineteen thousand last year. That's my only income." },
+    { "speaker": "staff", "text": "Does your job give you any health or dental benefits?" },
+    { "speaker": "client", "text": "No, the warehouse doesn't offer dental, so I don't have any." },
+    { "speaker": "staff", "text": "Okay. When did you file your taxes?" },
+    { "speaker": "client", "text": "I did my return last year, for 2025. It was pretty quick." },
+    { "speaker": "staff", "text": "Thanks. Are you a Canadian citizen?" },
+    { "speaker": "client", "text": "Yes, I was born here in Toronto." },
+    { "speaker": "staff", "text": "Before we finish, is there anything you'd like to correct from earlier?" },
+    { "speaker": "client", "text": "Yes, going back to my pay, sorry, it's actually twenty-one thousand a year, since my hours went up. That's still my only income." }
+  ],
+  "expected": {
+    "person.age": 26,
+    "person.maritalStatus": "single",
+    "money.workingIncome": 21000,
+    "money.netIncome": 21000,
+    "tax.lastYearFiled": 2025,
+    "money.hasPrivateDental": false
+  }
+}

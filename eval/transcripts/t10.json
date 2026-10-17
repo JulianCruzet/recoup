@@ -1,0 +1,30 @@
+{
+  "id": "t10",
+  "turns": [
+    { "speaker": "staff", "text": "Hi, I'm sorry for your loss. How are you doing today?" },
+    { "speaker": "client", "text": "Thank you. Some days are better than others." },
+    { "speaker": "staff", "text": "Of course. Can I start with your age?" },
+    { "speaker": "client", "text": "I'm sixty-three." },
+    { "speaker": "staff", "text": "What is your marital status now?" },
+    { "speaker": "client", "text": "I'm widowed. My husband died in 2023." },
+    { "speaker": "staff", "text": "I'm sorry. What is your income at the moment?" },
+    { "speaker": "client", "text": "It's about fourteen thousand a year, mostly from his pension that came to me." },
+    { "speaker": "staff", "text": "Do you pay rent or do you own your home?" },
+    { "speaker": "client", "text": "I rent. It's a thousand, sorry, it's actually twelve hundred a month for a small place." },
+    { "speaker": "staff", "text": "Do you have dental coverage through work or privately?" },
+    { "speaker": "client", "text": "No, there's no dental coverage. I haven't had any in a while." },
+    { "speaker": "staff", "text": "When did you last file your taxes?" },
+    { "speaker": "client", "text": "The last return I filed was for 2022. I haven't filed since my husband passed." },
+    { "speaker": "staff", "text": "Thank you. Are you a Canadian citizen?" },
+    { "speaker": "client", "text": "Yes, I'm a citizen. I've lived here my whole life." }
+  ],
+  "expected": {
+    "person.age": 63,
+    "person.maritalStatus": "widowed",
+    "money.netIncome": 14000,
+    "money.rentPaid": 14400,
+    "tax.lastYearFiled": 2022,
+    "money.hasPrivateDental": false,
+    "person.residencyStatus": "citizen"
+  }
+}

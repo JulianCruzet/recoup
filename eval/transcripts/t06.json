@@ -1,0 +1,28 @@
+{
+  "id": "t06",
+  "turns": [
+    { "speaker": "staff", "text": "Good afternoon. Could you tell me how old you are?" },
+    { "speaker": "client", "text": "I'm sixty-six years old. I still feel like I'm fifty, though." },
+    { "speaker": "staff", "text": "Ha, I hear that a lot. Are you married, single, widowed?" },
+    { "speaker": "client", "text": "I'm single. I never married." },
+    { "speaker": "staff", "text": "Are you a Canadian citizen, or a permanent resident?" },
+    { "speaker": "client", "text": "I'm a permanent resident. I haven't taken citizenship yet." },
+    { "speaker": "staff", "text": "How long have you lived in Canada, if you don't mind me asking?" },
+    { "speaker": "client", "text": "Since I turned eighteen, I've lived in Canada for twenty-two years, sorry, it's actually twenty-five." },
+    { "speaker": "staff", "text": "Okay, and what's your income right now?" },
+    { "speaker": "client", "text": "Old Age Security and a small pension together come to about nine thousand a year." },
+    { "speaker": "staff", "text": "Do you receive the Old Age Security payment?" },
+    { "speaker": "client", "text": "Yes, I get the Old Age Security every month." },
+    { "speaker": "staff", "text": "When did you last file your taxes?" },
+    { "speaker": "client", "text": "I filed last year, for 2025. My nephew helps me with it." }
+  ],
+  "expected": {
+    "person.age": 66,
+    "person.maritalStatus": "single",
+    "person.residencyStatus": "permanent_resident",
+    "person.yearsInCanadaSince18": 25,
+    "money.netIncome": 9000,
+    "benefits.receivesOas": true,
+    "tax.lastYearFiled": 2025
+  }
+}

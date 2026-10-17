@@ -1,0 +1,30 @@
+{
+  "id": "t04",
+  "turns": [
+    { "speaker": "staff", "text": "Hi there, come on in. What's your age?" },
+    { "speaker": "client", "text": "I'm thirty-five. Thanks for seeing me on short notice." },
+    { "speaker": "staff", "text": "Of course. Are you married, single, separated?" },
+    { "speaker": "client", "text": "I'm single. I'm raising my son by myself." },
+    { "speaker": "staff", "text": "How many children live with you, and how old is your child?" },
+    { "speaker": "client", "text": "Just one. My son is seven years old, sorry, it's actually eight." },
+    { "speaker": "staff", "text": "Does he have any health or developmental needs we should know about?" },
+    { "speaker": "client", "text": "He has autism. He's had it since he was born, he was diagnosed as a baby, back in 2018." },
+    { "speaker": "staff", "text": "Thanks for sharing that. What's your total income for the year?" },
+    { "speaker": "client", "text": "Around thirty-one thousand a year, from my job at the pharmacy." },
+    { "speaker": "staff", "text": "Are you receiving the Canada Child Benefit?" },
+    { "speaker": "client", "text": "Yes, I get it for my son every month." },
+    { "speaker": "staff", "text": "Last one: when did you file your taxes last?" },
+    { "speaker": "client", "text": "I filed last spring, so that was for 2025." }
+  ],
+  "expected": {
+    "person.age": 35,
+    "person.maritalStatus": "single",
+    "money.netIncome": 31000,
+    "household.childCount": 1,
+    "child.0.age": 8,
+    "child.0.limitation.mental_functions": true,
+    "child.0.limitation.sinceYear": 2018,
+    "tax.lastYearFiled": 2025,
+    "benefits.receivesCcb": true
+  }
+}

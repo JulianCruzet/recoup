@@ -1,0 +1,32 @@
+{
+  "id": "t09",
+  "turns": [
+    { "speaker": "staff", "text": "Hello, thank you for coming in. How old are you?" },
+    { "speaker": "client", "text": "I'm sixty-nine. I'm here for my granddaughter, really." },
+    { "speaker": "staff", "text": "Tell me more about that. Are you married, single, or widowed?" },
+    { "speaker": "client", "text": "I'm single. My husband is long gone, I'm on my own." },
+    { "speaker": "staff", "text": "Thanks. Who lives with you at home?" },
+    { "speaker": "client", "text": "It's just one child at home, my granddaughter. She's twelve, and I've been raising her since last year." },
+    { "speaker": "staff", "text": "I see. What's your income each year?" },
+    { "speaker": "client", "text": "My income is about fourteen thousand a year, with my pensions included." },
+    { "speaker": "staff", "text": "Do you receive Old Age Security?" },
+    { "speaker": "client", "text": "Yes, I get Old Age Security, and I get the Guaranteed Income Supplement too." },
+    { "speaker": "staff", "text": "Do you have private dental insurance?" },
+    { "speaker": "client", "text": "No, nothing like that. We just go to the public clinic." },
+    { "speaker": "staff", "text": "When did you file your taxes last?" },
+    { "speaker": "client", "text": "Last year, for 2025. My neighbour helped me with the forms." },
+    { "speaker": "staff", "text": "Before we finish, is there anything you'd like to correct from earlier?" },
+    { "speaker": "client", "text": "Yes, my granddaughter is thirteen, not twelve. Sorry, I mixed that up." }
+  ],
+  "expected": {
+    "person.age": 69,
+    "person.maritalStatus": "single",
+    "household.childCount": 1,
+    "child.0.age": 13,
+    "benefits.receivesOas": true,
+    "benefits.receivesGis": true,
+    "money.netIncome": 14000,
+    "money.hasPrivateDental": false,
+    "tax.lastYearFiled": 2025
+  }
+}

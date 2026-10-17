@@ -1,0 +1,31 @@
+{
+  "id": "t03",
+  "turns": [
+    { "speaker": "staff", "text": "Hello, welcome. Can you start by telling me your age?" },
+    { "speaker": "client", "text": "Sure. I'm forty-four." },
+    { "speaker": "staff", "text": "And are you currently married, single, or separated?" },
+    { "speaker": "client", "text": "I'm single. I've been on my own for a while now." },
+    { "speaker": "staff", "text": "Tell me about your health. Is there anything that makes daily life harder?" },
+    { "speaker": "client", "text": "My eyesight. I've had vision loss since 2019, and it's getting harder to read and to drive." },
+    { "speaker": "staff", "text": "I understand. What's your income at the moment?" },
+    { "speaker": "client", "text": "I work part-time at a library, and I earn about sixteen thousand a year altogether." },
+    { "speaker": "staff", "text": "Have you ever applied for the Disability Tax Credit?" },
+    { "speaker": "client", "text": "No, I never did. Nobody told me about it." },
+    { "speaker": "staff", "text": "Do you have private dental insurance?" },
+    { "speaker": "client", "text": "No. I don't have any dental coverage at all." },
+    { "speaker": "staff", "text": "When did you last file your taxes?" },
+    { "speaker": "client", "text": "For last year, I think. I file every year, so it was for 2024." },
+    { "speaker": "staff", "text": "Before we finish, is there anything you'd like to correct from earlier?" },
+    { "speaker": "client", "text": "Yes, going back to my income, sorry, it's actually seventeen thousand two hundred a year after a small raise." }
+  ],
+  "expected": {
+    "person.age": 44,
+    "person.maritalStatus": "single",
+    "money.netIncome": 17200,
+    "limitation.vision": true,
+    "limitation.sinceYear": 2019,
+    "benefits.dtcApproved": false,
+    "money.hasPrivateDental": false,
+    "tax.lastYearFiled": 2024
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "id": "t07",
+  "turns": [
+    { "speaker": "staff", "text": "Hello, come in and have a seat. How old are you?" },
+    { "speaker": "client", "text": "I'm fifty-eight." },
+    { "speaker": "staff", "text": "Thanks. What's your relationship status?" },
+    { "speaker": "client", "text": "I'm divorced. It's been about ten years." },
+    { "speaker": "staff", "text": "I'm sorry to ask this, but can you tell me about your health?" },
+    { "speaker": "client", "text": "I hurt my back badly in 2022, and I can't walk more than half a block without stopping." },
+    { "speaker": "staff", "text": "That sounds really hard. Did you have to stop working because of it?" },
+    { "speaker": "client", "text": "Yes, I stopped working in 2022 because of the injury. I used to drive a delivery truck." },
+    { "speaker": "staff", "text": "What income do you have right now?" },
+    { "speaker": "client", "text": "Right now I don't have any income, zero, I'm not earning anything." },
+    { "speaker": "staff", "text": "Have you applied for the Disability Tax Credit before?" },
+    { "speaker": "client", "text": "I've never applied for it. I didn't know what it was." },
+    { "speaker": "staff", "text": "Do you have dental coverage?" },
+    { "speaker": "client", "text": "No, I lost my benefits when I stopped working. No private dental." },
+    { "speaker": "staff", "text": "When did you last file your taxes?" },
+    { "speaker": "client", "text": "I filed my 2025 return back in the spring. It was a short one since I had no income." },
+    { "speaker": "staff", "text": "Before we finish, is there anything you'd like to correct from earlier?" },
+    { "speaker": "client", "text": "Yes, going back to my back, sorry, it was 2021, not 2022." }
+  ],
+  "expected": {
+    "person.age": 58,
+    "person.maritalStatus": "divorced",
+    "limitation.walking": true,
+    "limitation.sinceYear": 2021,
+    "work.stoppedYear": 2022,
+    "money.netIncome": 0,
+    "benefits.dtcApproved": false,
+    "money.hasPrivateDental": false,
+    "tax.lastYearFiled": 2025
+  }
+}

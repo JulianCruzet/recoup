@@ -1,0 +1,27 @@
+{
+  "id": "t08",
+  "turns": [
+    { "speaker": "staff", "text": "Hi, welcome. Let's go through a few questions. How old are you?" },
+    { "speaker": "client", "text": "I'm forty. My wife is thirty-nine, so we're close in age." },
+    { "speaker": "staff", "text": "Are you married?" },
+    { "speaker": "client", "text": "Yes, we got married about fifteen years ago." },
+    { "speaker": "staff", "text": "And are you both working?" },
+    { "speaker": "client", "text": "We both work full-time. Between us we bring in about ninety-six thousand a year, sorry, it's actually ninety-one thousand." },
+    { "speaker": "staff", "text": "Do you have any kids?" },
+    { "speaker": "client", "text": "No kids, just the two of us." },
+    { "speaker": "staff", "text": "Do you have dental coverage?" },
+    { "speaker": "client", "text": "Yes, our dental is through my employer, it's a private plan." },
+    { "speaker": "staff", "text": "Are you Canadian citizens?" },
+    { "speaker": "client", "text": "Yes, we're both citizens. Born and raised in Ontario." },
+    { "speaker": "staff", "text": "When did you file your last tax return?" },
+    { "speaker": "client", "text": "We filed for 2025 already, so we're up to date." }
+  ],
+  "expected": {
+    "person.age": 40,
+    "person.maritalStatus": "married",
+    "money.familyNetIncome": 91000,
+    "money.hasPrivateDental": true,
+    "person.residencyStatus": "citizen",
+    "tax.lastYearFiled": 2025
+  }
+}

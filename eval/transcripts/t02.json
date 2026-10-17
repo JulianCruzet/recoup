@@ -1,0 +1,30 @@
+{
+  "id": "t02",
+  "turns": [
+    { "speaker": "staff", "text": "Good morning. Let's start with some basics. How old are you?" },
+    { "speaker": "client", "text": "I'm thirty-eight. Hi, sorry, it's been a long morning already." },
+    { "speaker": "staff", "text": "That's okay. Are you married, single, or living common-law?" },
+    { "speaker": "client", "text": "I'm married. My husband and I have been together for twelve years." },
+    { "speaker": "staff", "text": "How many children do you have, and how old are they?" },
+    { "speaker": "client", "text": "We have two kids. Our daughter is four and our son is nine." },
+    { "speaker": "staff", "text": "Thanks. Can you tell me about your household income?" },
+    { "speaker": "client", "text": "My husband is the only one working right now. I think our household brings in about forty-eight thousand a year." },
+    { "speaker": "staff", "text": "Great. Do you own your home or rent?" },
+    { "speaker": "client", "text": "We rent. It's fifteen hundred a month, sorry, fourteen hundred... no, it's fifteen hundred." },
+    { "speaker": "staff", "text": "Thanks for clarifying. Do you get the Canada Child Benefit?" },
+    { "speaker": "client", "text": "Yes, we get it every month for both kids." },
+    { "speaker": "staff", "text": "When did you last file your taxes?" },
+    { "speaker": "client", "text": "We filed for last year, so for 2025, back in the spring." }
+  ],
+  "expected": {
+    "person.age": 38,
+    "person.maritalStatus": "married",
+    "money.familyNetIncome": 48000,
+    "household.childCount": 2,
+    "child.0.age": 4,
+    "child.1.age": 9,
+    "money.rentPaid": 18000,
+    "tax.lastYearFiled": 2025,
+    "benefits.receivesCcb": true
+  }
+}
