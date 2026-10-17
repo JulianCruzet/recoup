@@ -4,6 +4,8 @@
   --ink: #1d1f21;
   --ink-soft: rgb(29 31 33 / 0.72);
   --paper: #fbfaf6;
+  /* The landing page's lower sheet: a light sage that picks up the hills in the photo. */
+  --sheet: #edf0e4;
   --night: #1d1f21;
   --accent: #ecad45;
   --accent-ink: #c48a1a; /* deeper marigold, so gold text stays readable on light glass */
@@ -21,6 +23,7 @@
   --color-ink: var(--ink);
   --color-ink-soft: var(--ink-soft);
   --color-paper: var(--paper);
+  --color-sheet: var(--sheet);
   --color-night: var(--night);
   --color-accent: var(--accent);
   --color-accent-ink: var(--accent-ink);
