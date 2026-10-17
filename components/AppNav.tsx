@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { LiquidGlass } from "@/components/glass/LiquidGlass";
+import { SignOutButton } from "@/components/SignOutButton";
 
 // Short labels fit a phone-width pill.
 const LINKS = [
@@ -27,20 +28,23 @@ export function AppNav({ cta = true }: { cta?: boolean }) {
           {LINKS.map((l) => (
             // On the landing page the call to action takes the room on phones; inside the app the links do.
             <li key={l.href} className={cta ? "hidden sm:block" : undefined}>
-              <Link href={l.href} className="block rounded-full px-2.5 py-2 text-ink-soft transition-colors hover:bg-white/50 hover:text-ink sm:px-3.5">
+              <Link href={l.href} className="block rounded-full px-2 py-2 text-ink-soft transition-colors hover:bg-white/50 hover:text-ink sm:px-3.5">
                 <span className="sm:hidden">{l.short}</span>
                 <span className="hidden sm:inline">{l.label}</span>
               </Link>
             </li>
           ))}
         </ul>
-        {cta && (
+        {/* Signed-in staff skip the form: the proxy sends them from /login straight to their clients. */}
+        {cta ? (
           <Link
-            href="/clients"
+            href="/login"
             className="ml-2 rounded-full bg-night px-4 py-2 text-sm font-semibold text-white transition-transform hover:scale-[1.03]"
           >
             Open Recoup
           </Link>
+        ) : (
+          <SignOutButton />
         )}
       </LiquidGlass>
     </div>

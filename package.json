@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@electric-sql/pglite": "^0.5.10",
+    "@supabase/ssr": "^0.12.7",
+    "@supabase/supabase-js": "^2.118.0",
     "drizzle-orm": "^0.45.4",
     "next": "16.4.2",
     "react": "19.3.0",
