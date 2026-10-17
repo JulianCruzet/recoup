@@ -98,3 +98,12 @@ body {
   outline: 3px solid var(--accent);
   outline-offset: 2px;
 }
+
+html.large-print {
+  font-size: 125%;
+}
+@media print {
+  html.large-print {
+    font-size: 140%;
+  }
+}
