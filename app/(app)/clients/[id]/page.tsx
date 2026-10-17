@@ -9,6 +9,7 @@ import { SourceLink } from "@/components/ui/SourceLink";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { formatMoney } from "@/lib/format";
 import { PROGRAMS, REFERRALS } from "@/lib/programs";
+import { startApplications } from "../../tracker/actions";
 
 export default function ClientPage(props: PageProps<"/clients/[id]">) {
   return (
@@ -36,12 +37,16 @@ async function ClientResults({ params }: { params: Promise<{ id: string }> }) {
           <Link href={`/clients/${id}/session`} className="rounded-full border border-ink/20 bg-white/60 px-5 py-2.5 text-sm font-semibold">
             Replay intake
           </Link>
-          <Link href={`/clients/${id}/intake`} className="rounded-full bg-night px-5 py-2.5 text-sm font-semibold text-white">
+          <Link href={`/clients/${id}/intake`} className="rounded-full border border-ink/20 bg-white/60 px-5 py-2.5 text-sm font-semibold">
             New intake
           </Link>
           <Link href={`/clients/${id}/packages`} className="rounded-full border border-ink/20 bg-white/60 px-5 py-2.5 text-sm font-semibold">
             Paperwork
           </Link>
+          <form action={startApplications}>
+            <input type="hidden" name="clientId" value={id} />
+            <button className="rounded-full bg-night px-5 py-2.5 text-sm font-semibold text-white">Start applications</button>
+          </form>
         </div>
       </div>
 

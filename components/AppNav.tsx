@@ -3,6 +3,7 @@ import { LiquidGlass } from "@/components/glass/LiquidGlass";
 
 const LINKS = [
   { href: "/clients", label: "Clients" },
+  { href: "/tracker", label: "Applications" },
   { href: "/dashboard", label: "Dashboard" },
   { href: "/trust", label: "How it decides" },
 ];
