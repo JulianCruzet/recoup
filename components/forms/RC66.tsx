@@ -31,7 +31,7 @@ export function RC66({ data }: { data: RC66Data }) {
   const { applicant, spouse, children } = data;
 
   return (
-    <article className="relative mx-auto max-w-[8.5in] bg-white p-10 text-[13px] leading-snug text-black shadow-xl print:shadow-none">
+    <article className="relative mx-auto max-w-[8.5in] overflow-hidden bg-white p-10 text-[13px] leading-snug text-black shadow-xl print:shadow-none">
       <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-[30deg] select-none whitespace-nowrap text-6xl font-black text-black/[0.06]">
         MOCK – NOT A GOVERNMENT FORM
       </div>
@@ -81,37 +81,39 @@ export function RC66({ data }: { data: RC66Data }) {
 
       <section>
         <h2 className="mt-5 border-b-2 border-black pb-1 text-sm font-bold">Step 3 – Information about your children</h2>
-        <table className="mt-3 w-full border-collapse text-left text-[13px]">
-          <thead>
-            <tr className="font-semibold">
-              <th className="border border-black px-2 py-1">First name</th>
-              <th className="border border-black px-2 py-1">Last name</th>
-              <th className="border border-black px-2 py-1">Date of birth</th>
-              <th className="border border-black bg-yellow-50 px-2 py-1">Place of birth (client fills in)</th>
-              <th className="border border-black bg-yellow-50 px-2 py-1">
-                Date you became the primary caregiver (client fills in)
-              </th>
-            </tr>
-          </thead>
-          <tbody className="font-mono text-[14px]">
-            {children.map((child, i) => (
-              <tr key={i}>
-                <td className="border border-black px-2 py-1">{child.firstName}</td>
-                <td className="border border-black px-2 py-1">{child.lastName}</td>
-                <td className="border border-black px-2 py-1">{child.dateOfBirth}</td>
-                <td className="border border-black bg-yellow-50 px-2 py-1" />
-                <td className="border border-black bg-yellow-50 px-2 py-1" />
+        <div className="mt-3 overflow-x-auto">
+          <table className="w-full min-w-[560px] border-collapse text-left text-[13px]">
+            <thead>
+              <tr className="font-semibold">
+                <th className="border border-black px-2 py-1">First name</th>
+                <th className="border border-black px-2 py-1">Last name</th>
+                <th className="border border-black px-2 py-1">Date of birth</th>
+                <th className="border border-black bg-yellow-50 px-2 py-1">Place of birth (client fills in)</th>
+                <th className="border border-black bg-yellow-50 px-2 py-1">
+                  Date you became the primary caregiver (client fills in)
+                </th>
               </tr>
-            ))}
-            <tr>
-              <td className="border border-black px-2 py-3" />
-              <td className="border border-black px-2 py-3" />
-              <td className="border border-black px-2 py-3" />
-              <td className="border border-black bg-yellow-50 px-2 py-3" />
-              <td className="border border-black bg-yellow-50 px-2 py-3" />
-            </tr>
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="font-mono text-[14px]">
+              {children.map((child, i) => (
+                <tr key={i}>
+                  <td className="border border-black px-2 py-1">{child.firstName}</td>
+                  <td className="border border-black px-2 py-1">{child.lastName}</td>
+                  <td className="border border-black px-2 py-1">{child.dateOfBirth}</td>
+                  <td className="border border-black bg-yellow-50 px-2 py-1" />
+                  <td className="border border-black bg-yellow-50 px-2 py-1" />
+                </tr>
+              ))}
+              <tr>
+                <td className="border border-black px-2 py-3" />
+                <td className="border border-black px-2 py-3" />
+                <td className="border border-black px-2 py-3" />
+                <td className="border border-black bg-yellow-50 px-2 py-3" />
+                <td className="border border-black bg-yellow-50 px-2 py-3" />
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
 
       <section>

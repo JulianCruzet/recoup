@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { useEffect, useId, useRef, useState, useSyncExternalStore, type CSSProperties, type ReactNode } from "react";
 import { paintDisplacementMap } from "./displacement";
 
 type Props = {
@@ -24,6 +24,8 @@ const supportsRefraction = () =>
   // @ts-expect-error userAgentData is Chromium-only
   Boolean(navigator.userAgentData?.brands?.some((b: { brand: string }) => /Chromium/.test(b.brand)));
 
+const noChanges = () => () => {};
+
 /**
  * A glass surface that bends whatever is behind it. The bend is computed from the pane's shape
  * (see displacement.ts) and applied through an SVG displacement filter on the live backdrop.
@@ -32,9 +34,8 @@ export function LiquidGlass({ children, className = "", style, radius = 28, beze
   const ref = useRef<HTMLElement>(null);
   const filterId = `glass-${useId().replace(/:/g, "")}`;
   const [map, setMap] = useState<{ url: string; width: number; height: number } | null>(null);
-  const [refract, setRefract] = useState(false);
-
-  useEffect(() => setRefract(supportsRefraction()), []);
+  // The browser can't change engines mid-visit, so there's nothing to subscribe to; the server always says no.
+  const refract = useSyncExternalStore(noChanges, supportsRefraction, () => false);
 
   useEffect(() => {
     if (!refract || !ref.current) return;

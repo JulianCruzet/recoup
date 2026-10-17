@@ -42,7 +42,7 @@ export function ISP3025({ data }: { data: ISP3025Data }) {
   const { applicant } = data;
 
   return (
-    <article className="relative mx-auto max-w-[8.5in] bg-white p-10 text-[13px] leading-snug text-black shadow-xl print:shadow-none">
+    <article className="relative mx-auto max-w-[8.5in] overflow-hidden bg-white p-10 text-[13px] leading-snug text-black shadow-xl print:shadow-none">
       <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-[30deg] select-none whitespace-nowrap text-6xl font-black text-black/[0.06]">
         MOCK – NOT A GOVERNMENT FORM
       </div>

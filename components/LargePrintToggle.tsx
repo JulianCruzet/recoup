@@ -1,10 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useSyncExternalStore } from "react";
 
 const STORAGE_KEY = "recoup:large-print";
+// Remembered for this visit too, so the toggle still works when storage is blocked (private mode).
+let current: boolean | null = null;
+const listeners = new Set<() => void>();
 
 function readSaved(): boolean {
+  if (current !== null) return current;
   try {
     return localStorage.getItem(STORAGE_KEY) === "1";
   } catch {
@@ -12,7 +16,18 @@ function readSaved(): boolean {
   }
 }
 
+function subscribe(onChange: () => void) {
+  listeners.add(onChange);
+  window.addEventListener("storage", onChange);
+  return () => {
+    listeners.delete(onChange);
+    window.removeEventListener("storage", onChange);
+  };
+}
+
 function save(on: boolean) {
+  current = on;
+  listeners.forEach((l) => l());
   try {
     localStorage.setItem(STORAGE_KEY, on ? "1" : "0");
   } catch {
@@ -21,19 +36,18 @@ function save(on: boolean) {
 }
 
 export function LargePrintToggle() {
-  const [on, setOn] = useState(false);
+  // The saved choice, read after hydration (the server always renders normal print).
+  const on = useSyncExternalStore(subscribe, readSaved, () => false);
 
+  // Keep the page's class in step with the choice, including the saved one on first load.
+  // Only the printout pages carry the toggle, so leaving them goes back to normal size.
   useEffect(() => {
-    const saved = readSaved();
-    setOn(saved);
-    document.documentElement.classList.toggle("large-print", saved);
-  }, []);
+    document.documentElement.classList.toggle("large-print", on);
+    return () => document.documentElement.classList.remove("large-print");
+  }, [on]);
 
   function toggle() {
-    const next = !on;
-    setOn(next);
-    document.documentElement.classList.toggle("large-print", next);
-    save(next);
+    save(!on);
   }
 
   return (
