@@ -1,3 +1,4 @@
+import { Stagger, StaggerItem } from "@/components/motion";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { connection } from "next/server";
@@ -23,16 +24,16 @@ async function Session({ params }: { params: Promise<{ id: string }> }) {
   const turns: Turn[] = REPLAYS[client.personaId ?? ""] ?? [];
 
   return (
-    <div className="space-y-5">
-      <div className="flex items-center justify-between">
+    <Stagger className="space-y-5">
+      <StaggerItem className="flex items-center justify-between">
         <Link href={`/clients/${id}`} className="text-sm text-ink-soft hover:text-ink">
           ← {client.name}
         </Link>
         <Link href={`/clients/${id}`} className="rounded-full bg-night px-5 py-2.5 text-sm font-semibold text-white">
           See results
         </Link>
-      </div>
+      </StaggerItem>
       <SessionReplay turns={turns} facts={facts} clientId={client.id} clientName={client.name} />
-    </div>
+    </Stagger>
   );
 }

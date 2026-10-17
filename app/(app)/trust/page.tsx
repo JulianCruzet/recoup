@@ -2,6 +2,7 @@ import { desc } from "drizzle-orm";
 import { connection } from "next/server";
 import { Fragment, Suspense } from "react";
 import { ParamTable, type ParamRow } from "@/components/ParamTable";
+import { Stagger, StaggerItem } from "@/components/motion";
 import { Icon } from "@/components/ui/Icon";
 import { getDb, schema } from "@/lib/db";
 import { PROGRAMS } from "@/lib/programs";
@@ -43,48 +44,59 @@ const PARAM_ROWS: ParamRow[] = SOURCES.flatMap(([program, params]) =>
 
 export default function TrustPage() {
   return (
-    <div className="space-y-6">
-      <header>
-        <h1 className="font-display text-4xl font-extrabold tracking-tight">How Recoup decides</h1>
-        <p className="mt-1 text-ink-soft">Rules version {RULES_VERSION}. Estimates follow published formulas and are subject to government assessment.</p>
-      </header>
+    // The page's blocks rise in one after another; in the overview, the steps and promises follow the panel.
+    <Stagger className="space-y-6">
+      <StaggerItem as="div">
+        <header>
+          <h1 className="font-display text-4xl font-extrabold tracking-tight">How Recoup decides</h1>
+          <p className="mt-1 text-ink-soft">Rules version {RULES_VERSION}. Estimates follow published formulas and are subject to government assessment.</p>
+        </header>
+      </StaggerItem>
 
-      <section className="glass glass-frost rounded-3xl px-6 py-8 backdrop-blur-xl sm:px-10">
-        <ol className="grid items-start gap-8 text-center md:grid-cols-[1fr_auto_1fr_auto_1fr] md:gap-4">
+      <StaggerItem as="section" className="glass glass-frost rounded-3xl px-6 py-8 backdrop-blur-xl sm:px-10">
+        <Stagger as="ol" nested className="grid items-start gap-8 text-center md:grid-cols-[1fr_auto_1fr_auto_1fr] md:gap-4">
           {STEPS.map((step, i) => (
             <Fragment key={step.title}>
-              {i > 0 && <li aria-hidden className="hidden pt-5 text-3xl text-ink/30 md:block">&rarr;</li>}
-              <li>
+              {i > 0 && (
+                <StaggerItem as="li" className="hidden pt-5 text-3xl text-ink/30 md:block">
+                  <span aria-hidden>&rarr;</span>
+                </StaggerItem>
+              )}
+              <StaggerItem as="li">
                 <span className="mx-auto grid size-14 place-items-center rounded-full bg-white/80">
                   <Icon paths={step.icon} className={`size-7 ${i === 0 ? "text-accent-ink" : "text-ink"}`} />
                 </span>
                 <h2 className="mt-3 font-display text-2xl font-extrabold tracking-tight">{step.title}</h2>
                 <p className="mx-auto mt-1 max-w-56 text-[15px] text-ink-soft">{step.body}</p>
-              </li>
+              </StaggerItem>
             </Fragment>
           ))}
-        </ol>
-        <ul className="mt-8 flex flex-wrap justify-center gap-2">
+        </Stagger>
+        <Stagger as="ul" nested delay={0.35} className="mt-8 flex flex-wrap justify-center gap-2">
           {PROMISES.map((p) => (
-            <li key={p} className="flex items-center gap-1.5 rounded-full bg-white/70 px-3.5 py-1.5 text-sm font-medium">
+            <StaggerItem as="li" key={p} className="flex items-center gap-1.5 rounded-full bg-white/70 px-3.5 py-1.5 text-sm font-medium">
               <Icon paths={["M20 6 9 17l-5-5"]} className="size-4 text-accent-ink" />
               {p}
-            </li>
+            </StaggerItem>
           ))}
-        </ul>
-      </section>
+        </Stagger>
+      </StaggerItem>
 
-      <ListeningScore />
+      <StaggerItem as="div">
+        <ListeningScore />
+      </StaggerItem>
 
-      <section className="glass glass-solid rounded-3xl p-6 backdrop-blur-xl">
+      <StaggerItem as="section" className="glass glass-solid rounded-3xl p-6 backdrop-blur-xl">
         <h2 className="font-display text-xl font-bold">Every number and where it comes from</h2>
         <ParamTable rows={PARAM_ROWS} />
-      </section>
+      </StaggerItem>
 
-      <Suspense fallback={null}>
-        <AuditLog />
-      </Suspense>
-    </div>
+      <StaggerItem as="div">
+        <Suspense fallback={null}>
+          <AuditLog />
+        </Suspense>
+      </StaggerItem>
+    </Stagger>
   );
 }
 

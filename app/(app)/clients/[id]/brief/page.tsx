@@ -1,3 +1,4 @@
+import { Stagger, StaggerItem } from "@/components/motion";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { connection } from "next/server";
@@ -23,15 +24,15 @@ async function Brief({ params }: { params: Promise<{ id: string }> }) {
   if (!brief) notFound();
 
   return (
-    <div className="space-y-5">
-      <div className="flex items-center justify-between print:hidden">
+    <Stagger className="space-y-5">
+      <StaggerItem className="flex items-center justify-between print:hidden">
         <Link href={`/clients/${id}`} className="text-sm text-ink-soft hover:text-ink">
           ← {client.name}
         </Link>
         <PrintButton />
-      </div>
+      </StaggerItem>
 
-      <article className="mx-auto max-w-3xl rounded-2xl bg-paper p-10 text-[15px] leading-relaxed text-ink shadow-xl print:max-w-none print:rounded-none print:bg-white print:p-0 print:shadow-none">
+      <StaggerItem as="article" className="mx-auto max-w-3xl rounded-2xl bg-paper p-10 text-[15px] leading-relaxed text-ink shadow-xl print:max-w-none print:rounded-none print:bg-white print:p-0 print:shadow-none">
         <header className="flex items-start justify-between border-b border-ink/15 pb-5">
           <div>
             <p className="text-xs font-semibold tracking-widest text-ink-soft uppercase">For the practitioner completing Part B of form T2201</p>
@@ -67,7 +68,7 @@ async function Brief({ params }: { params: Promise<{ id: string }> }) {
             <li key={n}>{n}</li>
           ))}
         </ul>
-      </article>
-    </div>
+      </StaggerItem>
+    </Stagger>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { CountUp, PopItem, Stagger, StaggerItem } from "@/components/motion";
 import { ChatLine, fadeEdges, runEdges, ScrollCues, useFollowNewest, type Speaker } from "@/components/Chat";
 import { ConsentPanel } from "@/components/ConsentPanel";
 import { describeField, formatFactValue } from "@/lib/fields";
@@ -170,23 +171,25 @@ export function LiveSession({ clientId, clientName, initialFacts }: { clientId: 
     const recordConsent = (kind: "recording" | "notes") =>
       void fetch(`/api/clients/${clientId}/consent`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ kind }) });
     return (
-      <ConsentPanel
-        clientName={clientName}
-        onRecord={() => {
-          recordConsent("recording");
-          startListening();
-        }}
-        onNotes={() => {
-          recordConsent("notes");
-          setMode("typing");
-        }}
-      />
+      <StaggerItem>
+        <ConsentPanel
+          clientName={clientName}
+          onRecord={() => {
+            recordConsent("recording");
+            startListening();
+          }}
+          onNotes={() => {
+            recordConsent("notes");
+            setMode("typing");
+          }}
+        />
+      </StaggerItem>
     );
   }
 
   return (
-    <div className="grid gap-5 lg:grid-cols-[1.25fr_1fr]">
-      <section className="glass glass-solid flex h-[calc(100dvh-13rem)] min-h-[640px] flex-col rounded-3xl p-6 backdrop-blur-xl">
+    <Stagger nested className="grid gap-5 lg:grid-cols-[1.25fr_1fr]">
+      <StaggerItem as="section" className="glass glass-solid flex h-[calc(100dvh-13rem)] min-h-[640px] flex-col rounded-3xl p-6 backdrop-blur-xl">
         <div className="flex items-center justify-between gap-3">
           <h2 className="font-display text-xl font-bold">
             {mode === "listening" ? (
@@ -259,24 +262,26 @@ export function LiveSession({ clientId, clientName, initialFacts }: { clientId: 
             <button className="rounded-full bg-night px-5 py-2.5 text-sm font-semibold text-white">Add</button>
           </form>
         )}
-      </section>
+      </StaggerItem>
 
-      <aside className="flex min-h-0 flex-col gap-5 lg:h-[calc(100dvh-13rem)] lg:min-h-[640px]">
-        <div className="glass glass-frost rounded-3xl p-6 backdrop-blur-xl">
+      <Stagger as="aside" nested className="flex min-h-0 flex-col gap-5 lg:h-[calc(100dvh-13rem)] lg:min-h-[640px]">
+        <StaggerItem className="glass glass-frost rounded-3xl p-6 backdrop-blur-xl">
           <p className="text-sm font-medium tracking-wide text-ink-soft uppercase">Likely owed so far {busy && <span className="normal-case">· listening for facts…</span>}</p>
-          <p className="font-display text-5xl font-extrabold text-accent-ink tabular-nums">{formatMoney(totals.backPay)}</p>
+          <p className="font-display text-5xl font-extrabold text-accent-ink tabular-nums">
+            <CountUp value={totals.backPay} delay={0} />
+          </p>
           <p className="text-ink-soft">plus {formatMoney(totals.annual, "year")}</p>
-        </div>
+        </StaggerItem>
 
         {next && (
-          <div className="glass glass-solid rounded-3xl p-5 backdrop-blur-xl">
+          <StaggerItem className="glass glass-solid rounded-3xl p-5 backdrop-blur-xl">
             <p className="text-xs font-semibold tracking-wide text-accent-ink uppercase">Ask next</p>
             <p className="mt-1 text-lg font-semibold">{describeField(next.field).ask}</p>
             {next.atStake > 0 && <p className="mt-1 text-sm text-ink-soft">Could settle up to {formatMoney(next.atStake)}</p>}
-          </div>
+          </StaggerItem>
         )}
 
-        <div className="glass glass-solid flex min-h-0 flex-1 flex-col rounded-3xl p-5 backdrop-blur-xl">
+        <StaggerItem className="glass glass-solid flex min-h-0 flex-1 flex-col rounded-3xl p-5 backdrop-blur-xl">
           <div className="flex items-center justify-between">
             <p className="text-xs font-semibold tracking-wide text-ink-soft uppercase">Facts heard ({heard.length})</p>
             <button
@@ -290,7 +295,7 @@ export function LiveSession({ clientId, clientName, initialFacts }: { clientId: 
           <div className="relative mt-1 min-h-0 flex-1">
             <ul ref={factsRef} onScroll={onFactsScroll} style={fadeEdges(factsMore)} className="-mr-2 h-full max-h-96 space-y-2.5 overflow-y-auto py-2 pr-2 lg:max-h-none">
               {heard.map((f) => (
-                <li key={f.field} className="text-sm">
+                <PopItem key={f.field} className="text-sm">
                   <span className="font-semibold">{describeField(f.field).label}:</span> {formatFactValue(f.value)}
                   {!f.confirmed && (
                     <span className="ml-2 inline-flex gap-1 align-middle">
@@ -299,13 +304,13 @@ export function LiveSession({ clientId, clientName, initialFacts }: { clientId: 
                     </span>
                   )}
                   {f.quote && <span className="block text-xs text-ink-soft italic">&ldquo;{f.quote}&rdquo;</span>}
-                </li>
+                </PopItem>
               ))}
             </ul>
             <ScrollCues more={factsMore} jump={jumpFacts} newest="More" />
           </div>
-        </div>
-      </aside>
-    </div>
+        </StaggerItem>
+      </Stagger>
+    </Stagger>
   );
 }

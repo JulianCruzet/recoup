@@ -1,3 +1,4 @@
+import { Stagger, StaggerItem } from "@/components/motion";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { connection } from "next/server";
@@ -38,8 +39,8 @@ async function Packages({ params }: { params: Promise<{ id: string }> }) {
   const steps = packages.filter((p) => p.kind === "steps");
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between print:hidden">
+    <Stagger className="space-y-6">
+      <StaggerItem className="flex items-center justify-between print:hidden">
         <Link href={`/clients/${id}`} className="text-sm text-ink-soft hover:text-ink">
           ← {client.name}
         </Link>
@@ -47,9 +48,9 @@ async function Packages({ params }: { params: Promise<{ id: string }> }) {
           <LargePrintToggle />
           <PrintButton />
         </div>
-      </div>
+      </StaggerItem>
 
-      <header className="glass glass-frost rounded-[28px] p-7 backdrop-blur-xl print:hidden">
+      <StaggerItem as="header" className="glass glass-frost rounded-[28px] p-7 backdrop-blur-xl print:hidden">
         <h1 className="font-display text-4xl font-extrabold tracking-tight">Paperwork for {client.name}</h1>
         <p className="mt-1 text-ink-soft">
           Filled in from what the client confirmed. The client adds their SIN, bank details and signature, and sends it
@@ -58,11 +59,11 @@ async function Packages({ params }: { params: Promise<{ id: string }> }) {
         <Link href={`/clients/${id}/summary`} className="mt-3 inline-block text-sm font-semibold text-accent-ink underline underline-offset-2">
           Take-home summary for the client →
         </Link>
-      </header>
+      </StaggerItem>
 
       {forms.map((pkg) => (
         // Wide screens: the steps sit beside the form and stay in view while it scrolls. Narrow: stacked, same width as the form.
-        <section key={pkg.program} className="grid gap-4 break-before-page xl:grid-cols-[minmax(0,1fr)_8.5in] xl:items-start xl:gap-6">
+        <StaggerItem as="section" key={pkg.program} className="grid gap-4 break-before-page xl:grid-cols-[minmax(0,1fr)_8.5in] xl:items-start xl:gap-6">
           {/* Sticky lives on a plain wrapper: .glass sets position: relative, which would override it. */}
           <div className="mx-auto w-full max-w-[8.5in] xl:sticky xl:top-24 xl:max-w-none print:hidden">
             <div className="glass glass-solid rounded-3xl p-6 backdrop-blur-xl">
@@ -83,11 +84,11 @@ async function Packages({ params }: { params: Promise<{ id: string }> }) {
             </div>
           </div>
           <Form pkg={pkg} />
-        </section>
+        </StaggerItem>
       ))}
 
       {steps.length > 0 && (
-        <section className="glass glass-solid rounded-3xl p-6 backdrop-blur-xl print:hidden">
+        <StaggerItem as="section" className="glass glass-solid rounded-3xl p-6 backdrop-blur-xl print:hidden">
           <h2 className="font-display text-xl font-bold">No form needed</h2>
           <ul className="mt-2 space-y-2 text-[15px]">
             {steps.map((pkg) => (
@@ -96,8 +97,8 @@ async function Packages({ params }: { params: Promise<{ id: string }> }) {
               </li>
             ))}
           </ul>
-        </section>
+        </StaggerItem>
       )}
-    </div>
+    </Stagger>
   );
 }

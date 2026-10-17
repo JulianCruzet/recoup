@@ -4,6 +4,7 @@ import { connection } from "next/server";
 import { Suspense } from "react";
 import { getClient, getFacts } from "@/lib/db/queries";
 import { evaluate } from "@/lib/rules";
+import { CountUp, Stagger, StaggerItem } from "@/components/motion";
 import { ClientAvatar } from "@/components/ui/ClientAvatar";
 import { ExplainResult } from "@/components/ExplainResult";
 import { StartApplicationsButton } from "@/components/StartApplicationsButton";
@@ -35,8 +36,9 @@ async function ClientResults({ params }: { params: Promise<{ id: string }> }) {
   const notEligible = results.filter((r) => r.status === "not_eligible");
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    // Toolbar, then the header (the total counts up), then each block in turn; tier rows follow their panel.
+    <Stagger className="space-y-6">
+      <StaggerItem className="flex items-center justify-between">
         <Link href="/clients" className="shrink-0 text-sm whitespace-nowrap text-ink-soft hover:text-ink">
           ← Clients
         </Link>
@@ -57,27 +59,30 @@ async function ClientResults({ params }: { params: Promise<{ id: string }> }) {
             <StartApplicationsButton />
           </form>
         </div>
-      </div>
+      </StaggerItem>
 
-      <header className="glass glass-frost grid gap-6 rounded-[28px] p-7 backdrop-blur-xl sm:grid-cols-[1fr_auto] sm:items-end">
+      {/* Both sides centred, so the shorter client side doesn't sink to the bottom next to the big total. */}
+      <StaggerItem as="header" className="glass glass-frost grid gap-6 rounded-[28px] p-7 backdrop-blur-xl sm:grid-cols-[1fr_auto] sm:items-center">
         <div className="flex items-center gap-5">
-          <ClientAvatar id={client.id} name={client.name} size={76} />
+          <ClientAvatar id={client.id} name={client.name} size={96} />
           <div>
-            <h1 className="font-display text-4xl font-extrabold tracking-tight">{client.name}</h1>
+            <h1 className="font-display text-5xl font-extrabold tracking-tight">{client.name}</h1>
             <p className="mt-1 text-ink-soft">{client.summary}</p>
           </div>
         </div>
         <div className="sm:text-right">
           <p className="text-sm font-medium tracking-wide text-ink-soft uppercase">Likely owed</p>
-          <p className="font-display text-6xl font-extrabold text-accent-ink">{formatMoney(totals.backPay)}</p>
+          <p className="font-display text-6xl font-extrabold text-accent-ink tabular-nums">
+            <CountUp value={totals.backPay} delay={0.3} />
+          </p>
           <p className="text-ink-soft">plus {formatMoney(totals.annual, "year")}</p>
         </div>
-      </header>
+      </StaggerItem>
 
       {deadline && (
-        <p className="glass glass-solid rounded-2xl px-5 py-3 text-sm backdrop-blur-xl">
+        <StaggerItem as="p" className="glass glass-solid rounded-2xl px-5 py-3 text-sm backdrop-blur-xl">
           <strong className="text-accent-ink">Deadline {deadline.date}:</strong> {deadline.note}
-        </p>
+        </StaggerItem>
       )}
 
       {likely.length > 0 && (
@@ -95,16 +100,16 @@ async function ClientResults({ params }: { params: Promise<{ id: string }> }) {
       {notEligible.length > 0 && (
         <Tier title="Not eligible">
           {notEligible.map((r) => (
-            <li key={r.program} className="px-6 py-3 text-[15px]">
+            <StaggerItem as="li" key={r.program} className="px-6 py-3 text-[15px]">
               <span className="font-semibold">{PROGRAMS[r.program].name}</span>
               <span className="text-ink-soft"> · {r.reasons[0]}</span>
-            </li>
+            </StaggerItem>
           ))}
         </Tier>
       )}
 
       {referrals.length > 0 && (
-        <section className="glass glass-solid rounded-3xl p-6 backdrop-blur-xl">
+        <StaggerItem as="section" className="glass glass-solid rounded-3xl p-6 backdrop-blur-xl">
           <h2 className="font-display text-xl font-bold">Also worth a referral</h2>
           <ul className="mt-2 space-y-1 text-[15px] text-ink-soft">
             {referrals.map((f) => (
@@ -116,9 +121,9 @@ async function ClientResults({ params }: { params: Promise<{ id: string }> }) {
               </li>
             ))}
           </ul>
-        </section>
+        </StaggerItem>
       )}
-    </div>
+    </Stagger>
   );
 }
 
@@ -132,13 +137,15 @@ function sumLine(results: EligibilityResult[]): string {
 /** One glass panel per status: the heading and its total sit inside, programs are rows below. */
 function Tier({ title, detail, solid = false, accent = false, children }: { title: string; detail?: string; solid?: boolean; accent?: boolean; children: React.ReactNode }) {
   return (
-    <section className={`glass overflow-hidden rounded-3xl backdrop-blur-xl ${solid ? "glass-solid" : "glass-frost"}`}>
+    <StaggerItem as="section" className={`glass overflow-hidden rounded-3xl backdrop-blur-xl ${solid ? "glass-solid" : "glass-frost"}`}>
       <header className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-ink/10 px-6 pt-5 pb-4">
         <h2 className={`font-display text-2xl font-extrabold tracking-tight ${accent ? "text-accent-ink" : ""}`}>{title}</h2>
         {detail && <p className="text-ink-soft tabular-nums">{detail}</p>}
       </header>
-      <ul className="divide-y divide-ink/10">{children}</ul>
-    </section>
+      <Stagger as="ul" nested className="divide-y divide-ink/10">
+        {children}
+      </Stagger>
+    </StaggerItem>
   );
 }
 
@@ -146,7 +153,7 @@ function Tier({ title, detail, solid = false, accent = false, children }: { titl
 function ResultRow({ r, clientId }: { r: EligibilityResult; clientId: string }) {
   const isLikely = r.status === "likely";
   return (
-    <li className="grid gap-x-8 gap-y-2 p-6 sm:grid-cols-[1fr_auto]">
+    <StaggerItem as="li" className="grid gap-x-8 gap-y-2 p-6 sm:grid-cols-[1fr_auto]">
       <h3 className="font-display text-2xl font-bold tracking-tight">{PROGRAMS[r.program].name}</h3>
       {/* Spans both rows on wide screens so the reasons sit right under the title, not under the amount. */}
       <div className="tabular-nums sm:col-start-2 sm:row-span-2 sm:row-start-1 sm:text-right">
@@ -187,6 +194,6 @@ function ResultRow({ r, clientId }: { r: EligibilityResult; clientId: string }) 
           ))}
         </div>
       </div>
-    </li>
+    </StaggerItem>
   );
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "motion/react";
 import Image from "next/image";
 import { useEffect, useRef, useState, type RefObject } from "react";
 import { ClientAvatar } from "@/components/ui/ClientAvatar";
@@ -103,7 +104,14 @@ export function ChatLine({
   const who = isClient ? client.name : "Staff";
 
   return (
-    <li className={`flex items-end gap-2 ${isClient ? "flex-row-reverse" : ""} ${firstOfRun ? "" : "-mt-2"}`}>
+    // Each line pops in from its own side as it's said.
+    <motion.li
+      initial={{ opacity: 0, y: 10, scale: 0.97 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+      style={{ transformOrigin: isClient ? "bottom right" : "bottom left" }}
+      className={`flex items-end gap-2 ${isClient ? "flex-row-reverse" : ""} ${firstOfRun ? "" : "-mt-2"}`}
+    >
       <span className="shrink-0" style={{ width: AVATAR }}>
         {lastOfRun &&
           (onSwap ? (
@@ -131,7 +139,7 @@ export function ChatLine({
           {interim && "…"}
         </p>
       </div>
-    </li>
+    </motion.li>
   );
 }
 

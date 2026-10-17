@@ -1,3 +1,4 @@
+import { Stagger, StaggerItem } from "@/components/motion";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { connection } from "next/server";
@@ -25,8 +26,8 @@ async function Summary({ params }: { params: Promise<{ id: string }> }) {
   const { results, totals } = evaluate(await getFacts(id));
 
   return (
-    <div className="space-y-5">
-      <div className="flex items-center justify-between print:hidden">
+    <Stagger className="space-y-5">
+      <StaggerItem className="flex items-center justify-between print:hidden">
         <Link href={`/clients/${id}/packages`} className="text-sm text-ink-soft hover:text-ink">
           ← Paperwork
         </Link>
@@ -34,14 +35,16 @@ async function Summary({ params }: { params: Promise<{ id: string }> }) {
           <LargePrintToggle />
           <PrintButton />
         </div>
-      </div>
-      <ClientSummary
-        clientName={client.name}
-        centre={process.env.CENTRE_NAME ?? "the Recoup demo centre"}
-        results={results}
-        totals={totals}
-        preparedOn={DEMO_DATE.toLocaleDateString("en-CA", { month: "long", day: "numeric", year: "numeric" })}
-      />
-    </div>
+      </StaggerItem>
+      <StaggerItem>
+        <ClientSummary
+          clientName={client.name}
+          centre={process.env.CENTRE_NAME ?? "the Recoup demo centre"}
+          results={results}
+          totals={totals}
+          preparedOn={DEMO_DATE.toLocaleDateString("en-CA", { month: "long", day: "numeric", year: "numeric" })}
+        />
+      </StaggerItem>
+    </Stagger>
   );
 }

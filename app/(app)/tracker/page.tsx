@@ -3,6 +3,7 @@ import { connection } from "next/server";
 import { Suspense } from "react";
 import { FollowUpDraft } from "@/components/FollowUpDraft";
 import { PaymentCheckIn } from "@/components/PaymentCheckIn";
+import { MotionCard, Reveal, Stagger, StaggerItem } from "@/components/motion";
 import { ClientAvatar } from "@/components/ui/ClientAvatar";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { MoneyAmount } from "@/components/ui/MoneyAmount";
@@ -25,8 +26,10 @@ const COLUMNS: { title: string; stages: Stage[] }[] = [
 export default function TrackerPage() {
   return (
     <>
-      <h1 className="font-display text-4xl font-extrabold tracking-tight">Applications</h1>
-      <p className="mt-1 text-ink-soft">Every application, from the first conversation until the money arrives.</p>
+      <Reveal>
+        <h1 className="font-display text-4xl font-extrabold tracking-tight">Applications</h1>
+        <p className="mt-1 text-ink-soft">Every application, from the first conversation until the money arrives.</p>
+      </Reveal>
       <Suspense fallback={<p className="mt-8 text-ink-soft">Loading…</p>}>
         <Board />
       </Suspense>
@@ -61,23 +64,24 @@ async function Board() {
         Simulated{offset > 0 ? `: ${offset} days ahead` : " time for the demo"}
       </span>
     </div>
-    <div className="mt-5 grid gap-4 lg:grid-cols-4">
+    {/* Columns rise in left to right, then their cards; a card that changes stage slides to its new column. */}
+    <Stagger className="mt-5 grid gap-4 lg:grid-cols-4">
       {COLUMNS.map((col) => {
         const items = apps.filter((a) => col.stages.includes(a.stage));
         return (
-          <section key={col.title} className="glass glass-solid rounded-3xl p-4 backdrop-blur-xl">
+          <StaggerItem as="section" key={col.title} className="glass glass-solid rounded-3xl p-4 backdrop-blur-xl">
             <h2 className="flex items-baseline justify-between px-1 font-semibold">
               {col.title} <span className="text-sm text-ink-soft">{items.length}</span>
             </h2>
-            <ul className="mt-3 space-y-3">
+            <Stagger as="ul" nested className="mt-3 space-y-3">
               {items.map((a) => (
                 <Card key={a.id} app={a} today={today} />
               ))}
-            </ul>
-          </section>
+            </Stagger>
+          </StaggerItem>
         );
       })}
-    </div>
+    </Stagger>
     </>
   );
 }
@@ -99,7 +103,7 @@ function Card({ app, today }: { app: ApplicationRow; today: Date }) {
   const stalled = isStalled(app, today);
   const outcome = OUTCOME[app.stage];
   return (
-    <li className={`rounded-2xl p-4 ${outcome?.card ?? "bg-white/80"} ${overdue ? "ring-2 ring-accent" : ""}`}>
+    <MotionCard id={app.id} className={`rounded-2xl p-4 ${outcome?.card ?? "bg-white/80"} ${overdue ? "ring-2 ring-accent" : ""}`}>
       {/* Who and how much on one line; the program name gets the full width below so it doesn't wrap into a sliver. */}
       <div className="flex items-center justify-between gap-2">
         <Link href={`/clients/${app.clientId}`} className="flex min-w-0 items-center gap-2 text-sm font-semibold hover:underline">
@@ -137,6 +141,6 @@ function Card({ app, today }: { app: ApplicationRow; today: Date }) {
           ))}
         </div>
       )}
-    </li>
+    </MotionCard>
   );
 }
