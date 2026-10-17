@@ -80,6 +80,11 @@ async function ClientResults({ params }: { params: Promise<{ id: string }> }) {
                 <li key={reason}>{reason}</li>
               ))}
             </ul>
+            {r.program === "dtc" && r.status !== "not_eligible" && (
+              <Link href={`/clients/${id}/brief`} className="mt-2 inline-block text-sm font-semibold text-accent underline underline-offset-2">
+                Daily-living summary for the doctor →
+              </Link>
+            )}
             <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-ink-soft">
               <span>
                 {r.benefitYear} · rules {r.rulesVersion}
