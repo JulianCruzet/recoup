@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { workersBenefit } from "./cwb";
+import { evaluateCwb, workersBenefit } from "./cwb";
 import { defaultContext } from "./framework";
 import { energyPropertyCredit, evaluateGains, evaluateTrillium, gainsSingleMonthly, salesTaxCredit } from "./ontario";
 import { facts } from "./test-helpers";
@@ -60,5 +60,19 @@ describe("Canada Workers Benefit 2025 (CRA zero points)", () => {
     [60000, 49393, true, 0],
   ])("working %d, net %d, family %s → %d", (working, net, family, expected) => {
     expect(workersBenefit(working, net, family)).toBeCloseTo(expected, 2);
+  });
+});
+
+describe("already paid or not eligible", () => {
+  it("skips GAINS for someone already on GIS (it's paid with it)", () => {
+    expect(evaluateGains(facts({ "person.age": 70, "person.province": "ON", "person.maritalStatus": "single", "money.netIncome": 9000, "benefits.receivesOas": true, "benefits.receivesGis": true }), defaultContext())).toBeNull();
+  });
+});
+
+describe("Canada Workers Benefit", () => {
+  it("is already paid once last year's return is filed", () => {
+    const worker = { "person.age": 30, "person.maritalStatus": "single", "money.workingIncome": 15000, "money.netIncome": 15000 };
+    expect(evaluateCwb(facts({ ...worker, "tax.lastYearFiled": 2025 }), defaultContext())).toBeNull();
+    expect(evaluateCwb(facts({ ...worker, "tax.lastYearFiled": 2023 }), defaultContext())?.status).toBe("likely");
   });
 });

@@ -7,10 +7,7 @@ import { getFacts, listClients } from "@/lib/db/queries";
 export default function ClientsPage() {
   return (
     <>
-      <div className="flex items-end justify-between gap-4">
-        <h1 className="font-display text-4xl font-extrabold tracking-tight">Clients</h1>
-        <button className="rounded-full bg-night px-5 py-2.5 text-sm font-semibold text-white">New intake</button>
-      </div>
+      <h1 className="font-display text-4xl font-extrabold tracking-tight">Clients</h1>
       <Suspense fallback={<p className="mt-8 text-ink-soft">Loading clients…</p>}>
         <ClientList />
       </Suspense>

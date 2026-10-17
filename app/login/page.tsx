@@ -25,7 +25,7 @@ export default function LoginPage() {
         ) : (
           <p role="alert" className="mt-6 rounded-2xl bg-white/80 p-4 text-sm">
             Sign-in isn&rsquo;t set up on this copy of Recoup yet. Add <code>NEXT_PUBLIC_SUPABASE_URL</code> and{" "}
-            <code>NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY</code> to <code>.env</code> and restart the server.
+            <code>NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY</code> to <code>.env.local</code> and restart the server.
           </p>
         )}
       </LiquidGlass>

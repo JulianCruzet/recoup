@@ -13,6 +13,10 @@ export function evaluateGains(book: FactBook, ctx: RuleContext): EligibilityResu
   if (book.string("person.province") !== "ON") return null;
   const status = book.string("person.maritalStatus");
   if (status === "married" || status === "common_law") return null;
+  // Paid automatically alongside GIS, so someone already on GIS already gets it.
+  if (book.bool("benefits.receivesGis") === true) return null;
+  const years = book.number("person.yearsInCanadaSince18");
+  if (years !== undefined && years < OAS_HISTORY.minimumResidenceYears.value) return null;
 
   const r = new ResultBuilder("ontario_gains", benefitYearOf(ctx.asOf));
   r.citeParams("Ontario GAINS rates", GAINS.maxMonthlySingle, GAINS.reductionPer24);

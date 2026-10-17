@@ -4,13 +4,22 @@ import { useSearchParams } from "next/navigation";
 import { useState, type FormEvent } from "react";
 import { createClient } from "@/lib/supabase/client";
 
-/** Only send people back to a page inside this site, never to another host. */
+/**
+ * Only send people back to a page inside this site, never to another host. Resolving against our own
+ * origin catches tricks a prefix check misses, like "/\evil.com" or tabs and newlines in the URL.
+ */
 function safeNext(next: string | null) {
-  return next && next.startsWith("/") && !next.startsWith("//") ? next : "/clients";
+  if (!next) return "/clients";
+  try {
+    const url = new URL(next, window.location.origin);
+    return url.origin === window.location.origin ? url.pathname + url.search : "/clients";
+  } catch {
+    return "/clients";
+  }
 }
 
 export function LoginForm() {
-  const next = safeNext(useSearchParams().get("next"));
+  const nextParam = useSearchParams().get("next");
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
 
@@ -29,7 +38,7 @@ export function LoginForm() {
       return;
     }
     // A full load so the proxy and every server component see the new session cookie.
-    window.location.assign(next);
+    window.location.assign(safeNext(nextParam));
   }
 
   return (

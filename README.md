@@ -65,7 +65,7 @@ is likely owed, prepare the paperwork, and follow each application until the mon
 | Feature | Description |
 |---|---|
 | **11 programs calculated** | DTC (with back years), Child Disability Benefit, Canada Disability Benefit, GIS (single and couple), OAS, CCB, Canada Groceries and Essentials Benefit, Canada Workers Benefit, Ontario GAINS, Ontario Trillium Benefit, Canadian Dental Care Plan |
-| **9 referral flags** | ODSP, Ontario Works, CPP Disability, RDSP and others the engine doesn't calculate yet |
+| **8 referral flags** | ODSP, CPP Disability, RDSP, Canada Learning Bond, OAS Allowance, OESP, Healthy Smiles Ontario and Ontario Seniors Dental Care, which the engine doesn't calculate yet |
 | **Sourced parameters** | Every number is stored as `{value, benefitYear, sourceUrl}` and shown on the "How it decides" page |
 | **Honest uncertainty** | Unconfirmed facts count as unknown, so a result stays "possible" until staff confirm them. Deadlines (like DTC years that expire on Dec 31) are flagged. |
 | **Explain to the client** | One click rewrites the reasons in plain words in Punjabi, Tamil, Arabic, Simplified Chinese, Urdu, Tagalog, French, Spanish or English. If the AI's text contains any number the rules didn't produce, the rule's own wording is shown instead. |
@@ -139,6 +139,7 @@ is likely owed, prepare the paperwork, and follow each application until the mon
 
 ![PGlite](https://img.shields.io/badge/PGlite-336791?style=for-the-badge&logo=postgresql&logoColor=white)
 ![Drizzle](https://img.shields.io/badge/Drizzle_ORM-C5F74F?style=for-the-badge&logo=drizzle&logoColor=black)
+![Supabase Auth](https://img.shields.io/badge/Supabase_Auth-3FCF8E?style=for-the-badge&logo=supabase&logoColor=white)
 ![Vitest](https://img.shields.io/badge/Vitest-6E9F18?style=for-the-badge&logo=vitest&logoColor=white)
 
 The Liquid Glass UI is hand-built: an SVG displacement map computed from a squircle dome and Snell's law, with a
@@ -157,21 +158,28 @@ npm install
 Create `.env.local`:
 
 ```bash
-GEMINI_API_KEY=your-key   # from https://aistudio.google.com/apikey
+GEMINI_API_KEY=your-key                               # https://aistudio.google.com/apikey
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=your-publishable-key
 ```
 
+Staff sign in with Supabase Auth. Create a Supabase project, keep Email sign-in on, and add a staff user under
+**Authentication → Users** (tick auto-confirm). Without the two Supabase values, only the landing page and
+*How it decides* open; every other page asks you to sign in.
+
 ```bash
-npm run dev      # http://localhost:3000
-npm test         # 140+ tests: rules, forms, tracker, parsers, guard
+npm run dev      # http://localhost:3000, then sign in at /login
+npm test         # 150+ tests: rules, forms, tracker, parsers, guard
 npx tsx --conditions=react-server eval/run.ts   # score fact extraction on eval/transcripts
 ```
 
-The database is an embedded Postgres (PGlite) in `.data/`, created and seeded with three demo clients on first run.
-Delete `.data/` to start fresh. Without a Gemini key, the scripted intake replay, results, paperwork, tracker and
-dashboard all still work.
+The database is an embedded Postgres (PGlite) in `.data/`, created and seeded with three demo clients and their
+applications on first run. Delete `.data/` (or press **Reset demo** on the tracker) to start fresh. Without a Gemini
+key, the scripted intake replay, results, paperwork, tracker and dashboard all still work.
 
-To deploy (for example on Vercel), set `GEMINI_API_KEY` and `PGLITE_DIR=/tmp/pglite`; the demo data is re-seeded
-whenever the instance starts fresh.
+To deploy (for example on Vercel), set the three values above plus `PGLITE_DIR=/tmp/pglite`. The `NEXT_PUBLIC_`
+values are built into the app, so set them before building. The demo data is re-seeded whenever the instance starts
+fresh.
 
 ---
 
@@ -183,7 +191,9 @@ app/
   (app)/tracker/             applications board + simulated fast-forward
   (app)/dashboard/           totals and the simulated month
   (app)/trust/               how it decides: guardrails, every parameter, audit log
-  api/                       extract, documents, facts, consent, follow-up
+  login/                     staff sign-in
+  api/                       extract, documents, explain, facts, consent, follow-up
+proxy.ts                     keeps signed-out visitors to the public pages
 components/
   forms/                     mock T2201 Part A, RC66, ISP-3025
   glass/                     Liquid Glass (SVG displacement)
@@ -191,7 +201,9 @@ lib/
   rules/                     the rules engine, one file per program, params/*.json with sources
   ai/                        Gemini client, fact extraction, document reader, follow-ups
   packages/                  form filling and the doctor brief
-  tracker/  simulate/        application stages and the simulated month
+  tracker/  simulate/        application stages, the scripted demo and the simulated month
+  db/                        PGlite schema, seed data and queries
+  supabase/                  staff sign-in
 eval/                        labelled transcripts and the extraction scorer
 seed/                        demo personas and 50 synthetic clients
 ```

@@ -24,6 +24,7 @@ type Recognition = {
   stop(): void;
   onresult: (e: { resultIndex: number; results: ArrayLike<{ isFinal: boolean; 0: { transcript: string } }> }) => void;
   onend: () => void;
+  onerror: (e: { error: string }) => void;
 };
 const getRecognition = (): Recognition | null => {
   const w = window as unknown as { SpeechRecognition?: new () => Recognition; webkitSpeechRecognition?: new () => Recognition };
@@ -43,7 +44,7 @@ export function LiveSession({ clientId, clientName, initialFacts }: { clientId: 
   const [heard, setHeard] = useState<Fact[]>([]);
   const [draft, setDraft] = useState("");
   const [busy, setBusy] = useState(false);
-  const [saved, setSaved] = useState<"idle" | "saving" | "saved">("idle");
+  const [saved, setSaved] = useState<"idle" | "saving" | "saved" | "error">("idle");
   const recognition = useRef<Recognition | null>(null);
   const [micOn, setMicOn] = useState(false);
   const sentUpTo = useRef(0);
@@ -99,6 +100,13 @@ export function LiveSession({ clientId, clientName, initialFacts }: { clientId: 
       setInterim(partial);
     };
     rec.onend = () => recognition.current && rec.start();
+    // A denied or missing mic would otherwise restart forever while the screen says "Listening".
+    rec.onerror = (e) => {
+      if (e.error === "not-allowed" || e.error === "service-not-allowed" || e.error === "audio-capture") {
+        stop();
+        setMode("typing");
+      }
+    };
     recognition.current = rec;
     rec.start();
     setMicOn(true);
@@ -149,8 +157,12 @@ export function LiveSession({ clientId, clientName, initialFacts }: { clientId: 
 
   const save = async () => {
     setSaved("saving");
-    await fetch(`/api/clients/${clientId}/facts`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ facts: heard }) });
-    setSaved("saved");
+    try {
+      const res = await fetch(`/api/clients/${clientId}/facts`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ facts: heard }) });
+      setSaved(res.ok ? "saved" : "error");
+    } catch {
+      setSaved("error");
+    }
   };
 
   if (mode === "consent") {
@@ -272,7 +284,7 @@ export function LiveSession({ clientId, clientName, initialFacts }: { clientId: 
               disabled={!heard.length || saved === "saving"}
               className="rounded-full bg-night px-4 py-1.5 text-xs font-semibold text-white disabled:opacity-40"
             >
-              {saved === "saved" ? "Saved" : saved === "saving" ? "Saving…" : "Save to client"}
+              {saved === "saved" ? "Saved" : saved === "saving" ? "Saving…" : saved === "error" ? "Couldn't save. Try again" : "Save to client"}
             </button>
           </div>
           <div className="relative mt-1 min-h-0 flex-1">

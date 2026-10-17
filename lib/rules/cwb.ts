@@ -14,6 +14,9 @@ export function evaluateCwb(book: FactBook, ctx: RuleContext): EligibilityResult
   const working = book.number("money.workingIncome");
   const age = book.number("person.age");
   if (!working || (age !== undefined && age < 19)) return null;
+  // Claimed on last year's return: if that's filed, CRA has already paid it.
+  const filed = book.number("tax.lastYearFiled");
+  if (filed !== undefined && filed >= ctx.asOf.getFullYear() - 1) return null;
   const income = book.number("money.familyNetIncome") ?? book.number("money.netIncome");
   if (income === undefined) return null;
   const status = book.string("person.maritalStatus");

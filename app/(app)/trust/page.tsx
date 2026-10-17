@@ -120,15 +120,13 @@ type AuditDetail = { clientId?: string; id?: string; programs?: ProgramId[]; kin
 async function AuditLog() {
   await connection();
   const db = await getDb();
-  const [rows, clients, apps] = await Promise.all([
+  const [rows, apps] = await Promise.all([
     db.select().from(schema.audit).orderBy(desc(schema.audit.id)).limit(2),
-    db.select({ id: schema.clients.id, name: schema.clients.name }).from(schema.clients),
     db.select({ id: schema.applications.id, clientId: schema.applications.clientId, program: schema.applications.program }).from(schema.applications),
   ]);
-  const clientName = (id?: string) => clients.find((c) => c.id === id)?.name ?? "a client";
   const programName = (id: string) => PROGRAMS[id as ProgramId]?.name ?? id;
 
-  /** One plain sentence per audit entry, using the details stored with it. */
+  /** One plain sentence per audit entry. This page is public, so it never names a client. */
   const describe = (action: string, d: AuditDetail): string => {
     const app = apps.find((a) => a.id === d.id);
     switch (action) {
@@ -137,15 +135,15 @@ async function AuditLog() {
       case "demo.reset":
         return "Reset the demo applications";
       case "consent.recorded":
-        return `Recorded consent for ${clientName(d.clientId)} (${d.kind === "recording" ? "recording" : "typed notes"})`;
+        return `Recorded consent for a client (${d.kind === "recording" ? "recording" : "typed notes"})`;
       case "facts.saved":
-        return `Saved ${d.fields?.length ?? 0} facts for ${clientName(d.clientId)}`;
+        return `Saved ${d.fields?.length ?? 0} facts for a client`;
       case "applications.opened":
-        return `Started ${d.programs?.length === 1 ? "an application" : `${d.programs?.length ?? 0} applications`} for ${clientName(d.clientId)}: ${(d.programs ?? []).map(programName).join(", ")}`;
+        return `Started ${d.programs?.length === 1 ? "an application" : `${d.programs?.length ?? 0} applications`} for a client: ${(d.programs ?? []).map(programName).join(", ")}`;
       case "application.moved":
-        return `Moved ${app ? `${programName(app.program)} for ${clientName(app.clientId)}` : "an application"}: ${d.from ? STAGE_LABEL[d.from] : "?"} → ${d.to ? STAGE_LABEL[d.to] : "?"}`;
+        return `Moved ${app ? `${programName(app.program)} for a client` : "an application"}: ${d.from ? STAGE_LABEL[d.from] : "?"} → ${d.to ? STAGE_LABEL[d.to] : "?"}`;
       case "application.note":
-        return `Added a note to ${app ? `${programName(app.program)} for ${clientName(app.clientId)}` : "an application"}`;
+        return `Added a note to ${app ? `${programName(app.program)} for a client` : "an application"}`;
       default:
         return action;
     }

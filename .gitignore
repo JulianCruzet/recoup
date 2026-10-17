@@ -42,3 +42,7 @@ next-env.d.ts
 
 # local database
 .data/
+
+# local editor notes
+CLAUDE.md
+.claude/

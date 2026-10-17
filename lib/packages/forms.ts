@@ -1,5 +1,7 @@
 import type { EligibilityResult, Fact, ProgramId } from "@/lib/types";
 import { FactBook } from "@/lib/rules/framework";
+import { gisIncome } from "@/lib/rules/gis-oas";
+import { OAS_HISTORY } from "@/lib/rules/params";
 import { fillT2201, splitAddress, splitName, type T2201Fill } from "./t2201";
 
 // Same shapes as components/forms/RC66's RC66Data and ISP3025's ISP3025Data.
@@ -63,7 +65,8 @@ export function fillIsp3025(facts: Fact[]): ISP3025Fill | null {
   if (book.bool("benefits.receivesOas") !== true) return null;
   return {
     applicant: applicantOf(book),
-    estimatedIncome: book.number("money.netIncome") ?? 0,
+    // The form asks for income without OAS or GIS, the same income GIS itself counts.
+    estimatedIncome: gisIncome(book.number("money.netIncome") ?? 0, book.number("money.workingIncome") ?? 0, OAS_HISTORY.oasPaidAge65to74.value["2025"] ?? 0),
     requestRetroactive: true,
   };
 }

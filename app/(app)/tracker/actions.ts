@@ -15,7 +15,7 @@ export async function startApplications(formData: FormData) {
   const clientId = String(formData.get("clientId") ?? "");
   if (!clientId) return;
   const { results } = evaluate(await getFacts(clientId));
-  await openApplications(clientId, results, new Date());
+  await openApplications(clientId, results, await demoToday());
   revalidatePath("/tracker");
   revalidatePath(`/clients/${clientId}`);
   redirect("/tracker");

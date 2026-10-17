@@ -34,7 +34,7 @@ describe("GIS couple, both on OAS, Oct–Dec 2026 (official table rows)", () => 
 
   it("a married senior gets a couple estimate, not a blank", () => {
     const result = evaluateGis(
-      facts({ "person.age": 71, "person.maritalStatus": "married", "money.familyNetIncome": 22410, "benefits.receivesOas": true, "tax.lastYearFiled": 2025 }),
+      facts({ "person.age": 71, "person.maritalStatus": "married", "money.familyNetIncome": 22410, "benefits.receivesOas": true, "benefits.receivesGis": false, "tax.lastYearFiled": 2025 }),
       defaultContext(),
     )!;
     expect(result.status).toBe("likely");
@@ -69,6 +69,22 @@ describe("evaluateGis", () => {
     expect(result.backPayEstimate).toBe(12236);
     expect(result.annualEstimate).toBe(13667);
     expect(result.reasons.join(" ")).toMatch(/2024 and 2025 tax returns/);
+  });
+
+  it("needs 10 years in Canada after 18, like OAS", () => {
+    const result = evaluateGis(facts({ "person.age": 70, "person.maritalStatus": "single", "person.yearsInCanadaSince18": 5, "money.netIncome": 0, "benefits.receivesGis": false }), defaultContext())!;
+    expect(result.status).toBe("not_eligible");
+  });
+
+  it("asks whether they already get GIS instead of assuming not", () => {
+    const result = evaluateGis(facts({ "person.age": 70, "person.maritalStatus": "single", "money.netIncome": 0, "benefits.receivesOas": true }), defaultContext())!;
+    expect(result.status).toBe("possible");
+    expect(result.missing).toContain("benefits.receivesGis");
+  });
+
+  it("only asks for the returns that are actually missing", () => {
+    const result = evaluateGis(facts({ "person.age": 70, "person.maritalStatus": "single", "money.netIncome": 0, "benefits.receivesOas": true, "benefits.receivesGis": false, "tax.lastYearFiled": 2024 }), defaultContext())!;
+    expect(result.reasons.join(" ")).toMatch(/the 2025 tax return needs/);
   });
 
   it("skips people already receiving GIS or under 65", () => {

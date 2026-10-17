@@ -4,9 +4,7 @@ import { connection } from "next/server";
 import { Suspense } from "react";
 import { SessionReplay, type Turn } from "@/components/SessionReplay";
 import { getClient, getFacts } from "@/lib/db/queries";
-import sFamily from "@/seed/transcripts/s-family.json";
-
-const SCRIPTS: Record<string, Turn[]> = { "s-family": sFamily as Turn[] };
+import { REPLAYS } from "@/lib/replays";
 
 export default function SessionPage(props: PageProps<"/clients/[id]/session">) {
   return (
@@ -22,7 +20,7 @@ async function Session({ params }: { params: Promise<{ id: string }> }) {
   const client = await getClient(id);
   if (!client) notFound();
   const facts = await getFacts(id);
-  const turns = SCRIPTS[client.personaId ?? ""] ?? [];
+  const turns: Turn[] = REPLAYS[client.personaId ?? ""] ?? [];
 
   return (
     <div className="space-y-5">

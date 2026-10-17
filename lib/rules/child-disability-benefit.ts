@@ -33,7 +33,9 @@ export function evaluateChildDisabilityBenefit(book: FactBook, ctx: RuleContext)
   const kids = book.childIndexes().filter((i) => {
     const age = book.number(`child.${i}.age`);
     const limited = CATEGORIES.some((c) => book.bool(`child.${i}.limitation.${c}` as FactField) === true);
-    return limited && (age === undefined || age < 18);
+    // An approved DTC means CRA already pays this with the Canada Child Benefit.
+    const alreadyApproved = book.bool(`child.${i}.dtcApproved` as FactField) === true;
+    return limited && !alreadyApproved && (age === undefined || age < 18);
   });
   if (kids.length === 0) return null;
 

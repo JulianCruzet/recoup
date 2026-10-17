@@ -24,7 +24,8 @@ describe("fillIsp3025", () => {
   it("Mrs. K: income without OAS/GIS, back pay requested", () => {
     const form = fillIsp3025(factsOf("mrs-k"))!;
     expect(form.applicant).toMatchObject({ maritalStatus: "Widowed" });
-    expect(form.estimatedIncome).toBe(8791);
+    // Her $8,791 is all OAS, which the form's income question leaves out.
+    expect(form.estimatedIncome).toBe(0);
     expect(form.requestRetroactive).toBe(true);
   });
 

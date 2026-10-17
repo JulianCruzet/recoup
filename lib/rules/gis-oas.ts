@@ -51,6 +51,13 @@ export function evaluateGis(book: FactBook, ctx: RuleContext): EligibilityResult
   const age = book.number("person.age");
   if (age === undefined) return r.need("person.age").done("possible");
   if (age < OAS_AGE) return null;
+  // GIS is only paid to people who qualify for OAS, which needs 10 years in Canada after 18.
+  const residence = book.number("person.yearsInCanadaSince18");
+  if (residence !== undefined && residence < OAS_HISTORY.minimumResidenceYears.value) {
+    r.because(`GIS is paid with Old Age Security, which needs at least ${OAS_HISTORY.minimumResidenceYears.value} years in Canada after 18; ${residence} reported.`);
+    return r.done("not_eligible");
+  }
+  if (book.bool("benefits.receivesGis") === undefined) r.need("benefits.receivesGis");
 
   const status = book.string("person.maritalStatus");
   if (status === undefined) r.need("person.maritalStatus");
@@ -85,7 +92,9 @@ export function evaluateGis(book: FactBook, ctx: RuleContext): EligibilityResult
   const lastTaxYear = ctx.asOf.getFullYear() - 1;
   if (lastFiled === undefined) r.need("tax.lastYearFiled");
   else if (lastFiled < lastTaxYear) {
-    r.because(`GIS is based on last year's income, so the ${lastTaxYear - 1} and ${lastTaxYear} tax returns need to be filed first.`);
+    // GIS back pay uses the year-before-last's income and payments from July use last year's.
+    const missing = [lastTaxYear - 1, lastTaxYear].filter((y) => y > lastFiled);
+    r.because(`GIS is based on last year's income, so the ${missing.join(" and ")} tax ${missing.length === 1 ? "return needs" : "returns need"} to be filed first.`);
   }
   r.assume("Single-pensioner rates; back pay counts the 11 months before this month at each quarter's rate.");
 
@@ -133,6 +142,8 @@ export function evaluateOas(book: FactBook, ctx: RuleContext): EligibilityResult
 
   const r = new ResultBuilder("oas", benefitYearOf(ctx.asOf));
   r.citeParams("Old Age Security payments", GIS_OAS.oasMonthly65to74, OAS_HISTORY.fullResidenceYears);
+  // Most seniors are enrolled automatically, so an unknown answer is a question, not a no.
+  if (book.bool("benefits.receivesOas") === undefined) r.need("benefits.receivesOas");
 
   const years = book.number("person.yearsInCanadaSince18");
   const full = OAS_HISTORY.fullResidenceYears.value;

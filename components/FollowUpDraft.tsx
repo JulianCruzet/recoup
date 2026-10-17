@@ -5,18 +5,22 @@ import { recordFollowUp } from "@/app/(app)/tracker/actions";
 
 /** Ask the AI for a follow-up; staff read, edit and approve it before anything "goes out". */
 export function FollowUpDraft({ applicationId }: { applicationId: string }) {
-  const [state, setState] = useState<"idle" | "drafting" | "ready" | "error">("idle");
+  const [state, setState] = useState<"idle" | "drafting" | "ready" | "sent" | "error">("idle");
   const [toAgency, setToAgency] = useState("");
   const [toClient, setToClient] = useState("");
 
   const draft = async () => {
     setState("drafting");
-    const res = await fetch("/api/followup", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ applicationId }) });
-    const body = await res.json();
-    if (!res.ok) return setState("error");
-    setToAgency(body.toAgency);
-    setToClient(body.toClient);
-    setState("ready");
+    try {
+      const res = await fetch("/api/followup", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ applicationId }) });
+      if (!res.ok) return setState("error");
+      const body = await res.json();
+      setToAgency(body.toAgency);
+      setToClient(body.toClient);
+      setState("ready");
+    } catch {
+      setState("error");
+    }
   };
 
   if (state === "idle" || state === "error") {
@@ -27,9 +31,16 @@ export function FollowUpDraft({ applicationId }: { applicationId: string }) {
     );
   }
   if (state === "drafting") return <p className="mt-3 text-xs text-ink-soft">Drafting…</p>;
+  if (state === "sent") return <p role="status" className="mt-3 text-xs font-semibold text-ink">Follow-up approved and marked sent (simulated).</p>;
 
   return (
-    <form action={recordFollowUp} className="mt-3 space-y-2">
+    <form
+      action={async (form) => {
+        await recordFollowUp(form);
+        setState("sent");
+      }}
+      className="mt-3 space-y-2"
+    >
       <input type="hidden" name="id" value={applicationId} />
       <label className="block text-[11px] font-semibold tracking-wide text-ink-soft uppercase">
         To the government office

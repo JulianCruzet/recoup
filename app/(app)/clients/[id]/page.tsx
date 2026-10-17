@@ -11,6 +11,7 @@ import { SourceLink } from "@/components/ui/SourceLink";
 import { describeField } from "@/lib/fields";
 import { formatMoney } from "@/lib/format";
 import { PROGRAMS, REFERRALS } from "@/lib/programs";
+import { hasReplay } from "@/lib/replays";
 import type { EligibilityResult } from "@/lib/types";
 import { startApplications } from "../../tracker/actions";
 
@@ -40,9 +41,11 @@ async function ClientResults({ params }: { params: Promise<{ id: string }> }) {
           ← Clients
         </Link>
         <div className="flex flex-wrap justify-end gap-2">
-          <Link href={`/clients/${id}/session`} className="rounded-full border border-ink/20 bg-white/60 px-5 py-2.5 text-sm font-semibold">
-            Replay intake
-          </Link>
+          {hasReplay(client.personaId) && (
+            <Link href={`/clients/${id}/session`} className="rounded-full border border-ink/20 bg-white/60 px-5 py-2.5 text-sm font-semibold">
+              Replay intake
+            </Link>
+          )}
           <Link href={`/clients/${id}/intake`} className="rounded-full border border-ink/20 bg-white/60 px-5 py-2.5 text-sm font-semibold">
             New intake
           </Link>

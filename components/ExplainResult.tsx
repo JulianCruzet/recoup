@@ -63,7 +63,7 @@ export function ExplainResult({ clientId, program }: { clientId: string; program
         </div>
       )}
       {state === "done" && answer && (
-        <div className="mt-2 rounded-2xl bg-white/80 px-4 py-3 text-[15px]">
+        <div aria-live="polite" className="mt-2 rounded-2xl bg-white/80 px-4 py-3 text-[15px]">
           <p dir="auto">{answer.text}</p>
           <p className="mt-1 text-xs text-ink-soft">
             {answer.checked

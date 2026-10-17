@@ -26,6 +26,7 @@ export function evaluateCcb(book: FactBook, ctx: RuleContext): EligibilityResult
 
   const r = new ResultBuilder("ccb", benefitYearOf(ctx.asOf));
   r.citeParams("Canada Child Benefit amounts", CCB.max6to17, CCB.threshold1, CCB.threshold2);
+  if (book.bool("benefits.receivesCcb") === undefined) r.need("benefits.receivesCcb");
 
   const ages = indexes.map((i) => book.number(`child.${i}.age`));
   indexes.forEach((i, n) => ages[n] === undefined && r.need(`child.${i}.age`));

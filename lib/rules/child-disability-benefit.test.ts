@@ -32,6 +32,10 @@ describe("evaluateChildDisabilityBenefit", () => {
 
   it("skips adults and children without a limitation", () => {
     expect(evaluateChildDisabilityBenefit(facts({ "household.childCount": 1, "child.0.age": 12 }), defaultContext())).toBeNull();
+    // An approved DTC means it's already paid with the Canada Child Benefit.
+    expect(
+      evaluateChildDisabilityBenefit(facts({ "child.0.age": 9, "child.0.limitation.walking": true, "child.0.dtcApproved": true, "money.familyNetIncome": 40000 }), defaultContext()),
+    ).toBeNull();
     expect(
       evaluateChildDisabilityBenefit(facts({ "child.0.age": 19, "child.0.limitation.walking": true }), defaultContext()),
     ).toBeNull();
