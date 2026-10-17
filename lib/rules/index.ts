@@ -3,10 +3,12 @@ import { evaluateCanadaDisabilityBenefit } from "./canada-disability-benefit";
 import { evaluateCcb } from "./ccb";
 import { evaluateCdcp } from "./cdcp";
 import { evaluateCgeb } from "./cgeb";
+import { evaluateCwb } from "./cwb";
 import { evaluateChildDisabilityBenefit } from "./child-disability-benefit";
 import { evaluateDtc } from "./dtc";
 import { FactBook, defaultContext, type RuleContext } from "./framework";
 import { evaluateGis, evaluateOas } from "./gis-oas";
+import { evaluateGains, evaluateTrillium } from "./ontario";
 import { maxPotential } from "./potential";
 
 const RULES = [
@@ -17,6 +19,9 @@ const RULES = [
   evaluateOas,
   evaluateCcb,
   evaluateCgeb,
+  evaluateCwb,
+  evaluateGains,
+  evaluateTrillium,
   evaluateCdcp,
 ];
 

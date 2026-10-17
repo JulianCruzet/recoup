@@ -23,6 +23,10 @@ describe("evaluate: demo personas end to end", () => {
     expect(totals.backPay).toBe(12236);
     expect(results.find((r) => r.program === "gis")?.status).toBe("likely");
     expect(results.find((r) => r.program === "cgeb")?.annualEstimate).toBe(445);
+    expect(results.find((r) => r.program === "ontario_gains")?.annualEstimate).toBe(1104);
+    const trillium = results.find((r) => r.program === "ontario_trillium")!;
+    expect(trillium.status).toBe("possible");
+    expect(trillium.missing).toContain("money.rentPaid");
   });
 
   it("Mr. R: DTC $10,245 + CDB $3,367 (incl. $150), both possible until the DTC is approved", () => {
