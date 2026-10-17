@@ -28,6 +28,7 @@ create table if not exists applications (
 create table if not exists tasks (
   id text primary key, client_id text not null, application_id text, text text not null,
   due_at timestamptz, done boolean not null default false);
+create table if not exists settings (key text primary key, value jsonb not null);
 create table if not exists audit (
   id serial primary key, at timestamptz not null default now(), actor text not null, action text not null,
   detail jsonb not null default '{}');

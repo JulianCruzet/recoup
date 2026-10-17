@@ -1,13 +1,16 @@
 import Link from "next/link";
 import { connection } from "next/server";
 import { Suspense } from "react";
+import { FollowUpDraft } from "@/components/FollowUpDraft";
+import { PaymentCheckIn } from "@/components/PaymentCheckIn";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { MoneyAmount } from "@/components/ui/MoneyAmount";
 import { listApplications, type ApplicationRow } from "@/lib/db/applications";
+import { demoOffsetDays, demoToday } from "@/lib/db/demo-clock";
 import { PROGRAMS } from "@/lib/programs";
 import { STAGE_LABEL, nextStages, type Stage } from "@/lib/tracker/stages";
 import { isOverdue, isStalled } from "@/lib/tracker/timeline";
-import { advanceApplication } from "./actions";
+import { advanceApplication, fastForward, resetDemoClock } from "./actions";
 
 const COLUMNS: { title: string; stages: Stage[] }[] = [
   { title: "To prepare", stages: ["identified", "preparing", "ready_to_sign"] },
@@ -31,7 +34,8 @@ export default function TrackerPage() {
 async function Board() {
   await connection();
   const apps = await listApplications();
-  const today = new Date();
+  const today = await demoToday();
+  const offset = await demoOffsetDays();
   if (apps.length === 0) {
     return (
       <div className="mt-8">
@@ -44,7 +48,22 @@ async function Board() {
     );
   }
   return (
-    <div className="mt-6 grid gap-4 lg:grid-cols-4">
+    <>
+    <div className="mt-6 flex flex-wrap items-center gap-3">
+      <form action={fastForward}>
+        <input type="hidden" name="days" value={56} />
+        <button className="rounded-full bg-night px-5 py-2.5 text-sm font-semibold text-white">Fast-forward 8 weeks</button>
+      </form>
+      {offset > 0 && (
+        <form action={resetDemoClock}>
+          <button className="rounded-full border border-ink/20 bg-white/60 px-4 py-2 text-sm font-semibold">Reset clock</button>
+        </form>
+      )}
+      <span className="rounded-full bg-accent/15 px-3 py-1 text-xs font-semibold tracking-wide text-accent uppercase">
+        Simulated{offset > 0 ? `: ${offset} days ahead` : " time for the demo"}
+      </span>
+    </div>
+    <div className="mt-5 grid gap-4 lg:grid-cols-4">
       {COLUMNS.map((col) => {
         const items = apps.filter((a) => col.stages.includes(a.stage));
         return (
@@ -61,6 +80,7 @@ async function Board() {
         );
       })}
     </div>
+    </>
   );
 }
 
@@ -83,6 +103,8 @@ function Card({ app, today }: { app: ApplicationRow; today: Date }) {
         {overdue && <span className="ml-2 font-semibold text-accent">Overdue</span>}
         {stalled && <span className="ml-2 font-semibold text-accent">Stalled</span>}
       </p>
+      {overdue && <FollowUpDraft applicationId={app.id} />}
+      {app.stage === "approved" && <PaymentCheckIn applicationId={app.id} expected={app.expected} clientName={app.clientName} />}
       {nextStages(app.stage).length > 0 && (
         <div className="mt-3 flex flex-wrap gap-1.5">
           {nextStages(app.stage).map((to) => (

@@ -58,3 +58,8 @@ export const audit = pgTable("audit", {
   action: text("action").notNull(),
   detail: jsonb("detail").notNull().default({}),
 });
+
+export const settings = pgTable("settings", {
+  key: text("key").primaryKey(),
+  value: jsonb("value").notNull(),
+});
