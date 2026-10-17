@@ -1,0 +1,82 @@
+[
+  {
+    "id": "s-family",
+    "name": "Sana S.",
+    "summary": "Mother of a 12-year-old with autism; family has never applied for the Disability Tax Credit.",
+    "facts": [
+      { "field": "person.name", "value": "Sana Saeed", "source": "staff", "confidence": 0.95, "confirmed": true },
+      { "field": "person.dateOfBirth", "value": "1985-03-14", "source": "staff", "confidence": 0.95, "confirmed": true },
+      { "field": "person.address", "value": "41 Brimley Rd, Unit 6, Scarborough, ON M1M 3W1", "source": "staff", "confidence": 0.95, "confirmed": true },
+      { "field": "spouse.name", "value": "Omar Saeed", "source": "staff", "confidence": 0.95, "confirmed": true },
+      { "field": "spouse.dateOfBirth", "value": "1983-11-02", "source": "staff", "confidence": 0.95, "confirmed": true },
+      { "field": "child.0.name", "value": "Adam Saeed", "source": "staff", "confidence": 0.95, "confirmed": true },
+      { "field": "child.0.dateOfBirth", "value": "2014-05-09", "source": "staff", "confidence": 0.95, "confirmed": true },
+      { "field": "person.age", "value": 41, "source": "transcript", "quote": "I'm forty-one.", "confidence": 0.97, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 0.95, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "married", "source": "transcript", "quote": "My husband and I have been married for almost twenty years.", "confidence": 0.93, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "citizen", "source": "transcript", "quote": "We're both Canadian citizens.", "confidence": 0.95, "confirmed": true },
+      { "field": "money.familyNetIncome", "value": 55000, "source": "transcript", "quote": "Our household brings in about fifty-five thousand a year.", "confidence": 0.9, "confirmed": true },
+      { "field": "money.netIncome", "value": 55000, "source": "transcript", "quote": "I'm the only one working, so I make the full fifty-five.", "confidence": 0.92, "confirmed": true },
+      { "field": "money.workingIncome", "value": 55000, "source": "transcript", "quote": "My job pays fifty-five thousand before tax.", "confidence": 0.9, "confirmed": true },
+      { "field": "money.rentPaid", "value": 21600, "source": "transcript", "quote": "We rent, it's eighteen hundred a month.", "confidence": 0.94, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": true, "source": "transcript", "quote": "Our dental is through my job, so we have private coverage.", "confidence": 0.93, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2025, "source": "transcript", "quote": "We did our taxes for 2025 already, back in the spring.", "confidence": 0.92, "confirmed": true },
+      { "field": "benefits.receivesCcb", "value": true, "source": "transcript", "quote": "We get the Canada Child Benefit every month.", "confidence": 0.95, "confirmed": true },
+      { "field": "benefits.dtcApproved", "value": false, "source": "transcript", "quote": "We've never applied for the Disability Tax Credit.", "confidence": 0.94, "confirmed": true },
+      { "field": "household.childCount", "value": 1, "source": "transcript", "quote": "We have one child, Adam.", "confidence": 0.97, "confirmed": true },
+      { "field": "child.0.age", "value": 12, "source": "transcript", "quote": "Adam is twelve.", "confidence": 0.97, "confirmed": true },
+      { "field": "child.0.isPrimaryCaregiver", "value": true, "source": "transcript", "quote": "I'm the one who looks after him day to day.", "confidence": 0.95, "confirmed": true },
+      { "field": "child.0.dtcApproved", "value": false, "source": "transcript", "quote": "He's never had the disability credit.", "confidence": 0.93, "confirmed": true },
+      { "field": "child.0.limitation.mental_functions", "value": true, "source": "transcript", "quote": "He has autism, and he needs a lot of help with routines and talking to people.", "confidence": 0.96, "confirmed": true },
+      { "field": "child.0.limitation.sinceYear", "value": 2014, "source": "transcript", "quote": "We've known since he was a baby, since 2014.", "confidence": 0.9, "confirmed": true }
+    ]
+  },
+  {
+    "id": "mrs-k",
+    "name": "Mrs. K.",
+    "summary": "71, widowed, renting in Scarborough; hasn't filed taxes since 2019.",
+    "facts": [
+      { "field": "person.name", "value": "Katarina Kowalski", "source": "staff", "confidence": 0.95, "confirmed": true },
+      { "field": "person.dateOfBirth", "value": "1955-02-20", "source": "staff", "confidence": 0.95, "confirmed": true },
+      { "field": "person.address", "value": "2900 Lawrence Ave E, Apt 1504, Scarborough, ON M1P 2T1", "source": "staff", "confidence": 0.95, "confirmed": true },
+      { "field": "person.age", "value": 71, "source": "transcript", "quote": "I'm seventy-one years old.", "confidence": 0.97, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 0.95, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "widowed", "source": "transcript", "quote": "My husband passed away a few years ago, so I'm on my own.", "confidence": 0.94, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "citizen", "source": "transcript", "quote": "I've been a Canadian citizen for a long time.", "confidence": 0.93, "confirmed": true },
+      { "field": "person.yearsInCanadaSince18", "value": 46, "source": "transcript", "quote": "I've been in Canada for forty-six years, since I was eighteen.", "confidence": 0.9, "confirmed": true },
+      { "field": "money.netIncome", "value": 8791, "source": "transcript", "quote": "My only income is Old Age Security, around eight thousand seven hundred a year.", "confidence": 0.9, "confirmed": true },
+      { "field": "money.workingIncome", "value": 0, "source": "transcript", "quote": "I haven't worked in a long time, so I don't earn anything from a job.", "confidence": 0.95, "confirmed": true },
+      { "field": "money.rentPaid", "value": 18000, "source": "transcript", "quote": "I think it's around fifteen hundred, my son pays it.", "confidence": 0.6, "confirmed": false },
+      { "field": "money.hasPrivateDental", "value": false, "source": "transcript", "quote": "No, I don't have any private dental plan.", "confidence": 0.93, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2019, "source": "transcript", "quote": "The last time I filed taxes was for 2019.", "confidence": 0.92, "confirmed": true },
+      { "field": "tax.yearsMissed", "value": 6, "source": "transcript", "quote": "So I've missed about six years of filing.", "confidence": 0.9, "confirmed": true },
+      { "field": "benefits.receivesOas", "value": true, "source": "transcript", "quote": "I get Old Age Security every month.", "confidence": 0.96, "confirmed": true },
+      { "field": "benefits.receivesGis", "value": false, "source": "transcript", "quote": "I don't get the Guaranteed Income Supplement.", "confidence": 0.9, "confirmed": true }
+    ]
+  },
+  {
+    "id": "mr-r",
+    "name": "Mr. R.",
+    "summary": "52, can't walk far since a 2016 injury; stopped working in 2023.",
+    "facts": [
+      { "field": "person.name", "value": "Rohan Ramdial", "source": "staff", "confidence": 0.95, "confirmed": true },
+      { "field": "person.dateOfBirth", "value": "1974-08-30", "source": "staff", "confidence": 0.95, "confirmed": true },
+      { "field": "person.address", "value": "15 Tuxedo Ct, Unit 210, Scarborough, ON M1G 3S6", "source": "staff", "confidence": 0.95, "confirmed": true },
+      { "field": "person.age", "value": 52, "source": "transcript", "quote": "I'm fifty-two.", "confidence": 0.97, "confirmed": true },
+      { "field": "person.province", "value": "ON", "source": "staff", "confidence": 0.95, "confirmed": true },
+      { "field": "person.maritalStatus", "value": "single", "source": "transcript", "quote": "I've never been married, so it's just me.", "confidence": 0.93, "confirmed": true },
+      { "field": "person.residencyStatus", "value": "citizen", "source": "transcript", "quote": "I was born here, I'm a citizen.", "confidence": 0.95, "confirmed": true },
+      { "field": "money.netIncome", "value": 0, "source": "transcript", "quote": "Right now I have no income at all.", "confidence": 0.94, "confirmed": true },
+      { "field": "money.workingIncome", "value": 0, "source": "transcript", "quote": "I'm not earning anything from work at the moment.", "confidence": 0.94, "confirmed": true },
+      { "field": "money.pastAnnualIncome", "value": 45000, "source": "transcript", "quote": "When I was working I made about forty-five thousand a year.", "confidence": 0.92, "confirmed": true },
+      { "field": "money.rentPaid", "value": 13200, "source": "transcript", "quote": "Rent is eleven hundred a month.", "confidence": 0.95, "confirmed": true },
+      { "field": "money.hasPrivateDental", "value": false, "source": "transcript", "quote": "I don't have any dental coverage.", "confidence": 0.93, "confirmed": true },
+      { "field": "work.stoppedYear", "value": 2023, "source": "transcript", "quote": "I stopped working in 2023.", "confidence": 0.95, "confirmed": true },
+      { "field": "tax.lastYearFiled", "value": 2025, "source": "transcript", "quote": "I filed my taxes last year.", "confidence": 0.92, "confirmed": true },
+      { "field": "benefits.dtcApproved", "value": false, "source": "transcript", "quote": "I've never applied for the disability tax credit.", "confidence": 0.94, "confirmed": true },
+      { "field": "benefits.receivesCdb", "value": false, "source": "transcript", "quote": "I don't get the Canada Disability Benefit.", "confidence": 0.93, "confirmed": true },
+      { "field": "limitation.walking", "value": true, "source": "transcript", "quote": "I can't walk more than half a block without stopping.", "confidence": 0.96, "confirmed": true },
+      { "field": "limitation.sinceYear", "value": 2016, "source": "transcript", "quote": "It started after my injury in 2016.", "confidence": 0.93, "confirmed": true }
+    ]
+  }
+]
