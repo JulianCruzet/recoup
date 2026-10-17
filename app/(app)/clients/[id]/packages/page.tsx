@@ -51,6 +51,9 @@ async function Packages({ params }: { params: Promise<{ id: string }> }) {
           Filled in from what the client confirmed. The client adds their SIN, bank details and signature, and sends it
           themselves. Recoup never submits anything.
         </p>
+        <Link href={`/clients/${id}/summary`} className="mt-3 inline-block text-sm font-semibold text-accent underline underline-offset-2">
+          Take-home summary for the client →
+        </Link>
       </header>
 
       {forms.map((pkg) => (

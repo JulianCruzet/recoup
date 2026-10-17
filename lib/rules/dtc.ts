@@ -93,7 +93,8 @@ export function evaluateDtc(book: FactBook, ctx: RuleContext): EligibilityResult
 
     backPay += sum(years.map((y) => dtcCredit(y, under18(y))));
     annual += dtcCredit(requestYear, under18(requestYear));
-    r.because(`Child ${i + 1} has a lasting limitation in ${childLimits.map((c) => CATEGORY_NAMES[c]).join(", ")}; a parent can claim the credit for them.`);
+    const who = book.string(`child.${i}.name`)?.trim().split(/\s+/)[0] || `Child ${i + 1}`;
+    r.because(`${who} has a lasting limitation in ${childLimits.map((c) => CATEGORY_NAMES[c]).join(", ")}; a parent can claim the credit for them.`);
     r.assume("The supporting parent owed at least the credit in federal tax each year (the credit is non-refundable) and claimed no child-care or attendant-care costs.");
     status = status ?? "likely";
   }

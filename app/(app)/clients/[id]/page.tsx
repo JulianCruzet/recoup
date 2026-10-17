@@ -31,7 +31,7 @@ async function ClientResults({ params }: { params: Promise<{ id: string }> }) {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <Link href="/clients" className="text-sm text-ink-soft hover:text-ink">
+        <Link href="/clients" className="shrink-0 text-sm whitespace-nowrap text-ink-soft hover:text-ink">
           ← Clients
         </Link>
         <div className="flex flex-wrap justify-end gap-2">
