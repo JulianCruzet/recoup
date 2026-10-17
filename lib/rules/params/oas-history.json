@@ -1,0 +1,19 @@
+{
+  "oasPaidAge65to74": {
+    "value": { "2025": 8791 },
+    "benefitYear": "calendar year 2025",
+    "sourceUrl": "https://www.canada.ca/en/services/benefits/publicpensions/old-age-security/payments.html",
+    "note": "OAS a 65-74 pensioner received in 2025 (3 x 727.67 + 3 x 727.67 + 3 x 734.95 + 3 x 740.09); GIS income excludes it"
+  },
+  "fullResidenceYears": {
+    "value": 40,
+    "benefitYear": "any",
+    "sourceUrl": "https://www.canada.ca/en/services/benefits/publicpensions/old-age-security/eligibility.html",
+    "note": "40 years in Canada after age 18 for a full pension; partial pension is years / 40"
+  },
+  "minimumResidenceYears": {
+    "value": 10,
+    "benefitYear": "any",
+    "sourceUrl": "https://www.canada.ca/en/services/benefits/publicpensions/old-age-security/eligibility.html"
+  }
+}
