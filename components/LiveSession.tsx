@@ -136,7 +136,12 @@ export function LiveSession({ clientId, clientName, initialFacts }: { clientId: 
   };
 
   if (mode === "consent") {
-    return <ConsentPanel clientName={clientName} onRecord={startListening} onNotes={() => setMode("typing")} />;
+    // Start right away: the mic has to open inside the click. The consent row is written alongside it.
+    const consent = (kind: "recording" | "notes", then: () => void) => () => {
+      void fetch(`/api/clients/${clientId}/consent`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ kind }) });
+      then();
+    };
+    return <ConsentPanel clientName={clientName} onRecord={consent("recording", startListening)} onNotes={consent("notes", () => setMode("typing"))} />;
   }
 
   return (

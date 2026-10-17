@@ -1,0 +1,153 @@
+{
+  "runAt": "2026-10-17T16:32:43.489Z",
+  "totals": {
+    "transcripts": 10,
+    "expected": 79,
+    "correct": 77,
+    "wrong": 1,
+    "missed": 1,
+    "dropped": 2
+  },
+  "rows": [
+    {
+      "id": "t01",
+      "expected": 9,
+      "correct": 8,
+      "wrong": [],
+      "missed": [
+        {
+          "field": "benefits.receivesOas",
+          "expected": true
+        }
+      ],
+      "extra": [],
+      "dropped": 0
+    },
+    {
+      "id": "t02",
+      "expected": 9,
+      "correct": 9,
+      "wrong": [],
+      "missed": [],
+      "extra": [],
+      "dropped": 0
+    },
+    {
+      "id": "t03",
+      "expected": 8,
+      "correct": 8,
+      "wrong": [],
+      "missed": [],
+      "extra": [],
+      "dropped": 0
+    },
+    {
+      "id": "t04",
+      "expected": 9,
+      "correct": 9,
+      "wrong": [],
+      "missed": [],
+      "extra": [
+        {
+          "field": "money.workingIncome",
+          "got": 31000,
+          "quote": "thirty-one thousand a year, from my job at the pharmacy."
+        }
+      ],
+      "dropped": 0
+    },
+    {
+      "id": "t05",
+      "expected": 6,
+      "correct": 5,
+      "wrong": [
+        {
+          "field": "money.workingIncome",
+          "expected": 21000,
+          "got": 19000
+        }
+      ],
+      "missed": [],
+      "extra": [
+        {
+          "field": "household.childCount",
+          "got": 0,
+          "quote": "No kids"
+        },
+        {
+          "field": "money.familyNetIncome",
+          "got": 19000,
+          "quote": "nineteen thousand"
+        },
+        {
+          "field": "money.pastAnnualIncome",
+          "got": 19000,
+          "quote": "nineteen thousand"
+        },
+        {
+          "field": "person.residencyStatus",
+          "got": "citizen",
+          "quote": "Yes"
+        }
+      ],
+      "dropped": 1
+    },
+    {
+      "id": "t06",
+      "expected": 7,
+      "correct": 7,
+      "wrong": [],
+      "missed": [],
+      "extra": [],
+      "dropped": 0
+    },
+    {
+      "id": "t07",
+      "expected": 9,
+      "correct": 9,
+      "wrong": [],
+      "missed": [],
+      "extra": [
+        {
+          "field": "money.workingIncome",
+          "got": 0,
+          "quote": "I'm not earning anything."
+        }
+      ],
+      "dropped": 0
+    },
+    {
+      "id": "t08",
+      "expected": 6,
+      "correct": 6,
+      "wrong": [],
+      "missed": [],
+      "extra": [
+        {
+          "field": "household.childCount",
+          "got": 0,
+          "quote": "No kids"
+        }
+      ],
+      "dropped": 0
+    },
+    {
+      "id": "t09",
+      "expected": 9,
+      "correct": 9,
+      "wrong": [],
+      "missed": [],
+      "extra": [],
+      "dropped": 1
+    },
+    {
+      "id": "t10",
+      "expected": 7,
+      "correct": 7,
+      "wrong": [],
+      "missed": [],
+      "extra": [],
+      "dropped": 0
+    }
+  ]
+}

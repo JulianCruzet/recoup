@@ -5,6 +5,7 @@ import { Suspense } from "react";
 import { getClient, getFacts } from "@/lib/db/queries";
 import { evaluate } from "@/lib/rules";
 import { MoneyAmount } from "@/components/ui/MoneyAmount";
+import { ExplainResult } from "@/components/ExplainResult";
 import { SourceLink } from "@/components/ui/SourceLink";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { formatMoney } from "@/lib/format";
@@ -88,6 +89,7 @@ async function ClientResults({ params }: { params: Promise<{ id: string }> }) {
                 <li key={reason}>{reason}</li>
               ))}
             </ul>
+            {r.status !== "not_eligible" && <ExplainResult clientId={id} program={r.program} />}
             {r.program === "dtc" && r.status !== "not_eligible" && (
               <Link href={`/clients/${id}/brief`} className="mt-2 inline-block text-sm font-semibold text-accent underline underline-offset-2">
                 Daily-living summary for the doctor →

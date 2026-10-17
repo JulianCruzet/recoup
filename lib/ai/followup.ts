@@ -3,6 +3,8 @@ import type { EligibilityResult, ProgramId } from "@/lib/types";
 import { PROGRAMS } from "@/lib/programs";
 import { STAGE_LABEL, type Stage } from "@/lib/tracker/stages";
 import { generateJson } from "./gemini";
+import { onlyRuleNumbers } from "./guard";
+import type { ExplainLanguage } from "@/lib/languages";
 
 export type FollowUpDraft = { toAgency: string; toClient: string };
 
@@ -44,16 +46,20 @@ export async function draftFollowUp(input: {
   });
 }
 
-const EXPLAIN_SYSTEM = `Rewrite the reasons behind a benefit estimate as one or two warm, plain-language sentences a client with no tax knowledge understands.
-Use ONLY the facts given. Do not add, change or round any number; if you mention an amount, copy it exactly. Say "likely" or "may", never "will" or "you are eligible".`;
+const EXPLAIN_SYSTEM = `Rewrite the reasons behind a benefit estimate as two or three warm, plain-language sentences a client with no tax knowledge understands, in the language requested.
+Use ONLY the facts given. Do not add, change or round any number; if you mention an amount or a year, copy it exactly, written with Western digits. Say "likely" or "may", never "will" or "you are eligible". Keep the program's name in English in brackets after its translated name, so the client can find it on government letters.`;
 
-/** Plain-language "why" for one result, written only from the rules engine's own output. */
-export async function explainResult(result: EligibilityResult): Promise<string> {
+/**
+ * Plain-language "why" for one result, in the client's language, written only from the rules engine's own output.
+ * If the text uses any number the rules didn't produce, the rules' own wording is returned instead.
+ */
+export async function explainResult(result: EligibilityResult, language: ExplainLanguage = "English"): Promise<{ text: string; checked: boolean }> {
   const { text } = await generateJson<{ text: string }>({
     system: EXPLAIN_SYSTEM,
     schema: { type: "OBJECT", properties: { text: { type: "STRING" } }, required: ["text"] },
     temperature: 0.3,
     parts: [
+      { text: `Write the explanation ONLY in ${language}${language === "English" ? "" : `, not English`}. Write amounts as dollars with Western digits, like $2,292.` },
       {
         text: JSON.stringify({
           program: PROGRAMS[result.program].name,
@@ -65,8 +71,5 @@ export async function explainResult(result: EligibilityResult): Promise<string> 
       },
     ],
   });
-  // Guard: any dollar figure in the text must be one the rules produced.
-  const allowed = [result.backPayEstimate, result.annualEstimate].filter(Boolean).map((n) => Math.round(n!));
-  const mentioned = [...text.matchAll(/\$\s?([\d,]+)/g)].map((m) => Number(m[1].replace(/,/g, "")));
-  return mentioned.every((n) => allowed.includes(n)) ? text : result.reasons.join(" ");
+  return onlyRuleNumbers(text, result) ? { text, checked: true } : { text: result.reasons.join(" "), checked: false };
 }

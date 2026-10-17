@@ -42,7 +42,7 @@ export function ConsentPanel({
           Type notes instead
         </button>
       </div>
-      <p className="mt-4 text-sm text-ink-soft">Consent is recorded with the time and your name.</p>
+      <p className="mt-4 text-sm text-ink-soft">Consent is saved to the audit log with the time.</p>
     </section>
   );
 }

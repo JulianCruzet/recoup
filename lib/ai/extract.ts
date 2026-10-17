@@ -1,6 +1,7 @@
 import "server-only";
 import type { Fact, FactField, FactValue } from "@/lib/types";
 import { generateJson, mapLimit } from "./gemini";
+import { numberInQuote, wordsToNumber } from "./numbers";
 
 // Fields the model may fill from conversation. Identity details (names, birth dates, address) are typed
 // by staff, never pulled from audio.
@@ -21,11 +22,12 @@ export const EXTRACTABLE_FIELDS = [...PERSON_FIELDS, ...[0, 1, 2, 3].flatMap(CHI
 const SYSTEM = `You extract facts from part of a benefits intake conversation between a community-centre staff member and a client in Ontario, Canada.
 Return ONLY facts the CLIENT stated or clearly confirmed. For each fact give:
 - field: one of the allowed field names
-- value: number for amounts/ages/years/counts (yearly dollars; convert "eighteen hundred a month" rent to 21600), true/false for yes/no fields, otherwise a short lowercase word (maritalStatus: single|married|common_law|separated|divorced|widowed; residencyStatus: citizen|permanent_resident|other)
+- value: number for amounts/ages/years/counts, written as digits (58, 14000, 2022), in yearly dollars (convert "eighteen hundred a month" rent to 21600), true/false for yes/no fields, otherwise a short lowercase word (maritalStatus: single|married|common_law|separated|divorced|widowed; residencyStatus: citizen|permanent_resident|other)
 - quote: the shortest EXACT, verbatim span of the transcript that supports it (copy characters exactly, no paraphrase)
 - confidence: 0..1, lower when the client hedged ("I think", "maybe", "around")
 Rules: never guess or infer beyond what was said; never output a SIN, names, addresses or dates of birth; limitation.* fields are true only when the client describes a lasting condition that makes that activity much harder or slower; child.N is the Nth child mentioned (0-based).
 Field notes: money.netIncome is the client's OWN yearly income and money.familyNetIncome is the whole household's; fill both when both are stated. benefits.dtcApproved is about the client themselves; child.N.dtcApproved is about that child. Communication or social difficulties from autism, ADHD, intellectual disability or similar belong to limitation.mental_functions, not speaking.
+Corrections: if the client corrects an earlier answer ("sorry, it's actually..."), give only the corrected value and quote the correction.
 Be exhaustive: output EVERY allowed field the text supports, even when several fields share the same quote. Never skip a stated income.
 If nothing new is stated, return an empty list.`;
 
@@ -43,13 +45,15 @@ const SCHEMA = {
           confidence: { type: "NUMBER" },
         },
         required: ["field", "value", "quote", "confidence"],
+        // Quote first: the value is then read from it, and models stop echoing placeholders.
+        propertyOrdering: ["field", "quote", "value", "confidence"],
       },
     },
   },
   required: ["facts"],
 };
 
-type Raw = { field: string; value: string; quote: string; confidence: number };
+type Raw = { field: string; value: string; quote: string; confidence: number; window?: number };
 
 const ENUMS: Record<string, string[]> = {
   "person.maritalStatus": ["single", "married", "common_law", "separated", "divorced", "widowed"],
@@ -59,11 +63,24 @@ const isBooleanField = (f: string) =>
   /^(money\.hasPrivateDental|benefits\.|child\.\d+\.(isPrimaryCaregiver|dtcApproved)$)/.test(f) ||
   (/limitation\.\w+$/.test(f) && !f.endsWith("sinceYear"));
 
-/** The value has the right type for its field (the model sometimes returns words where numbers belong). */
+const isYearField = (f: string) => /(lastYearFiled|sinceYear|stoppedYear)$/.test(f);
+
+/** The value has the right type and a plausible size for its field. */
 function validValue(field: string, value: FactValue): boolean {
   if (ENUMS[field]) return typeof value === "string" && ENUMS[field].includes(value);
   if (isBooleanField(field)) return typeof value === "boolean";
-  return typeof value === "number" && value >= 0;
+  if (typeof value !== "number" || value < 0) return false;
+  if (isYearField(field)) return value >= 1940 && value <= 2026;
+  if (field === "person.age") return value >= 16 && value <= 115;
+  if (/^child\.\d+\.age$/.test(field)) return value <= 25;
+  return true;
+}
+
+/** The model's value, or for number fields the number in the quote when the model's value is unusable. */
+function valueOf(f: Raw): FactValue {
+  const value = coerce(f.value);
+  if (validValue(f.field, value) || isBooleanField(f.field) || ENUMS[f.field]) return value;
+  return numberInQuote(f.quote, f.field.startsWith("money.")) ?? value;
 }
 
 const normalize = (s: string) => s.toLowerCase().replace(/[^a-z0-9 ]+/g, " ").replace(/\s+/g, " ").trim();
@@ -73,7 +90,8 @@ function coerce(value: string): FactValue {
   if (/^(true|yes)$/i.test(v)) return true;
   if (/^(false|no)$/i.test(v)) return false;
   const n = Number(v.replace(/[$,\s]/g, ""));
-  return v !== "" && Number.isFinite(n) ? n : v.toLowerCase();
+  if (v !== "" && Number.isFinite(n)) return n;
+  return wordsToNumber(v) ?? v.toLowerCase();
 }
 
 async function extractChunk(text: string): Promise<Raw[]> {
@@ -99,25 +117,28 @@ function windows(lines: string[], size = 4, step = 3): string[] {
  */
 export async function extractFacts(transcript: string): Promise<{ facts: Fact[]; dropped: Raw[] }> {
   const lines = transcript.split("\n").filter((l) => l.trim());
-  const found = (await mapLimit(windows(lines), 2, extractChunk)).flat();
+  const perWindow = await mapLimit(windows(lines), 2, extractChunk);
+  const found = perWindow.flatMap((facts, window) => facts.map((f) => ({ ...f, window })));
 
   const haystack = normalize(transcript);
   const grounded = (f: Raw) =>
     EXTRACTABLE_FIELDS.includes(f.field) &&
     Boolean(f.quote) &&
     haystack.includes(normalize(f.quote)) &&
-    validValue(f.field, coerce(f.value));
+    validValue(f.field, valueOf(f));
   const dropped = found.filter((f) => !grounded(f));
 
-  // Earliest window wins for each field, unless a later one is more confident.
+  // A different value later in the conversation is a correction, so it wins. The same value keeps the
+  // most confident quote.
   const best = new Map<string, Raw>();
   for (const f of found.filter(grounded)) {
     const prev = best.get(f.field);
-    if (!prev || f.confidence > prev.confidence) best.set(f.field, f);
+    const changed = prev && valueOf(prev) !== valueOf(f);
+    if (!prev || changed || f.confidence > prev.confidence) best.set(f.field, f);
   }
   const facts = [...best.values()].map((f) => ({
     field: f.field as FactField,
-    value: coerce(f.value),
+    value: valueOf(f),
     source: "transcript" as const,
     quote: f.quote,
     confidence: Math.max(0, Math.min(1, f.confidence)),
