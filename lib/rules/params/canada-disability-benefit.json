@@ -1,0 +1,52 @@
+{
+  "maxAnnual": {
+    "value": {
+      "2025-26": 2400,
+      "2026-27": 2450.4
+    },
+    "benefitYear": "2025-26 and 2026-27",
+    "sourceUrl": "https://www.canada.ca/en/services/benefits/disability/canada-disability-benefit/amount.html"
+  },
+  "workingIncomeExemption": {
+    "value": {
+      "single": 10210,
+      "couple": 14294
+    },
+    "benefitYear": "2026-27",
+    "sourceUrl": "https://www.canada.ca/en/services/benefits/disability/canada-disability-benefit/amount.html"
+  },
+  "incomeThreshold": {
+    "value": {
+      "single": 23000,
+      "couple": 32500
+    },
+    "benefitYear": "2025-26",
+    "sourceUrl": "https://www.canada.ca/en/services/benefits/disability/canada-disability-benefit/amount.html",
+    "note": "2026-27 values unconfirmed (likely 23483 / 33183)"
+  },
+  "reductionRate": {
+    "value": {
+      "single": 0.2,
+      "bothBeneficiaries": 0.1
+    },
+    "benefitYear": "2026-27",
+    "sourceUrl": "https://www.canada.ca/en/services/benefits/disability/canada-disability-benefit/amount.html"
+  },
+  "backPayMaxMonths": {
+    "value": 24,
+    "benefitYear": "any",
+    "sourceUrl": "https://www.canada.ca/en/services/benefits/disability/canada-disability-benefit/amount.html"
+  },
+  "firstPaidMonth": {
+    "value": "2025-07",
+    "benefitYear": "any",
+    "sourceUrl": "https://www.canada.ca/content/dam/esdc-edsc/documents/programs/disability-benefit/summary-regulations/summary-of-the-canada-disability-benefit-regulations-en.pdf",
+    "note": "June 2025 is excluded"
+  },
+  "supplementalOneTime": {
+    "value": 150,
+    "benefitYear": "from Sep 2026",
+    "sourceUrl": "https://www.canada.ca/content/dam/esdc-edsc/documents/programs/disability-benefit/summary-regulations/summary-of-the-canada-disability-benefit-regulations-en.pdf",
+    "note": "once per DTC certificate"
+  }
+}

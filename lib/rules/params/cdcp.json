@@ -1,0 +1,25 @@
+{
+  "incomeLimit": {
+    "value": 90000,
+    "benefitYear": "2026-27",
+    "sourceUrl": "https://www.canada.ca/en/services/benefits/dental/dental-care-plan/qualify.html"
+  },
+  "coPayBrackets": {
+    "value": [
+      {
+        "below": 70000,
+        "rate": 0
+      },
+      {
+        "below": 80000,
+        "rate": 0.4
+      },
+      {
+        "below": 90000,
+        "rate": 0.6
+      }
+    ],
+    "benefitYear": "2026-27",
+    "sourceUrl": "https://www.canada.ca/en/services/benefits/dental/dental-care-plan/coverage.html"
+  }
+}

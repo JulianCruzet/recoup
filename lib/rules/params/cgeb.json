@@ -1,0 +1,37 @@
+{
+  "perAdult": {
+    "value": 445,
+    "benefitYear": "2026-27",
+    "sourceUrl": "https://www.canada.ca/en/revenue-agency/services/child-family-benefits/canada-groceries-essentials-benefit/how-much/payment-amounts.html"
+  },
+  "perChild": {
+    "value": 234,
+    "benefitYear": "2026-27",
+    "sourceUrl": "https://www.canada.ca/en/revenue-agency/services/child-family-benefits/canada-groceries-essentials-benefit/how-much/payment-amounts.html"
+  },
+  "singleSupplementMax": {
+    "value": 234,
+    "benefitYear": "2026-27",
+    "sourceUrl": "https://laws-lois.justice.gc.ca/eng/acts/I-3.3/section-122.5.html"
+  },
+  "singleSupplementRate": {
+    "value": 0.02,
+    "benefitYear": "2026-27",
+    "sourceUrl": "https://laws-lois.justice.gc.ca/eng/acts/I-3.3/section-122.5.html"
+  },
+  "singleSupplementStart": {
+    "value": 11564,
+    "benefitYear": "2026-27",
+    "sourceUrl": "https://laws-lois.justice.gc.ca/eng/acts/I-3.3/section-122.5.html"
+  },
+  "reductionRate": {
+    "value": 0.05,
+    "benefitYear": "2026-27",
+    "sourceUrl": "https://laws-lois.justice.gc.ca/eng/acts/I-3.3/section-122.5.html"
+  },
+  "reductionThreshold": {
+    "value": 46432,
+    "benefitYear": "2026-27",
+    "sourceUrl": "https://laws-lois.justice.gc.ca/eng/acts/I-3.3/section-122.5.html"
+  }
+}

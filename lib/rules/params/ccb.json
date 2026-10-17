@@ -1,0 +1,55 @@
+{
+  "maxUnder6": {
+    "value": 8157,
+    "benefitYear": "2026-27",
+    "sourceUrl": "https://www.canada.ca/en/revenue-agency/services/child-family-benefits/canada-child-benefit-overview/canada-child-benefit-we-calculate-your-ccb.html"
+  },
+  "max6to17": {
+    "value": 6883,
+    "benefitYear": "2026-27",
+    "sourceUrl": "https://www.canada.ca/en/revenue-agency/services/child-family-benefits/canada-child-benefit-overview/canada-child-benefit-we-calculate-your-ccb.html"
+  },
+  "threshold1": {
+    "value": 38237,
+    "benefitYear": "2026-27",
+    "sourceUrl": "https://www.canada.ca/en/revenue-agency/services/child-family-benefits/canada-child-benefit-overview/canada-child-benefit-we-calculate-your-ccb.html"
+  },
+  "threshold2": {
+    "value": 82847,
+    "benefitYear": "2026-27",
+    "sourceUrl": "https://www.canada.ca/en/revenue-agency/services/child-family-benefits/canada-child-benefit-overview/canada-child-benefit-we-calculate-your-ccb.html"
+  },
+  "ratesBetween": {
+    "value": [
+      0.07,
+      0.135,
+      0.19,
+      0.23
+    ],
+    "benefitYear": "2026-27",
+    "sourceUrl": "https://www.canada.ca/en/revenue-agency/services/child-family-benefits/canada-child-benefit-overview/canada-child-benefit-we-calculate-your-ccb.html",
+    "note": "1, 2, 3, 4+ children"
+  },
+  "baseAbove": {
+    "value": [
+      3123,
+      6022,
+      8476,
+      10260
+    ],
+    "benefitYear": "2026-27",
+    "sourceUrl": "https://www.canada.ca/en/revenue-agency/services/child-family-benefits/canada-child-benefit-overview/canada-child-benefit-we-calculate-your-ccb.html",
+    "note": "1, 2, 3, 4+ children"
+  },
+  "ratesAbove": {
+    "value": [
+      0.032,
+      0.057,
+      0.08,
+      0.095
+    ],
+    "benefitYear": "2026-27",
+    "sourceUrl": "https://www.canada.ca/en/revenue-agency/services/child-family-benefits/canada-child-benefit-overview/canada-child-benefit-we-calculate-your-ccb.html",
+    "note": "1, 2, 3, 4+ children"
+  }
+}

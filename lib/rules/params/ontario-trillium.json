@@ -1,0 +1,57 @@
+{
+  "occupancyRentShare": {
+    "value": 0.2,
+    "benefitYear": "2026-27",
+    "sourceUrl": "https://www.canada.ca/en/revenue-agency/services/child-family-benefits/provincial-territorial-programs/ontario-energy-property-tax-credit-oeptc-calculation-sheets/2026-ontario-energy-property-tax-credit-calculation-sheets/2026-ontario-energy-property-tax-credit-calculation-sheet-single-senior-no-children.html"
+  },
+  "energyMax": {
+    "value": 290,
+    "benefitYear": "2026-27",
+    "sourceUrl": "https://www.canada.ca/en/revenue-agency/services/child-family-benefits/provincial-territorial-programs/ontario-energy-property-tax-credit-oeptc-calculation-sheets/2026-ontario-energy-property-tax-credit-calculation-sheets/2026-ontario-energy-property-tax-credit-calculation-sheet-single-senior-no-children.html"
+  },
+  "seniorPropertyBase": {
+    "value": 617,
+    "benefitYear": "2026-27",
+    "sourceUrl": "https://www.canada.ca/en/revenue-agency/services/child-family-benefits/provincial-territorial-programs/ontario-energy-property-tax-credit-oeptc-calculation-sheets/2026-ontario-energy-property-tax-credit-calculation-sheets/2026-ontario-energy-property-tax-credit-calculation-sheet-single-senior-no-children.html"
+  },
+  "seniorPropertyExtraMax": {
+    "value": 581,
+    "benefitYear": "2026-27",
+    "sourceUrl": "https://www.canada.ca/en/revenue-agency/services/child-family-benefits/provincial-territorial-programs/ontario-energy-property-tax-credit-oeptc-calculation-sheets/2026-ontario-energy-property-tax-credit-calculation-sheets/2026-ontario-energy-property-tax-credit-calculation-sheet-single-senior-no-children.html"
+  },
+  "propertyBase": {
+    "value": 73,
+    "benefitYear": "2026-27",
+    "sourceUrl": "https://www.canada.ca/en/revenue-agency/services/child-family-benefits/provincial-territorial-programs/ontario-energy-property-tax-credit-oeptc-calculation-sheets/2026-ontario-energy-property-tax-credit-calculation-sheets/2026-ontario-energy-property-tax-credit-calculation-sheet-single-senior-no-children.html"
+  },
+  "propertyExtraMax": {
+    "value": 944,
+    "benefitYear": "2026-27",
+    "sourceUrl": "https://www.canada.ca/en/revenue-agency/services/child-family-benefits/provincial-territorial-programs/ontario-energy-property-tax-credit-oeptc-calculation-sheets/2026-ontario-energy-property-tax-credit-calculation-sheets/2026-ontario-energy-property-tax-credit-calculation-sheet-single-senior-no-children.html"
+  },
+  "oeptcReductionRate": {
+    "value": 0.02,
+    "benefitYear": "2026-27",
+    "sourceUrl": "https://www.canada.ca/en/revenue-agency/services/child-family-benefits/provincial-territorial-programs/ontario-energy-property-tax-credit-oeptc-calculation-sheets/2026-ontario-energy-property-tax-credit-calculation-sheets/2026-ontario-energy-property-tax-credit-calculation-sheet-single-senior-no-children.html"
+  },
+  "thresholdSingleNoKids": {
+    "value": 29047,
+    "benefitYear": "2026-27",
+    "sourceUrl": "https://www.canada.ca/en/revenue-agency/services/child-family-benefits/provincial-territorial-programs/province-ontario.html"
+  },
+  "thresholdOther": {
+    "value": 36309,
+    "benefitYear": "2026-27",
+    "sourceUrl": "https://www.canada.ca/en/revenue-agency/services/child-family-benefits/provincial-territorial-programs/province-ontario.html"
+  },
+  "salesTaxPerPerson": {
+    "value": 378,
+    "benefitYear": "2026-27",
+    "sourceUrl": "https://www.canada.ca/en/revenue-agency/services/child-family-benefits/provincial-territorial-programs/province-ontario.html"
+  },
+  "salesTaxReductionRate": {
+    "value": 0.04,
+    "benefitYear": "2026-27",
+    "sourceUrl": "https://www.canada.ca/en/revenue-agency/services/child-family-benefits/provincial-territorial-programs/province-ontario.html"
+  }
+}

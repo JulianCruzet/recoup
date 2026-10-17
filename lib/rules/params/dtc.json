@@ -1,0 +1,70 @@
+{
+  "creditRate": {
+    "value": {
+      "2016": 0.15,
+      "2017": 0.15,
+      "2018": 0.15,
+      "2019": 0.15,
+      "2020": 0.15,
+      "2021": 0.15,
+      "2022": 0.15,
+      "2023": 0.15,
+      "2024": 0.15,
+      "2025": 0.145,
+      "2026": 0.14
+    },
+    "benefitYear": "tax years 2016-2026",
+    "sourceUrl": "https://laws-lois.justice.gc.ca/eng/acts/I-3.3/section-117.html",
+    "note": "15% to 2024, 14.5% for 2025, 14% from 2026"
+  },
+  "baseAmount": {
+    "value": {
+      "2016": 8001,
+      "2017": 8113,
+      "2018": 8235,
+      "2019": 8416,
+      "2020": 8576,
+      "2021": 8662,
+      "2022": 8870,
+      "2023": 9428,
+      "2024": 9872,
+      "2025": 10138,
+      "2026": 10341
+    },
+    "benefitYear": "tax years 2016-2026",
+    "sourceUrl": "https://www.canada.ca/en/revenue-agency/services/tax/individuals/segments/tax-credits-deductions-persons-disabilities/disability-tax-credit/claiming-dtc.html"
+  },
+  "childSupplement": {
+    "value": {
+      "2016": 4667,
+      "2017": 4733,
+      "2018": 4804,
+      "2019": 4909,
+      "2020": 5003,
+      "2021": 5053,
+      "2022": 5174,
+      "2023": 5500,
+      "2024": 5758,
+      "2025": 5914,
+      "2026": 6032
+    },
+    "benefitYear": "tax years 2016-2026",
+    "sourceUrl": "https://www.canada.ca/en/revenue-agency/services/tax/individuals/segments/tax-credits-deductions-persons-disabilities/disability-tax-credit/claiming-dtc.html",
+    "note": "for a person under 18 at the end of the year"
+  },
+  "careThreshold": {
+    "value": {
+      "2025": 3464,
+      "2026": 3533
+    },
+    "benefitYear": "tax years 2025-2026",
+    "sourceUrl": "https://www.canada.ca/content/dam/cra-arc/formspubs/pbg/5000-d1/5000-d1-25e.pdf",
+    "note": "child care + attendant care claimed above this reduces the supplement"
+  },
+  "lookbackYears": {
+    "value": 10,
+    "benefitYear": "any",
+    "sourceUrl": "https://laws-lois.justice.gc.ca/eng/acts/I-3.3/section-152.html",
+    "note": "a request must reach CRA within 10 calendar years after the tax year ends"
+  }
+}

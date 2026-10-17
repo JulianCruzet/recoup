@@ -1,0 +1,59 @@
+{
+  "oasMonthly65to74": {
+    "value": 762.5,
+    "benefitYear": "Oct-Dec 2026",
+    "sourceUrl": "https://www.canada.ca/en/services/benefits/publicpensions/old-age-security/payments.html"
+  },
+  "oasMonthly75plus": {
+    "value": 838.75,
+    "benefitYear": "Oct-Dec 2026",
+    "sourceUrl": "https://www.canada.ca/en/services/benefits/publicpensions/old-age-security/payments.html"
+  },
+  "gisSingleMaxMonthly": {
+    "value": 1138.9,
+    "benefitYear": "Oct-Dec 2026",
+    "sourceUrl": "https://www.canada.ca/en/employment-social-development/programs/pensions/pension/statistics/2026-quarterly-october-december.html"
+  },
+  "gisSingleTopUpMonthly": {
+    "value": 176.41,
+    "benefitYear": "Oct-Dec 2026",
+    "sourceUrl": "https://www.canada.ca/en/employment-social-development/programs/pensions/pension/statistics/2026-quarterly-october-december.html",
+    "note": "derived; reproduces every row of the official table"
+  },
+  "gisSingleIncomeCutoff": {
+    "value": 23112,
+    "benefitYear": "Oct-Dec 2026",
+    "sourceUrl": "https://www.canada.ca/en/employment-social-development/programs/pensions/pension/statistics/2026-quarterly-october-december.html"
+  },
+  "topUpExemption": {
+    "value": 2000,
+    "benefitYear": "Oct-Dec 2026",
+    "sourceUrl": "https://www.canada.ca/en/employment-social-development/programs/pensions/pension/statistics/2026-quarterly-october-december.html"
+  },
+  "earningsExemption": {
+    "value": {
+      "full": 5000,
+      "halfOfNext": 10000
+    },
+    "benefitYear": "Oct-Dec 2026",
+    "sourceUrl": "https://www.canada.ca/en/employment-social-development/programs/pensions/pension/statistics/2026-quarterly-october-december.html",
+    "note": "employment or self-employment income only"
+  },
+  "backPayMonths": {
+    "value": 11,
+    "benefitYear": "any",
+    "sourceUrl": "https://laws-lois.justice.gc.ca/eng/acts/O-9/section-11.html"
+  },
+  "pastQuarterMax": {
+    "value": {
+      "2025-Q4": 1105.43,
+      "2026-Q1": 1108.74,
+      "2026-Q2": 1109.85,
+      "2026-Q3": 1123.17,
+      "2026-Q4": 1138.9
+    },
+    "benefitYear": "Oct 2025 - Dec 2026",
+    "sourceUrl": "https://data.ontario.ca/dataset/9ae4eb3f-8b65-47f5-98be-57f536db9ac7",
+    "note": "GIS single maximum per quarter, for back pay"
+  }
+}

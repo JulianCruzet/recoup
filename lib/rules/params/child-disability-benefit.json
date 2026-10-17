@@ -1,0 +1,47 @@
+{
+  "annualAmount": {
+    "value": {
+      "2016-17": 2730,
+      "2017-18": 2730,
+      "2018-19": 2771,
+      "2019-20": 2832,
+      "2020-21": 2886,
+      "2021-22": 2915,
+      "2022-23": 2985,
+      "2023-24": 3173,
+      "2024-25": 3322,
+      "2025-26": 3411,
+      "2026-27": 3480
+    },
+    "benefitYear": "benefit years 2016-17 to 2026-27",
+    "sourceUrl": "https://www.canada.ca/en/revenue-agency/services/child-family-benefits/child-disability-benefit.html",
+    "note": "2016-17, 2018-19 and 2019-20 match indexation but are unconfirmed"
+  },
+  "reductionThreshold": {
+    "value": {
+      "2020-21": 68708,
+      "2021-22": 69395,
+      "2022-23": 71060,
+      "2023-24": 75537,
+      "2024-25": 79087,
+      "2025-26": 81222,
+      "2026-27": 82847
+    },
+    "benefitYear": "benefit years 2020-21 to 2026-27",
+    "sourceUrl": "https://www.canada.ca/en/revenue-agency/services/child-family-benefits/canada-child-benefit/canada-child-benefit-ccb-payment-amounts.html"
+  },
+  "reductionRate": {
+    "value": {
+      "oneChild": 0.032,
+      "twoOrMore": 0.057
+    },
+    "benefitYear": "2026-27",
+    "sourceUrl": "https://www.canada.ca/en/revenue-agency/services/child-family-benefits/child-disability-benefit.html"
+  },
+  "automaticYears": {
+    "value": 3,
+    "benefitYear": "any",
+    "sourceUrl": "https://www.canada.ca/en/revenue-agency/services/child-family-benefits/child-disability-benefit.html",
+    "note": "CRA automatically pays the current and 2 previous benefit years; older years need a written request it may refuse"
+  }
+}

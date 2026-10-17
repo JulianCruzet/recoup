@@ -1,0 +1,23 @@
+{
+  "maxMonthlySingle": {
+    "value": 92,
+    "benefitYear": "2026-27",
+    "sourceUrl": "https://www.ontario.ca/page/guaranteed-annual-income-system-payments-seniors"
+  },
+  "maxMonthlyCouple": {
+    "value": 184,
+    "benefitYear": "2026-27",
+    "sourceUrl": "https://www.ontario.ca/page/guaranteed-annual-income-system-payments-seniors"
+  },
+  "reductionPer24": {
+    "value": 0.5,
+    "benefitYear": "2026-27",
+    "sourceUrl": "https://data.ontario.ca/dataset/9ae4eb3f-8b65-47f5-98be-57f536db9ac7",
+    "note": "monthly GAINS drops $0.50 for every full $24 of private income"
+  },
+  "incomeLimitSingle": {
+    "value": 4416,
+    "benefitYear": "2026-27",
+    "sourceUrl": "https://www.ontario.ca/page/guaranteed-annual-income-system-payments-seniors"
+  }
+}

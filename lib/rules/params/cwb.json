@@ -1,0 +1,57 @@
+{
+  "maxSingle": {
+    "value": 1633,
+    "benefitYear": "2025 tax year",
+    "sourceUrl": "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/about-your-tax-return/tax-return/completing-a-tax-return/deductions-credits-expenses/line-45300-canada-workers-benefit-cwb/how-much-you-can-get.html"
+  },
+  "maxFamily": {
+    "value": 2813,
+    "benefitYear": "2025 tax year",
+    "sourceUrl": "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/about-your-tax-return/tax-return/completing-a-tax-return/deductions-credits-expenses/line-45300-canada-workers-benefit-cwb/how-much-you-can-get.html"
+  },
+  "phaseInRate": {
+    "value": 0.27,
+    "benefitYear": "2025 tax year",
+    "sourceUrl": "https://laws-lois.justice.gc.ca/eng/acts/I-3.3/section-122.7.html"
+  },
+  "phaseInStart": {
+    "value": 3000,
+    "benefitYear": "2025 tax year",
+    "sourceUrl": "https://laws-lois.justice.gc.ca/eng/acts/I-3.3/section-122.7.html"
+  },
+  "reductionRate": {
+    "value": 0.15,
+    "benefitYear": "2025 tax year",
+    "sourceUrl": "https://laws-lois.justice.gc.ca/eng/acts/I-3.3/section-122.7.html"
+  },
+  "thresholdSingle": {
+    "value": 26855,
+    "benefitYear": "2025 tax year",
+    "sourceUrl": "https://laws-lois.justice.gc.ca/eng/acts/I-3.3/section-122.7.html"
+  },
+  "thresholdFamily": {
+    "value": 30639,
+    "benefitYear": "2025 tax year",
+    "sourceUrl": "https://laws-lois.justice.gc.ca/eng/acts/I-3.3/section-122.7.html"
+  },
+  "disabilitySupplementMax": {
+    "value": 843,
+    "benefitYear": "2025 tax year",
+    "sourceUrl": "https://laws-lois.justice.gc.ca/eng/acts/I-3.3/section-122.7.html"
+  },
+  "disabilitySupplementStart": {
+    "value": 1150,
+    "benefitYear": "2025 tax year",
+    "sourceUrl": "https://laws-lois.justice.gc.ca/eng/acts/I-3.3/section-122.7.html"
+  },
+  "disabilityThresholdSingle": {
+    "value": 37740,
+    "benefitYear": "2025 tax year",
+    "sourceUrl": "https://laws-lois.justice.gc.ca/eng/acts/I-3.3/section-122.7.html"
+  },
+  "disabilityThresholdFamily": {
+    "value": 49389,
+    "benefitYear": "2025 tax year",
+    "sourceUrl": "https://laws-lois.justice.gc.ca/eng/acts/I-3.3/section-122.7.html"
+  }
+}
