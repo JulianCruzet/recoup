@@ -5,10 +5,10 @@
   --ink-soft: rgb(29 31 33 / 0.72);
   --paper: #fbfaf6;
   --night: #1d1f21;
-  --accent: #b4610f;
-  --accent-ink: #b4610f;
+  --accent: #ecad45;
+  --accent-ink: #c48a1a; /* deeper marigold, so gold text stays readable on light glass */
   --sky: #cfe3f0;
-  --likely: #b4610f;
+  --likely: #c48a1a;
   --possible: #1d1f21;
   --not-eligible: #6b6e70;
   --glass-fill: rgb(255 255 255 / 0.45);
@@ -95,7 +95,7 @@ body {
 }
 
 :focus-visible {
-  outline: 3px solid var(--accent);
+  outline: 3px solid var(--accent-ink);
   outline-offset: 2px;
 }
 

@@ -1,27 +1,31 @@
 import { desc } from "drizzle-orm";
 import { connection } from "next/server";
-import { Suspense } from "react";
-import { SourceLink } from "@/components/ui/SourceLink";
+import { Fragment, Suspense } from "react";
+import { ParamTable, type ParamRow } from "@/components/ParamTable";
 import { getDb, schema } from "@/lib/db";
+import { PROGRAMS } from "@/lib/programs";
 import { RULES_VERSION } from "@/lib/rules/framework";
 import * as P from "@/lib/rules/params";
-import type { Param } from "@/lib/types";
+import { STAGE_LABEL, type Stage } from "@/lib/tracker/stages";
+import type { Param, ProgramId } from "@/lib/types";
 import evalResults from "@/eval/results.json";
 
-const PILLARS = [
-  { title: "The rules decide", body: "Every eligibility status and every dollar comes from hand-written rules that follow CRA, Service Canada and Ontario's published formulas. Each number carries its benefit year and source." },
-  { title: "The AI only listens and explains", body: "Gemini pulls facts out of the conversation (each tied to the words it came from), reads documents, and writes plain-language explanations and draft follow-ups. It never decides eligibility or produces an amount." },
-  { title: "A person signs", body: "Staff confirm facts with the client. The client checks and signs every form. Nothing is sent to any government office by the software." },
+// At a glance: who does what, then the promises that keep it honest.
+const STEPS = [
+  { title: "AI listens", body: "Picks out the facts as the client talks.", icon: ["M12 19v3", "M19 10v2a7 7 0 0 1-14 0v-2", "M12 2a3 3 0 0 1 3 3v7a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3z"] },
+  { title: "Rules decide", body: "Every dollar follows the government's published formula.", icon: ["M12 3v18", "M7 21h10", "M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2", "m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z", "m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"] },
+  { title: "A person signs", body: "Staff check every fact. The client signs and sends.", icon: ["M12 20h9", "M16.4 3.6a2.1 2.1 0 0 1 3 3L7.4 18.6a2 2 0 0 1-.9.5l-2.9.9.9-2.9a2 2 0 0 1 .5-.9z"] },
 ];
 
-const GUARDRAILS = [
-  "No quote, no fact: a fact the AI can't tie to the client's own words (or a document) is thrown away.",
-  "Unconfirmed facts count as unknown, so a result can only be \"possible\", never \"likely\", until staff confirm them.",
-  "Explanations are checked: if the AI mentions any dollar figure the rules didn't produce, the rule's own wording is shown instead.",
-  "No SIN is ever asked for or stored; names, birth dates and addresses are typed by staff, not taken from audio.",
-  "Draft follow-ups are never sent without staff approval.",
-  "Demo data is synthetic. Fast-forwarded time, texts and \"sent\" follow-ups are simulated and labelled as such.",
-];
+const PROMISES = ["The AI can't invent a number", "Every fact quotes the client", "Never asks for a SIN", "Nothing is sent without a person"];
+
+function Icon({ paths, className }: { paths: string[]; className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden className={className}>
+      {paths.map((d) => <path key={d} d={d} />)}
+    </svg>
+  );
+}
 
 // Every parameter file, flattened to rows: program, parameter, value, benefit year, source.
 const SOURCES: [string, Record<string, Param<unknown>>][] = [
@@ -40,28 +44,39 @@ const SOURCES: [string, Record<string, Param<unknown>>][] = [
 const show = (v: unknown): string =>
   typeof v === "number" ? (Math.abs(v) < 1 ? `${+(v * 100).toFixed(2)}%` : v.toLocaleString("en-CA")) : typeof v === "string" ? v : Array.isArray(v) ? `${v.length} values` : `${Object.keys(v as object).length} values`;
 
+const PARAM_ROWS: ParamRow[] = SOURCES.flatMap(([program, params]) =>
+  Object.entries(params).map(([name, p]) => ({ program, name, value: show(p.value), benefitYear: String(p.benefitYear), sourceUrl: p.sourceUrl })),
+);
+
 export default function TrustPage() {
   return (
     <div className="space-y-6">
       <header>
         <h1 className="font-display text-4xl font-extrabold tracking-tight">How Recoup decides</h1>
-        <p className="mt-1 max-w-2xl text-ink-soft">Rules version {RULES_VERSION}. Estimates follow published formulas and are subject to government assessment.</p>
+        <p className="mt-1 text-ink-soft">Rules version {RULES_VERSION}. Estimates follow published formulas and are subject to government assessment.</p>
       </header>
 
-      <div className="grid gap-4 md:grid-cols-3">
-        {PILLARS.map((p) => (
-          <section key={p.title} className="glass glass-frost rounded-3xl p-6 backdrop-blur-xl">
-            <h2 className="font-display text-xl font-bold">{p.title}</h2>
-            <p className="mt-2 text-[15px] leading-relaxed">{p.body}</p>
-          </section>
-        ))}
-      </div>
-
-      <section className="glass glass-solid rounded-3xl p-6 backdrop-blur-xl">
-        <h2 className="font-display text-xl font-bold">Guardrails</h2>
-        <ul className="mt-3 space-y-2 text-[15px]">
-          {GUARDRAILS.map((g) => (
-            <li key={g} className="flex gap-3"><span className="mt-2 size-1.5 shrink-0 rounded-full bg-accent" aria-hidden />{g}</li>
+      <section className="glass glass-frost rounded-3xl px-6 py-8 backdrop-blur-xl sm:px-10">
+        <ol className="grid items-start gap-8 text-center md:grid-cols-[1fr_auto_1fr_auto_1fr] md:gap-4">
+          {STEPS.map((step, i) => (
+            <Fragment key={step.title}>
+              {i > 0 && <li aria-hidden className="hidden pt-5 text-3xl text-ink/30 md:block">&rarr;</li>}
+              <li>
+                <span className="mx-auto grid size-14 place-items-center rounded-full bg-white/80">
+                  <Icon paths={step.icon} className={`size-7 ${i === 0 ? "text-accent-ink" : "text-ink"}`} />
+                </span>
+                <h2 className="mt-3 font-display text-2xl font-extrabold tracking-tight">{step.title}</h2>
+                <p className="mx-auto mt-1 max-w-56 text-[15px] text-ink-soft">{step.body}</p>
+              </li>
+            </Fragment>
+          ))}
+        </ol>
+        <ul className="mt-8 flex flex-wrap justify-center gap-2">
+          {PROMISES.map((p) => (
+            <li key={p} className="flex items-center gap-1.5 rounded-full bg-white/70 px-3.5 py-1.5 text-sm font-medium">
+              <Icon paths={["M20 6 9 17l-5-5"]} className="size-4 text-accent-ink" />
+              {p}
+            </li>
           ))}
         </ul>
       </section>
@@ -70,26 +85,7 @@ export default function TrustPage() {
 
       <section className="glass glass-solid rounded-3xl p-6 backdrop-blur-xl">
         <h2 className="font-display text-xl font-bold">Every number and where it comes from</h2>
-        <div className="relative mt-3 overflow-x-auto">
-          <table className="w-full min-w-[640px] text-left text-sm">
-            <thead className="text-xs tracking-wide text-ink-soft uppercase">
-              <tr><th className="py-2 font-medium">Program</th><th className="py-2 font-medium">Parameter</th><th className="py-2 font-medium">Value</th><th className="py-2 font-medium">Benefit year</th><th className="py-2 font-medium">Source</th></tr>
-            </thead>
-            <tbody className="divide-y divide-ink/10">
-              {SOURCES.flatMap(([program, params]) =>
-                Object.entries(params).map(([name, p]) => (
-                  <tr key={program + name}>
-                    <td className="py-2 pr-3">{program}</td>
-                    <td className="py-2 pr-3 font-mono text-xs">{name}</td>
-                    <td className="py-2 pr-3 tabular-nums">{show(p.value)}</td>
-                    <td className="py-2 pr-3 text-ink-soft">{p.benefitYear}</td>
-                    <td className="py-2"><SourceLink label={new URL(p.sourceUrl).hostname.replace(/^www\./, "")} url={p.sourceUrl} /></td>
-                  </tr>
-                )),
-              )}
-            </tbody>
-          </table>
-        </div>
+        <ParamTable rows={PARAM_ROWS} />
       </section>
 
       <Suspense fallback={null}>
@@ -106,7 +102,7 @@ function ListeningScore() {
     <section className="glass glass-frost grid gap-6 rounded-3xl p-6 backdrop-blur-xl sm:grid-cols-[auto_1fr] sm:items-center">
       <div>
         <p className="text-sm font-medium tracking-wide text-ink-soft uppercase">Facts heard correctly</p>
-        <p className="font-display text-5xl font-extrabold text-accent tabular-nums">
+        <p className="font-display text-5xl font-extrabold text-accent-ink tabular-nums">
           {t.correct}/{t.expected}
         </p>
       </div>
@@ -126,20 +122,51 @@ function ListeningScore() {
   );
 }
 
+type AuditDetail = { clientId?: string; id?: string; programs?: ProgramId[]; kind?: string; fields?: string[]; from?: Stage; to?: Stage; personas?: number };
+
 async function AuditLog() {
   await connection();
   const db = await getDb();
-  const rows = await db.select().from(schema.audit).orderBy(desc(schema.audit.id)).limit(12);
+  const [rows, clients, apps] = await Promise.all([
+    db.select().from(schema.audit).orderBy(desc(schema.audit.id)).limit(2),
+    db.select({ id: schema.clients.id, name: schema.clients.name }).from(schema.clients),
+    db.select({ id: schema.applications.id, clientId: schema.applications.clientId, program: schema.applications.program }).from(schema.applications),
+  ]);
+  const clientName = (id?: string) => clients.find((c) => c.id === id)?.name ?? "a client";
+  const programName = (id: string) => PROGRAMS[id as ProgramId]?.name ?? id;
+
+  /** One plain sentence per audit entry, using the details stored with it. */
+  const describe = (action: string, d: AuditDetail): string => {
+    const app = apps.find((a) => a.id === d.id);
+    switch (action) {
+      case "seed":
+        return `Demo data loaded: ${d.personas ?? 0} clients`;
+      case "consent.recorded":
+        return `Recorded consent for ${clientName(d.clientId)} (${d.kind === "recording" ? "recording" : "typed notes"})`;
+      case "facts.saved":
+        return `Saved ${d.fields?.length ?? 0} facts for ${clientName(d.clientId)}`;
+      case "applications.opened":
+        return `Started ${d.programs?.length === 1 ? "an application" : `${d.programs?.length ?? 0} applications`} for ${clientName(d.clientId)}: ${(d.programs ?? []).map(programName).join(", ")}`;
+      case "application.moved":
+        return `Moved ${app ? `${programName(app.program)} for ${clientName(app.clientId)}` : "an application"}: ${d.from ? STAGE_LABEL[d.from] : "?"} → ${d.to ? STAGE_LABEL[d.to] : "?"}`;
+      case "application.note":
+        return `Added a note to ${app ? `${programName(app.program)} for ${clientName(app.clientId)}` : "an application"}`;
+      default:
+        return action;
+    }
+  };
+
   return (
     <section className="glass glass-solid rounded-3xl p-6 backdrop-blur-xl">
       <h2 className="font-display text-xl font-bold">Audit log</h2>
-      <p className="text-sm text-ink-soft">Every save, stage change and approval is recorded.</p>
-      <ul className="mt-3 divide-y divide-ink/10 text-sm">
+      <p className="text-sm text-ink-soft">Every save, consent, stage change and approval is recorded with who did it and when.</p>
+      <ul className="mt-4 space-y-3">
         {rows.map((r) => (
-          <li key={r.id} className="flex flex-wrap gap-x-4 py-2">
-            <span className="w-44 shrink-0 tabular-nums text-ink-soft">{r.at.toLocaleString("en-CA", { dateStyle: "medium", timeStyle: "short" })}</span>
-            <span className="font-semibold">{r.actor}</span>
-            <span>{r.action}</span>
+          <li key={r.id} className="rounded-2xl bg-white/50 px-4 py-3">
+            <p className="text-[15px] font-medium">{describe(r.action, r.detail as AuditDetail)}</p>
+            <p className="mt-0.5 text-xs text-ink-soft tabular-nums">
+              {`${r.actor === "system" ? "Recoup" : "Staff"} · ${r.at.toLocaleString("en-CA", { dateStyle: "medium", timeStyle: "short" })}`}
+            </p>
           </li>
         ))}
       </ul>

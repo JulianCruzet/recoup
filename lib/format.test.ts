@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { formatMoney } from "./format";
+import { formatMoney, greetingName } from "./format";
 
 describe("formatMoney", () => {
   it("formats once-off amounts in whole dollars", () => {
@@ -18,5 +18,13 @@ describe("formatMoney", () => {
     expect(formatMoney(0)).toBe("$0");
     expect(formatMoney(-5)).toBe("$0");
     expect(formatMoney(NaN)).toBe("$0");
+  });
+});
+
+describe("greetingName", () => {
+  it("uses the first name, but keeps a title with the initial", () => {
+    expect(greetingName("Sana S.")).toBe("Sana");
+    expect(greetingName("Mrs. K.")).toBe("Mrs. K.");
+    expect(greetingName("Mr. R.")).toBe("Mr. R.");
   });
 });

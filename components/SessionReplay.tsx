@@ -71,13 +71,13 @@ export function SessionReplay({ turns, facts, clientName }: { turns: Turn[]; fac
       <aside className="space-y-5">
         <div className="glass glass-frost rounded-3xl p-6 backdrop-blur-xl">
           <p className="text-sm font-medium tracking-wide text-ink-soft uppercase">Likely owed so far</p>
-          <p className="font-display text-5xl font-extrabold text-accent tabular-nums transition-all">{money(totals.backPay)}</p>
+          <p className="font-display text-5xl font-extrabold text-accent-ink tabular-nums transition-all">{money(totals.backPay)}</p>
           <p className="text-ink-soft">plus {money(totals.annual)} a year</p>
         </div>
 
         {nextQuestion && played < turns.length && (
           <div className="glass glass-solid rounded-3xl p-5 backdrop-blur-xl">
-            <p className="text-xs font-semibold tracking-wide text-accent uppercase">Ask next</p>
+            <p className="text-xs font-semibold tracking-wide text-accent-ink uppercase">Ask next</p>
             <p className="mt-1 text-lg font-semibold">{describeField(nextQuestion.field).ask}</p>
             {nextQuestion.atStake > 0 && <p className="mt-1 text-sm text-ink-soft">Could settle up to {money(nextQuestion.atStake)}</p>}
           </div>

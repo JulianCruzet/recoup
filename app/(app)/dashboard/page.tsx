@@ -48,7 +48,7 @@ async function Numbers() {
         {tiles.map((t, i) => (
           <div key={t.label} className={`glass rounded-3xl p-6 backdrop-blur-xl ${i === 2 ? "glass-frost" : "glass-solid"}`}>
             <p className="text-sm font-medium tracking-wide text-ink-soft uppercase">{t.label}</p>
-            <p className={`font-display mt-1 text-5xl font-extrabold tabular-nums ${i === 2 ? "text-accent" : ""}`}>{formatMoney(t.value)}</p>
+            <p className={`font-display mt-1 text-5xl font-extrabold tabular-nums ${i === 2 ? "text-accent-ink" : ""}`}>{formatMoney(t.value)}</p>
             <p className="mt-1 text-sm text-ink-soft">{t.note}</p>
           </div>
         ))}

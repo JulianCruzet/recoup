@@ -5,6 +5,7 @@ import { Suspense } from "react";
 import { ISP3025 } from "@/components/forms/ISP3025";
 import { RC66 } from "@/components/forms/RC66";
 import { T2201PartA } from "@/components/forms/T2201PartA";
+import { LargePrintToggle } from "@/components/LargePrintToggle";
 import { PrintButton } from "@/components/PrintButton";
 import { getClient, getFacts } from "@/lib/db/queries";
 import { packagesFor, type Package } from "@/lib/packages/forms";
@@ -42,7 +43,10 @@ async function Packages({ params }: { params: Promise<{ id: string }> }) {
         <Link href={`/clients/${id}`} className="text-sm text-ink-soft hover:text-ink">
           ← {client.name}
         </Link>
-        <PrintButton />
+        <div className="flex gap-2">
+          <LargePrintToggle />
+          <PrintButton />
+        </div>
       </div>
 
       <header className="glass glass-frost rounded-[28px] p-7 backdrop-blur-xl print:hidden">
@@ -51,7 +55,7 @@ async function Packages({ params }: { params: Promise<{ id: string }> }) {
           Filled in from what the client confirmed. The client adds their SIN, bank details and signature, and sends it
           themselves. Recoup never submits anything.
         </p>
-        <Link href={`/clients/${id}/summary`} className="mt-3 inline-block text-sm font-semibold text-accent underline underline-offset-2">
+        <Link href={`/clients/${id}/summary`} className="mt-3 inline-block text-sm font-semibold text-accent-ink underline underline-offset-2">
           Take-home summary for the client →
         </Link>
       </header>
@@ -66,7 +70,7 @@ async function Packages({ params }: { params: Promise<{ id: string }> }) {
               ))}
             </ol>
             {pkg.kind === "t2201" && (
-              <Link href={`/clients/${id}/brief`} className="mt-3 inline-block text-sm font-semibold text-accent underline underline-offset-2">
+              <Link href={`/clients/${id}/brief`} className="mt-3 inline-block text-sm font-semibold text-accent-ink underline underline-offset-2">
                 Daily-living summary for the practitioner (Part B) →
               </Link>
             )}

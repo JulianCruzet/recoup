@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { connection } from "next/server";
 import { Suspense } from "react";
 import { ClientSummary } from "@/components/ClientSummary";
+import { LargePrintToggle } from "@/components/LargePrintToggle";
 import { PrintButton } from "@/components/PrintButton";
 import { getClient, getFacts } from "@/lib/db/queries";
 import { DEMO_DATE } from "@/lib/rules/framework";
@@ -29,7 +30,10 @@ async function Summary({ params }: { params: Promise<{ id: string }> }) {
         <Link href={`/clients/${id}/packages`} className="text-sm text-ink-soft hover:text-ink">
           ← Paperwork
         </Link>
-        <PrintButton />
+        <div className="flex gap-2">
+          <LargePrintToggle />
+          <PrintButton />
+        </div>
       </div>
       <div className="rounded-2xl shadow-xl print:shadow-none">
         <ClientSummary

@@ -31,7 +31,7 @@ export default function MonthPage() {
         {tiles.map((t, i) => (
           <div key={t.label} className={`glass rounded-3xl p-6 backdrop-blur-xl ${i === 0 ? "glass-frost" : "glass-solid"}`}>
             <p className="text-sm font-medium tracking-wide text-ink-soft uppercase">{t.label}</p>
-            <p className={`font-display mt-1 text-5xl font-extrabold tabular-nums ${i === 0 ? "text-accent" : ""}`}>{t.value}</p>
+            <p className={`font-display mt-1 text-5xl font-extrabold tabular-nums ${i === 0 ? "text-accent-ink" : ""}`}>{t.value}</p>
             <p className="mt-1 text-sm text-ink-soft">{t.note}</p>
           </div>
         ))}

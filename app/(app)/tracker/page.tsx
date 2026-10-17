@@ -59,7 +59,7 @@ async function Board() {
           <button className="rounded-full border border-ink/20 bg-white/60 px-4 py-2 text-sm font-semibold">Reset clock</button>
         </form>
       )}
-      <span className="rounded-full bg-accent/15 px-3 py-1 text-xs font-semibold tracking-wide text-accent uppercase">
+      <span className="rounded-full bg-accent/15 px-3 py-1 text-xs font-semibold tracking-wide text-accent-ink uppercase">
         Simulated{offset > 0 ? `: ${offset} days ahead` : " time for the demo"}
       </span>
     </div>
@@ -96,12 +96,12 @@ function Card({ app, today }: { app: ApplicationRow; today: Date }) {
           </Link>
           <p className="text-[15px] leading-snug">{PROGRAMS[app.program].name}</p>
         </div>
-        <MoneyAmount amount={app.received ?? app.expected} size="sm" />
+        {app.received ?? app.expected ? <MoneyAmount amount={app.received ?? app.expected} size="sm" /> : <span className="text-sm text-ink-soft">Coverage</span>}
       </div>
       <p className="mt-1 text-xs text-ink-soft">
         {STAGE_LABEL[app.stage]}
-        {overdue && <span className="ml-2 font-semibold text-accent">Overdue</span>}
-        {stalled && <span className="ml-2 font-semibold text-accent">Stalled</span>}
+        {overdue && <span className="ml-2 font-semibold text-accent-ink">Overdue</span>}
+        {stalled && <span className="ml-2 font-semibold text-accent-ink">Stalled</span>}
       </p>
       {overdue && <FollowUpDraft applicationId={app.id} />}
       {app.stage === "approved" && <PaymentCheckIn applicationId={app.id} expected={app.expected} clientName={app.clientName} />}

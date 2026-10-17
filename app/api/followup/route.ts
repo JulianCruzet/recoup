@@ -1,6 +1,7 @@
 import { listApplications } from "@/lib/db/applications";
 import { demoToday } from "@/lib/db/demo-clock";
 import { draftFollowUp } from "@/lib/ai/followup";
+import { greetingName } from "@/lib/format";
 import { decisionDays } from "@/lib/tracker/timeline";
 
 export async function POST(request: Request) {
@@ -16,7 +17,7 @@ export async function POST(request: Request) {
       submittedAt: app.submittedAt?.slice(0, 10),
       daysWaiting,
       expectedDays: decisionDays(app.program),
-      clientFirstName: app.clientName.split(/[ .]/)[0],
+      clientFirstName: greetingName(app.clientName),
     });
     return Response.json(draft);
   } catch (error) {

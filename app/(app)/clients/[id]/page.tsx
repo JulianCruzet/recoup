@@ -58,14 +58,14 @@ async function ClientResults({ params }: { params: Promise<{ id: string }> }) {
         </div>
         <div className="sm:text-right">
           <p className="text-sm font-medium tracking-wide text-ink-soft uppercase">Likely owed</p>
-          <p className="font-display text-6xl font-extrabold text-accent">{formatMoney(totals.backPay)}</p>
+          <p className="font-display text-6xl font-extrabold text-accent-ink">{formatMoney(totals.backPay)}</p>
           <p className="text-ink-soft">plus {formatMoney(totals.annual, "year")}</p>
         </div>
       </header>
 
       {deadline && (
         <p className="glass glass-solid rounded-2xl px-5 py-3 text-sm backdrop-blur-xl">
-          <strong className="text-accent">Deadline {deadline.date}:</strong> {deadline.note}
+          <strong className="text-accent-ink">Deadline {deadline.date}:</strong> {deadline.note}
         </p>
       )}
 
@@ -91,7 +91,7 @@ async function ClientResults({ params }: { params: Promise<{ id: string }> }) {
             </ul>
             {r.status !== "not_eligible" && <ExplainResult clientId={id} program={r.program} />}
             {r.program === "dtc" && r.status !== "not_eligible" && (
-              <Link href={`/clients/${id}/brief`} className="mt-2 inline-block text-sm font-semibold text-accent underline underline-offset-2">
+              <Link href={`/clients/${id}/brief`} className="mt-2 inline-block text-sm font-semibold text-accent-ink underline underline-offset-2">
                 Daily-living summary for the doctor →
               </Link>
             )}

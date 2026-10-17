@@ -21,7 +21,7 @@ export function FollowUpDraft({ applicationId }: { applicationId: string }) {
 
   if (state === "idle" || state === "error") {
     return (
-      <button onClick={draft} className="mt-3 w-full rounded-full bg-accent px-3 py-1.5 text-xs font-semibold text-white">
+      <button onClick={draft} className="mt-3 w-full rounded-full bg-accent px-3 py-1.5 text-xs font-semibold text-ink">
         {state === "error" ? "Couldn't draft. Try again" : "Draft a follow-up"}
       </button>
     );

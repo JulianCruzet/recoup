@@ -209,13 +209,13 @@ export function LiveSession({ clientId, clientName, initialFacts }: { clientId: 
       <aside className="space-y-5">
         <div className="glass glass-frost rounded-3xl p-6 backdrop-blur-xl">
           <p className="text-sm font-medium tracking-wide text-ink-soft uppercase">Likely owed so far {busy && <span className="normal-case">· listening for facts…</span>}</p>
-          <p className="font-display text-5xl font-extrabold text-accent tabular-nums">{formatMoney(totals.backPay)}</p>
+          <p className="font-display text-5xl font-extrabold text-accent-ink tabular-nums">{formatMoney(totals.backPay)}</p>
           <p className="text-ink-soft">plus {formatMoney(totals.annual, "year")}</p>
         </div>
 
         {next && (
           <div className="glass glass-solid rounded-3xl p-5 backdrop-blur-xl">
-            <p className="text-xs font-semibold tracking-wide text-accent uppercase">Ask next</p>
+            <p className="text-xs font-semibold tracking-wide text-accent-ink uppercase">Ask next</p>
             <p className="mt-1 text-lg font-semibold">{describeField(next.field).ask}</p>
             {next.atStake > 0 && <p className="mt-1 text-sm text-ink-soft">Could settle up to {formatMoney(next.atStake)}</p>}
           </div>
@@ -238,7 +238,7 @@ export function LiveSession({ clientId, clientName, initialFacts }: { clientId: 
                 <span className="font-semibold">{describeField(f.field).label}:</span> {formatFactValue(f.value)}
                 {!f.confirmed && (
                   <span className="ml-2 inline-flex gap-1 align-middle">
-                    <button onClick={() => confirm(f.field, true)} className="rounded-full bg-accent px-2 py-0.5 text-[11px] font-semibold text-white">Confirm</button>
+                    <button onClick={() => confirm(f.field, true)} className="rounded-full bg-accent px-2 py-0.5 text-[11px] font-semibold text-ink">Confirm</button>
                     <button onClick={() => confirm(f.field, false)} className="rounded-full border border-ink/20 px-2 py-0.5 text-[11px] font-semibold">Remove</button>
                   </span>
                 )}

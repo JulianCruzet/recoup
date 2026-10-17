@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { confirmPayment } from "@/app/(app)/tracker/actions";
+import { greetingName } from "@/lib/format";
 
 /** SIMULATED text check-in: "Did your payment arrive?" and the client's reply. */
 export function PaymentCheckIn({ applicationId, expected, clientName }: { applicationId: string; expected: number; clientName: string }) {
@@ -9,14 +10,14 @@ export function PaymentCheckIn({ applicationId, expected, clientName }: { applic
   if (!sent) {
     return (
       <button onClick={() => setSent(true)} className="mt-3 w-full rounded-full border border-ink/20 bg-white px-3 py-1.5 text-xs font-semibold">
-        Text {clientName.split(/[ .]/)[0]}: did it arrive?
+        Text {greetingName(clientName)}: did it arrive?
       </button>
     );
   }
   return (
     <div className="mt-3 space-y-2 text-xs">
       <p className="ml-auto w-fit max-w-[90%] rounded-2xl bg-night px-3 py-2 text-white">
-        Hi {clientName.split(/[ .]/)[0]}, it&rsquo;s the centre. Did your payment arrive? Reply YES or NO.
+        Hi {greetingName(clientName)}, it&rsquo;s the centre. Did your payment arrive? Reply YES or NO.
       </p>
       <form action={confirmPayment}>
         <input type="hidden" name="id" value={applicationId} />
