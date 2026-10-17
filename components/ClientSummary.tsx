@@ -26,7 +26,7 @@ export function ClientSummary({
   const benefits = results.filter((r) => r.status !== "not_eligible");
 
   return (
-    <article className="mx-auto max-w-[8.5in] bg-white p-10 text-[15px] leading-relaxed text-black print:p-0">
+    <article className="mx-auto max-w-[8.5in] bg-white p-10 text-[15px] leading-relaxed text-black shadow-xl print:p-0 print:shadow-none">
       <header className="flex items-start justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold">What you may get</h1>

@@ -1,12 +1,15 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+import { getDb, schema } from "@/lib/db";
 import { addNote, listApplications, moveApplication, openApplications } from "@/lib/db/applications";
 import { addDays, demoOffsetDays, demoToday, setDemoOffset } from "@/lib/db/demo-clock";
 import { getFacts } from "@/lib/db/queries";
+import { seedDemoApplications } from "@/lib/db/seed";
 import { evaluate } from "@/lib/rules";
+import { DEMO_LEG_DAYS, DEMO_LEGS, nextLeg } from "@/lib/tracker/demo";
 import { STAGE_LABEL, STAGES, type Stage } from "@/lib/tracker/stages";
-import { simulateForward } from "@/lib/tracker/timeline";
 
 export async function startApplications(formData: FormData) {
   const clientId = String(formData.get("clientId") ?? "");
@@ -15,6 +18,7 @@ export async function startApplications(formData: FormData) {
   await openApplications(clientId, results, new Date());
   revalidatePath("/tracker");
   revalidatePath(`/clients/${clientId}`);
+  redirect("/tracker");
 }
 
 export async function advanceApplication(formData: FormData) {
@@ -27,26 +31,36 @@ export async function advanceApplication(formData: FormData) {
   revalidatePath("/dashboard");
 }
 
-/** SIMULATED: jump the demo clock forward and play out plausible government responses. */
-export async function fastForward(formData: FormData) {
-  const days = Number(formData.get("days") ?? 56);
+/**
+ * SIMULATED: jump the demo clock 8 weeks and play the next leg of every application's scripted path
+ * (lib/tracker/demo.ts). Two clicks play the whole story; after that this does nothing.
+ */
+export async function fastForward() {
+  const offset = await demoOffsetDays();
+  if (offset >= DEMO_LEG_DAYS * DEMO_LEGS) return;
+  // Hold for a moment so the board's time-lapse loader reads as weeks passing.
+  const timeLapse = new Promise((resolve) => setTimeout(resolve, 1600));
   const today = await demoToday();
-  const apps = await listApplications();
-  const waiting = apps.filter((a) => a.submittedAt && ["submitted", "in_review"].includes(a.stage));
-  // The smallest one stalls, so the overdue flag and a follow-up draft can be shown.
-  const slow = waiting.length > 1 ? [waiting.reduce((min, a) => (a.expected < min.expected ? a : min)).id] : [];
-  for (const e of simulateForward(apps, today, days, slow)) {
-    const app = apps.find((a) => a.id === e.applicationId)!;
-    await moveApplication(e.applicationId, e.to, `${e.note} (simulated)`, addDays(today, e.day), e.to === "paid" ? app.expected : undefined);
+  for (const app of await listApplications()) {
+    for (const [day, to, note] of nextLeg(app.program, app.stage)) {
+      await moveApplication(app.id, to, `${note} (simulated)`, addDays(today, day), to === "paid" ? app.expected : undefined);
+    }
   }
-  await setDemoOffset((await demoOffsetDays()) + days);
+  await setDemoOffset(offset + DEMO_LEG_DAYS);
+  await timeLapse;
   revalidatePath("/tracker");
   revalidatePath("/dashboard");
 }
 
-export async function resetDemoClock() {
+/** Put the demo back to the start: the demo applications in To prepare, the clock at today. */
+export async function resetDemo() {
+  const db = await getDb();
+  await db.delete(schema.applications);
+  await seedDemoApplications(db);
   await setDemoOffset(0);
+  await db.insert(schema.audit).values({ actor: "staff", action: "demo.reset", detail: {} });
   revalidatePath("/tracker");
+  revalidatePath("/dashboard");
 }
 
 export async function recordFollowUp(formData: FormData) {

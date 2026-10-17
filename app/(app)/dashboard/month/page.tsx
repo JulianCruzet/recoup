@@ -21,7 +21,7 @@ export default function MonthPage() {
       <header>
         <p className="inline-block rounded-full bg-night px-3 py-1 text-xs font-semibold tracking-wide text-white uppercase">Simulated</p>
         <h1 className="font-display mt-3 text-4xl font-extrabold tracking-tight">One month at one centre</h1>
-        <p className="mt-1 max-w-2xl text-ink-soft">
+        <p className="mt-1 text-ink-soft">
           {m.clients} synthetic clients, a mix of seniors, families, adults with a disability and low-income workers, run
           through the same rules and paperwork as a real intake. No real people.
         </p>

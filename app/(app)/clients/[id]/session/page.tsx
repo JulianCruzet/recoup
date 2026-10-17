@@ -34,7 +34,7 @@ async function Session({ params }: { params: Promise<{ id: string }> }) {
           See results
         </Link>
       </div>
-      <SessionReplay turns={turns} facts={facts} clientName={client.name} />
+      <SessionReplay turns={turns} facts={facts} clientId={client.id} clientName={client.name} />
     </div>
   );
 }

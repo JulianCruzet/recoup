@@ -35,15 +35,13 @@ async function Summary({ params }: { params: Promise<{ id: string }> }) {
           <PrintButton />
         </div>
       </div>
-      <div className="rounded-2xl shadow-xl print:shadow-none">
-        <ClientSummary
-          clientName={client.name}
-          centre={process.env.CENTRE_NAME ?? "the Recoup demo centre"}
-          results={results}
-          totals={totals}
-          preparedOn={DEMO_DATE.toLocaleDateString("en-CA", { month: "long", day: "numeric", year: "numeric" })}
-        />
-      </div>
+      <ClientSummary
+        clientName={client.name}
+        centre={process.env.CENTRE_NAME ?? "the Recoup demo centre"}
+        results={results}
+        totals={totals}
+        preparedOn={DEMO_DATE.toLocaleDateString("en-CA", { month: "long", day: "numeric", year: "numeric" })}
+      />
     </div>
   );
 }

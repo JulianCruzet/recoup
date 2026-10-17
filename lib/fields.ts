@@ -58,6 +58,11 @@ const CATEGORY_LABEL: Record<string, string> = {
 export function describeField(field: FactField): FieldInfo {
   const known = FIELDS[field];
   if (known) return known;
+  const child = /^child\.(\d+)\.(.+)$/.exec(field);
+  if (child && CHILD_FIELDS[child[2]]) {
+    const info = CHILD_FIELDS[child[2]];
+    return { label: `Child ${Number(child[1]) + 1}: ${info.label}`, ask: info.ask };
+  }
   const limitation = /^(?:child\.(\d+)\.)?limitation\.(\w+)$/.exec(field);
   if (limitation) {
     const who = limitation[1] !== undefined ? `Child ${Number(limitation[1]) + 1}: ` : "";
@@ -66,11 +71,6 @@ export function describeField(field: FactField): FieldInfo {
       label: `${who}limits in ${what}`,
       ask: `Does ${who ? "your child" : "anyone"} have a condition that makes ${what} much harder or slower?`,
     };
-  }
-  const child = /^child\.(\d+)\.(.+)$/.exec(field);
-  if (child && CHILD_FIELDS[child[2]]) {
-    const info = CHILD_FIELDS[child[2]];
-    return { label: `Child ${Number(child[1]) + 1}: ${info.label}`, ask: info.ask };
   }
   return { label: field, ask: field };
 }

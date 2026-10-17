@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { ChatLine, fadeEdges, runEdges, ScrollCues, useFollowNewest } from "@/components/Chat";
 import { describeField, formatFactValue } from "@/lib/fields";
 import { evaluate } from "@/lib/rules";
 import type { Fact } from "@/lib/types";
@@ -15,14 +16,9 @@ const money = (n: number) => `$${Math.round(n).toLocaleString("en-CA")}`;
  * spoken; staff-entered facts (names, address) are there from the start. Totals and the next question
  * come from the same rules engine as the results page, recomputed after every line.
  */
-export function SessionReplay({ turns, facts, clientName }: { turns: Turn[]; facts: Fact[]; clientName: string }) {
+export function SessionReplay({ turns, facts, clientId, clientName }: { turns: Turn[]; facts: Fact[]; clientId: string; clientName: string }) {
   const [played, setPlayed] = useState(0);
   const [playing, setPlaying] = useState(false);
-  const latest = useRef<HTMLLIElement>(null);
-
-  useEffect(() => {
-    latest.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
-  }, [played]);
 
   useEffect(() => {
     if (!playing || played >= turns.length) return;
@@ -37,11 +33,15 @@ export function SessionReplay({ turns, facts, clientName }: { turns: Turn[]; fac
   );
   const { totals, askNext } = useMemo(() => evaluate(known), [known]);
   const nextQuestion = askNext.find((q) => !q.field.startsWith("person.name"));
-  const spoken = known.filter((f) => f.source !== "staff");
+  // In the order they were said, so a new fact always lands at the bottom of the list.
+  const saidAt = (f: Fact) => turns.findIndex((t) => f.quote !== undefined && normalize(t.text).includes(normalize(f.quote)));
+  const spoken = known.filter((f) => f.source !== "staff").sort((a, b) => saidAt(a) - saidAt(b));
+  const [conversationRef, onConversationScroll, conversationMore, jumpConversation] = useFollowNewest<HTMLOListElement>(played);
+  const [factsRef, onFactsScroll, factsMore, jumpFacts] = useFollowNewest<HTMLUListElement>(spoken.length);
 
   return (
     <div className="grid gap-5 lg:grid-cols-[1.25fr_1fr]">
-      <section className="glass glass-solid flex min-h-[60vh] flex-col rounded-3xl p-6 backdrop-blur-xl">
+      <section className="glass glass-solid flex h-[calc(100dvh-13rem)] min-h-[640px] flex-col rounded-3xl p-6 backdrop-blur-xl">
         <div className="flex items-center justify-between gap-3">
           <h2 className="font-display text-xl font-bold">Conversation with {clientName}</h2>
           <div className="flex gap-2">
@@ -57,18 +57,18 @@ export function SessionReplay({ turns, facts, clientName }: { turns: Turn[]; fac
           </div>
         </div>
         <p className="mt-1 text-xs text-ink-soft">Scripted replay of a recorded intake (demo).</p>
-        <ol className="mt-5 flex-1 space-y-3" aria-live="polite">
-          {turns.slice(0, played).map((t, i) => (
-            <li key={i} ref={i === played - 1 ? latest : undefined} className={`max-w-[85%] rounded-2xl px-4 py-2.5 ${t.speaker === "staff" ? "bg-white/70" : "ml-auto bg-accent/12"}`}>
-              <span className="block text-[11px] font-semibold tracking-wide text-ink-soft uppercase">{t.speaker === "staff" ? "Staff" : clientName}</span>
-              {t.text}
-            </li>
-          ))}
-          {played === 0 && <li className="text-ink-soft">Press play to start the intake.</li>}
-        </ol>
+        <div className="relative mt-2 min-h-0 flex-1">
+          <ol ref={conversationRef} onScroll={onConversationScroll} style={fadeEdges(conversationMore)} className="-mr-3 h-full space-y-3 overflow-y-auto py-3 pr-3" aria-live="polite">
+            {turns.slice(0, played).map((t, i, shown) => (
+              <ChatLine key={i} speaker={t.speaker} text={t.text} client={{ id: clientId, name: clientName }} {...runEdges(shown.map((x) => x.speaker), i)} />
+            ))}
+            {played === 0 && <li className="text-ink-soft">Press play to start the intake.</li>}
+          </ol>
+          <ScrollCues more={conversationMore} jump={jumpConversation} newest="Latest" />
+        </div>
       </section>
 
-      <aside className="space-y-5">
+      <aside className="flex min-h-0 flex-col gap-5 lg:h-[calc(100dvh-13rem)] lg:min-h-[640px]">
         <div className="glass glass-frost rounded-3xl p-6 backdrop-blur-xl">
           <p className="text-sm font-medium tracking-wide text-ink-soft uppercase">Likely owed so far</p>
           <p className="font-display text-5xl font-extrabold text-accent-ink tabular-nums transition-all">{money(totals.backPay)}</p>
@@ -83,17 +83,20 @@ export function SessionReplay({ turns, facts, clientName }: { turns: Turn[]; fac
           </div>
         )}
 
-        <div className="glass glass-solid rounded-3xl p-5 backdrop-blur-xl">
+        <div className="glass glass-solid flex min-h-0 flex-1 flex-col rounded-3xl p-5 backdrop-blur-xl">
           <p className="text-xs font-semibold tracking-wide text-ink-soft uppercase">Facts heard ({spoken.length})</p>
-          <ul className="mt-3 space-y-2.5">
-            {spoken.map((f) => (
-              <li key={f.field} className="text-sm">
-                <span className="font-semibold">{describeField(f.field).label}:</span> {formatFactValue(f.value)}
-                <span className="block text-xs text-ink-soft italic">&ldquo;{f.quote}&rdquo;</span>
-              </li>
-            ))}
-            {spoken.length === 0 && <li className="text-sm text-ink-soft">Facts appear here as the client talks, each with the words it came from.</li>}
-          </ul>
+          <div className="relative mt-1 min-h-0 flex-1">
+            <ul ref={factsRef} onScroll={onFactsScroll} style={fadeEdges(factsMore)} className="-mr-2 h-full max-h-96 space-y-2.5 overflow-y-auto py-2 pr-2 lg:max-h-none">
+              {spoken.map((f) => (
+                <li key={f.field} className="text-sm">
+                  <span className="font-semibold">{describeField(f.field).label}:</span> {formatFactValue(f.value)}
+                  <span className="block text-xs text-ink-soft italic">&ldquo;{f.quote}&rdquo;</span>
+                </li>
+              ))}
+              {spoken.length === 0 && <li className="text-sm text-ink-soft">Facts appear here as the client talks, each with the words it came from.</li>}
+            </ul>
+            <ScrollCues more={factsMore} jump={jumpFacts} newest="More" />
+          </div>
         </div>
       </aside>
     </div>

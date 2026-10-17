@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { ChatLine, fadeEdges, runEdges, ScrollCues, useFollowNewest, type Speaker } from "@/components/Chat";
 import { ConsentPanel } from "@/components/ConsentPanel";
 import { describeField, formatFactValue } from "@/lib/fields";
 import { formatMoney } from "@/lib/format";
@@ -8,7 +9,11 @@ import { evaluate } from "@/lib/rules";
 import type { Fact } from "@/lib/types";
 
 type Mode = "consent" | "listening" | "typing";
-type Line = { text: string; at: number };
+type Line = { text: string; at: number; speaker: Speaker };
+
+const other = (s: Speaker): Speaker => (s === "staff" ? "client" : "staff");
+/** The browser can't tell voices apart, so spoken lines alternate (staff first); staff can switch any line. */
+const nextSpeaker = (lines: Line[]): Speaker => (lines.length ? other(lines[lines.length - 1].speaker) : "staff");
 
 // Chrome exposes the Web Speech API under a prefix; it isn't in the TS DOM types.
 type Recognition = {
@@ -40,6 +45,7 @@ export function LiveSession({ clientId, clientName, initialFacts }: { clientId: 
   const [busy, setBusy] = useState(false);
   const [saved, setSaved] = useState<"idle" | "saving" | "saved">("idle");
   const recognition = useRef<Recognition | null>(null);
+  const [micOn, setMicOn] = useState(false);
   const sentUpTo = useRef(0);
 
   const staffFacts = useMemo(() => initialFacts.filter((f) => f.source === "staff"), [initialFacts]);
@@ -55,7 +61,7 @@ export function LiveSession({ clientId, clientName, initialFacts }: { clientId: 
   useEffect(() => {
     if (lines.length - sentUpTo.current < 2 && !(lines.length > sentUpTo.current && mode === "typing")) return;
     const from = Math.max(0, sentUpTo.current - 2);
-    const chunk = lines.slice(from).map((l) => l.text).join("\n");
+    const chunk = lines.slice(from).map((l) => `${l.speaker === "staff" ? "Staff" : "Client"}: ${l.text}`).join("\n");
     sentUpTo.current = lines.length;
     setBusy(true);
     fetch("/api/extract", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ transcript: chunk }) })
@@ -87,7 +93,7 @@ export function LiveSession({ clientId, clientName, initialFacts }: { clientId: 
       let partial = "";
       for (let i = e.resultIndex; i < e.results.length; i++) {
         const r = e.results[i];
-        if (r.isFinal) setLines((l) => [...l, { text: r[0].transcript.trim(), at: Date.now() }]);
+        if (r.isFinal) setLines((l) => [...l, { text: r[0].transcript.trim(), at: Date.now(), speaker: nextSpeaker(l) }]);
         else partial += r[0].transcript;
       }
       setInterim(partial);
@@ -95,6 +101,7 @@ export function LiveSession({ clientId, clientName, initialFacts }: { clientId: 
     rec.onend = () => recognition.current && rec.start();
     recognition.current = rec;
     rec.start();
+    setMicOn(true);
   };
 
   const stop = () => {
@@ -102,9 +109,20 @@ export function LiveSession({ clientId, clientName, initialFacts }: { clientId: 
     recognition.current = null;
     rec?.stop();
     setInterim("");
+    setMicOn(false);
   };
 
   useEffect(() => () => stop(), []);
+
+  // Switching who said a line re-sends it (with the line before it) to the extractor.
+  const swapSpeaker = (i: number) => {
+    sentUpTo.current = Math.max(0, Math.min(sentUpTo.current, i - 1));
+    setLines((l) => l.map((line, j) => (j === i ? { ...line, speaker: other(line.speaker) } : line)));
+  };
+
+  const [conversationRef, onConversationScroll, conversationMore, jumpConversation] = useFollowNewest<HTMLOListElement>(lines.length + (interim ? 1 : 0));
+  const [factsRef, onFactsScroll, factsMore, jumpFacts] = useFollowNewest<HTMLUListElement>(heard.length);
+  const client = { id: clientId, name: clientName };
 
   const confirm = (field: Fact["field"], ok: boolean) =>
     setHeard((prev) => (ok ? prev.map((f) => (f.field === field ? { ...f, confirmed: true, confidence: 1 } : f)) : prev.filter((f) => f.field !== field)));
@@ -146,18 +164,18 @@ export function LiveSession({ clientId, clientName, initialFacts }: { clientId: 
 
   return (
     <div className="grid gap-5 lg:grid-cols-[1.25fr_1fr]">
-      <section className="glass glass-solid flex min-h-[60vh] flex-col rounded-3xl p-6 backdrop-blur-xl">
+      <section className="glass glass-solid flex h-[calc(100dvh-13rem)] min-h-[640px] flex-col rounded-3xl p-6 backdrop-blur-xl">
         <div className="flex items-center justify-between gap-3">
           <h2 className="font-display text-xl font-bold">
             {mode === "listening" ? (
               <span className="inline-flex items-center gap-2">
-                <span className="size-2.5 animate-pulse rounded-full bg-accent" aria-hidden /> Listening
+                <span className={`size-2.5 rounded-full ${micOn ? "animate-pulse bg-accent" : "bg-ink/30"}`} aria-hidden /> {micOn ? "Listening" : "Paused"}
               </span>
             ) : (
               "Notes"
             )}
           </h2>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap justify-end gap-2 whitespace-nowrap">
             <label className="cursor-pointer rounded-full border border-ink/20 bg-white/60 px-4 py-2 text-sm font-semibold">
               {reading ? "Reading…" : "Add a document"}
               <input
@@ -169,28 +187,43 @@ export function LiveSession({ clientId, clientName, initialFacts }: { clientId: 
               />
             </label>
             {mode === "listening" && (
-              <button onClick={() => { stop(); setMode("typing"); }} className="rounded-full border border-ink/20 px-4 py-2 text-sm font-semibold">
-                Stop and type
-              </button>
+              <>
+                <button onClick={() => { stop(); setMode("typing"); }} className="rounded-full border border-ink/20 bg-white/60 px-4 py-2 text-sm font-semibold">
+                  Type instead
+                </button>
+                <button
+                  onClick={micOn ? stop : startListening}
+                  className="inline-flex items-center gap-2 rounded-full bg-night px-4 py-2 text-sm font-semibold text-white"
+                >
+                  <span className={`size-2.5 ${micOn ? "rounded-[2px] bg-white" : "rounded-full bg-accent"}`} aria-hidden />
+                  {micOn ? "Stop listening" : "Resume listening"}
+                </button>
+              </>
             )}
           </div>
         </div>
-        <ol className="mt-5 flex-1 space-y-2" aria-live="polite">
-          {lines.map((l) => (
-            <li key={l.at} className="rounded-2xl bg-white/70 px-4 py-2.5">{l.text}</li>
-          ))}
-          {interim && <li className="rounded-2xl px-4 py-2.5 text-ink-soft italic">{interim}…</li>}
-          {lines.length === 0 && !interim && (
-            <li className="text-ink-soft">{mode === "listening" ? "Start talking; what the client says shows up here." : "Type what the client says, one point per line."}</li>
-          )}
-        </ol>
+        {mode === "listening" && <p className="mt-1 text-xs text-ink-soft">Lines alternate between staff and the client. Click a picture to switch who said it.</p>}
+        <div className="relative mt-2 min-h-0 flex-1">
+          <ol ref={conversationRef} onScroll={onConversationScroll} style={fadeEdges(conversationMore)} className="-mr-3 h-full space-y-3 overflow-y-auto py-3 pr-3" aria-live="polite">
+            {lines.map((l, i) => (
+              <ChatLine key={`${l.at}-${i}`} speaker={l.speaker} text={l.text} client={client} {...runEdges(lines.map((x) => x.speaker), i)} onSwap={() => swapSpeaker(i)} />
+            ))}
+            {interim && (
+              <ChatLine speaker={nextSpeaker(lines)} text={interim} client={client} firstOfRun={!lines.length || lines[lines.length - 1].speaker !== nextSpeaker(lines)} lastOfRun interim />
+            )}
+            {lines.length === 0 && !interim && (
+              <li className="text-ink-soft">{mode === "listening" ? "Start talking; the conversation shows up here." : "Type what the client says, one point per line."}</li>
+            )}
+          </ol>
+          <ScrollCues more={conversationMore} jump={jumpConversation} newest="Latest" />
+        </div>
         {mode === "typing" && (
           <form
             className="mt-4 flex gap-2"
             onSubmit={(e) => {
               e.preventDefault();
               if (!draft.trim()) return;
-              setLines((l) => [...l, { text: `Client: ${draft.trim()}`, at: Date.now() }]);
+              setLines((l) => [...l, { text: draft.trim(), at: Date.now(), speaker: "client" }]);
               setDraft("");
             }}
           >
@@ -206,7 +239,7 @@ export function LiveSession({ clientId, clientName, initialFacts }: { clientId: 
         )}
       </section>
 
-      <aside className="space-y-5">
+      <aside className="flex min-h-0 flex-col gap-5 lg:h-[calc(100dvh-13rem)] lg:min-h-[640px]">
         <div className="glass glass-frost rounded-3xl p-6 backdrop-blur-xl">
           <p className="text-sm font-medium tracking-wide text-ink-soft uppercase">Likely owed so far {busy && <span className="normal-case">· listening for facts…</span>}</p>
           <p className="font-display text-5xl font-extrabold text-accent-ink tabular-nums">{formatMoney(totals.backPay)}</p>
@@ -221,7 +254,7 @@ export function LiveSession({ clientId, clientName, initialFacts }: { clientId: 
           </div>
         )}
 
-        <div className="glass glass-solid rounded-3xl p-5 backdrop-blur-xl">
+        <div className="glass glass-solid flex min-h-0 flex-1 flex-col rounded-3xl p-5 backdrop-blur-xl">
           <div className="flex items-center justify-between">
             <p className="text-xs font-semibold tracking-wide text-ink-soft uppercase">Facts heard ({heard.length})</p>
             <button
@@ -232,20 +265,23 @@ export function LiveSession({ clientId, clientName, initialFacts }: { clientId: 
               {saved === "saved" ? "Saved" : saved === "saving" ? "Saving…" : "Save to client"}
             </button>
           </div>
-          <ul className="mt-3 space-y-2.5">
-            {heard.map((f) => (
-              <li key={f.field} className="text-sm">
-                <span className="font-semibold">{describeField(f.field).label}:</span> {formatFactValue(f.value)}
-                {!f.confirmed && (
-                  <span className="ml-2 inline-flex gap-1 align-middle">
-                    <button onClick={() => confirm(f.field, true)} className="rounded-full bg-accent px-2 py-0.5 text-[11px] font-semibold text-ink">Confirm</button>
-                    <button onClick={() => confirm(f.field, false)} className="rounded-full border border-ink/20 px-2 py-0.5 text-[11px] font-semibold">Remove</button>
-                  </span>
-                )}
-                {f.quote && <span className="block text-xs text-ink-soft italic">&ldquo;{f.quote}&rdquo;</span>}
-              </li>
-            ))}
-          </ul>
+          <div className="relative mt-1 min-h-0 flex-1">
+            <ul ref={factsRef} onScroll={onFactsScroll} style={fadeEdges(factsMore)} className="-mr-2 h-full max-h-96 space-y-2.5 overflow-y-auto py-2 pr-2 lg:max-h-none">
+              {heard.map((f) => (
+                <li key={f.field} className="text-sm">
+                  <span className="font-semibold">{describeField(f.field).label}:</span> {formatFactValue(f.value)}
+                  {!f.confirmed && (
+                    <span className="ml-2 inline-flex gap-1 align-middle">
+                      <button onClick={() => confirm(f.field, true)} className="rounded-full bg-accent px-2 py-0.5 text-[11px] font-semibold text-ink">Confirm</button>
+                      <button onClick={() => confirm(f.field, false)} className="rounded-full border border-ink/20 px-2 py-0.5 text-[11px] font-semibold">Remove</button>
+                    </span>
+                  )}
+                  {f.quote && <span className="block text-xs text-ink-soft italic">&ldquo;{f.quote}&rdquo;</span>}
+                </li>
+              ))}
+            </ul>
+            <ScrollCues more={factsMore} jump={jumpFacts} newest="More" />
+          </div>
         </div>
       </aside>
     </div>

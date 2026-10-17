@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { connection } from "next/server";
 import { Suspense } from "react";
+import { ClientAvatar } from "@/components/ui/ClientAvatar";
 import { getFacts, listClients } from "@/lib/db/queries";
 
 export default function ClientsPage() {
@@ -27,9 +28,7 @@ async function ClientList() {
       {clients.map((client, i) => (
         <li key={client.id}>
           <Link href={`/clients/${client.id}`} className="flex items-center gap-6 px-6 py-5 transition-colors hover:bg-white/60">
-            <span className="font-display grid size-11 shrink-0 place-items-center rounded-full bg-night text-lg font-bold text-white">
-              {client.name.charAt(0)}
-            </span>
+            <ClientAvatar id={client.id} name={client.name} size={48} />
             <span className="min-w-0 flex-1">
               <span className="block font-semibold">{client.name}</span>
               <span className="block truncate text-sm text-ink-soft">{client.summary}</span>

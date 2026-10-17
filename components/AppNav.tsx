@@ -12,7 +12,7 @@ const LINKS = [
 /** A floating glass pill, centred at the top of every page. */
 export function AppNav({ cta = true }: { cta?: boolean }) {
   return (
-    <div className="sticky top-4 z-20 flex justify-center px-4">
+    <div className="sticky top-4 z-20 flex justify-center px-4 print:hidden">
       <LiquidGlass
         as="nav"
         radius={999}

@@ -11,14 +11,18 @@ export function ExplainResult({ clientId, program }: { clientId: string; program
 
   const explain = async () => {
     setState("loading");
-    const res = await fetch("/api/explain", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ clientId, program, language }),
-    });
-    if (!res.ok) return setState("error");
-    setAnswer(await res.json());
-    setState("done");
+    try {
+      const res = await fetch("/api/explain", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ clientId, program, language }),
+      });
+      if (!res.ok) return setState("error");
+      setAnswer(await res.json());
+      setState("done");
+    } catch {
+      setState("error");
+    }
   };
 
   return (
@@ -27,9 +31,15 @@ export function ExplainResult({ clientId, program }: { clientId: string; program
         <button
           onClick={explain}
           disabled={state === "loading"}
-          className="rounded-full border border-ink/20 bg-white/70 px-3.5 py-1.5 font-semibold hover:bg-white disabled:opacity-60"
+          className="inline-flex items-center gap-2 rounded-full border border-ink/20 bg-white/70 px-3.5 py-1.5 font-semibold hover:bg-white disabled:opacity-60"
         >
-          {state === "loading" ? "Explaining…" : state === "error" ? "Couldn't explain. Try again" : "Explain to the client"}
+          {state === "loading" && (
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden className="size-4 animate-spin">
+              <circle cx="8" cy="8" r="6.5" stroke="currentColor" strokeOpacity="0.2" strokeWidth="2" />
+              <path d="M14.5 8A6.5 6.5 0 0 0 8 1.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+          )}
+          {state === "loading" ? `Explaining in ${language}…` : state === "error" ? "Couldn't explain. Try again" : "Explain to the client"}
         </button>
         <label className="text-ink-soft">
           <span className="sr-only">Language</span>
@@ -44,6 +54,14 @@ export function ExplainResult({ clientId, program }: { clientId: string; program
           </select>
         </label>
       </div>
+      {state === "loading" && (
+        <div role="status" className="mt-2 space-y-2 rounded-2xl bg-white/80 px-4 py-4">
+          <span className="sr-only">Writing the explanation…</span>
+          <div className="h-3 w-11/12 animate-pulse rounded-full bg-ink/10" />
+          <div className="h-3 w-4/5 animate-pulse rounded-full bg-ink/10" />
+          <div className="h-3 w-2/5 animate-pulse rounded-full bg-ink/10" />
+        </div>
+      )}
       {state === "done" && answer && (
         <div className="mt-2 rounded-2xl bg-white/80 px-4 py-3 text-[15px]">
           <p dir="auto">{answer.text}</p>

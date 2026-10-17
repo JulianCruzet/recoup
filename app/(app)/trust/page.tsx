@@ -2,6 +2,7 @@ import { desc } from "drizzle-orm";
 import { connection } from "next/server";
 import { Fragment, Suspense } from "react";
 import { ParamTable, type ParamRow } from "@/components/ParamTable";
+import { Icon } from "@/components/ui/Icon";
 import { getDb, schema } from "@/lib/db";
 import { PROGRAMS } from "@/lib/programs";
 import { RULES_VERSION } from "@/lib/rules/framework";
@@ -18,14 +19,6 @@ const STEPS = [
 ];
 
 const PROMISES = ["The AI can't invent a number", "Every fact quotes the client", "Never asks for a SIN", "Nothing is sent without a person"];
-
-function Icon({ paths, className }: { paths: string[]; className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden className={className}>
-      {paths.map((d) => <path key={d} d={d} />)}
-    </svg>
-  );
-}
 
 // Every parameter file, flattened to rows: program, parameter, value, benefit year, source.
 const SOURCES: [string, Record<string, Param<unknown>>][] = [
@@ -141,6 +134,8 @@ async function AuditLog() {
     switch (action) {
       case "seed":
         return `Demo data loaded: ${d.personas ?? 0} clients`;
+      case "demo.reset":
+        return "Reset the demo applications";
       case "consent.recorded":
         return `Recorded consent for ${clientName(d.clientId)} (${d.kind === "recording" ? "recording" : "typed notes"})`;
       case "facts.saved":

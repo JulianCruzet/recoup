@@ -6,7 +6,7 @@ export default function Loading() {
       <span className="sr-only">Loading clients</span>
       {ROWS.map((row) => (
         <div key={row} className="flex items-center gap-6 px-6 py-5">
-          <div className="size-11 rounded-full bg-ink/10 animate-pulse" />
+          <div className="size-12 shrink-0 rounded-full bg-ink/10 animate-pulse" />
           <div>
             <div className="h-3 w-40 rounded bg-ink/10 animate-pulse" />
             <div className="mt-2 h-3 w-72 rounded bg-ink/10 animate-pulse" />

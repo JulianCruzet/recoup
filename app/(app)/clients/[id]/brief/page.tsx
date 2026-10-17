@@ -31,7 +31,7 @@ async function Brief({ params }: { params: Promise<{ id: string }> }) {
         <PrintButton />
       </div>
 
-      <article className="mx-auto max-w-3xl rounded-2xl bg-paper p-10 text-[15px] leading-relaxed text-ink shadow-xl print:max-w-none print:rounded-none print:p-0 print:shadow-none">
+      <article className="mx-auto max-w-3xl rounded-2xl bg-paper p-10 text-[15px] leading-relaxed text-ink shadow-xl print:max-w-none print:rounded-none print:bg-white print:p-0 print:shadow-none">
         <header className="flex items-start justify-between border-b border-ink/15 pb-5">
           <div>
             <p className="text-xs font-semibold tracking-widest text-ink-soft uppercase">For the practitioner completing Part B of form T2201</p>

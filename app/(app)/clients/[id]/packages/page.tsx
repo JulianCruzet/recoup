@@ -51,7 +51,7 @@ async function Packages({ params }: { params: Promise<{ id: string }> }) {
 
       <header className="glass glass-frost rounded-[28px] p-7 backdrop-blur-xl print:hidden">
         <h1 className="font-display text-4xl font-extrabold tracking-tight">Paperwork for {client.name}</h1>
-        <p className="mt-1 max-w-2xl text-ink-soft">
+        <p className="mt-1 text-ink-soft">
           Filled in from what the client confirmed. The client adds their SIN, bank details and signature, and sends it
           themselves. Recoup never submits anything.
         </p>
@@ -61,19 +61,26 @@ async function Packages({ params }: { params: Promise<{ id: string }> }) {
       </header>
 
       {forms.map((pkg) => (
-        <section key={pkg.program} className="space-y-4 break-before-page">
-          <div className="glass glass-solid rounded-3xl p-6 backdrop-blur-xl print:hidden">
-            <h2 className="font-display text-2xl font-bold">{PROGRAMS[pkg.program].name}</h2>
-            <ol className="mt-2 list-decimal space-y-1 pl-5 text-[15px]">
-              {pkg.steps.map((s) => (
-                <li key={s}>{s}</li>
-              ))}
-            </ol>
-            {pkg.kind === "t2201" && (
-              <Link href={`/clients/${id}/brief`} className="mt-3 inline-block text-sm font-semibold text-accent-ink underline underline-offset-2">
-                Daily-living summary for the practitioner (Part B) →
-              </Link>
-            )}
+        // Wide screens: the steps sit beside the form and stay in view while it scrolls. Narrow: stacked, same width as the form.
+        <section key={pkg.program} className="grid gap-4 break-before-page xl:grid-cols-[minmax(0,1fr)_8.5in] xl:items-start xl:gap-6">
+          {/* Sticky lives on a plain wrapper: .glass sets position: relative, which would override it. */}
+          <div className="mx-auto w-full max-w-[8.5in] xl:sticky xl:top-24 xl:max-w-none print:hidden">
+            <div className="glass glass-solid rounded-3xl p-6 backdrop-blur-xl">
+              <h2 className="font-display text-2xl font-bold">{PROGRAMS[pkg.program].name}</h2>
+              <ol className="mt-4 space-y-3 text-[15px]">
+                {pkg.steps.map((s, i) => (
+                  <li key={s} className="flex gap-3">
+                    <span className="grid size-6 shrink-0 place-items-center rounded-full bg-night text-xs font-bold text-white tabular-nums">{i + 1}</span>
+                    <span>{s}</span>
+                  </li>
+                ))}
+              </ol>
+              {pkg.kind === "t2201" && (
+                <Link href={`/clients/${id}/brief`} className="mt-4 inline-block text-sm font-semibold text-accent-ink underline underline-offset-2">
+                  Daily-living summary for the practitioner (Part B) →
+                </Link>
+              )}
+            </div>
           </div>
           <Form pkg={pkg} />
         </section>

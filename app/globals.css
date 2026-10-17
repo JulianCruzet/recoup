@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+@layer base {
+  /* Tailwind 4 leaves buttons with the arrow cursor; anything you can press should show the hand. */
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  label:has(> input[type="file"]),
+  select {
+    cursor: pointer;
+  }
+}
+
 :root {
   --ink: #1d1f21;
   --ink-soft: rgb(29 31 33 / 0.72);
@@ -13,6 +23,11 @@
   --likely: #c48a1a;
   --possible: #1d1f21;
   --not-eligible: #6b6e70;
+  /* Outcomes on the tracker: soft tints with a stronger dot; text stays ink. */
+  --approved: #4f9a62;
+  --approved-soft: #e3f1e2;
+  --denied: #c8594d;
+  --denied-soft: #f7e3e0;
   --glass-fill: rgb(255 255 255 / 0.45);
   --glass-frost: rgb(255 255 255 / 0.62);
   --glass-solid: rgb(255 255 255 / 0.78);
@@ -30,6 +45,10 @@
   --color-likely: var(--likely);
   --color-possible: var(--possible);
   --color-not-eligible: var(--not-eligible);
+  --color-approved: var(--approved);
+  --color-approved-soft: var(--approved-soft);
+  --color-denied: var(--denied);
+  --color-denied-soft: var(--denied-soft);
   --font-sans: var(--font-body);
   --font-display: var(--font-display);
 }
@@ -106,6 +125,17 @@ html.large-print {
   font-size: 125%;
 }
 @media print {
+  /* Print the document only: plain paper, no photo behind it, no dev overlay. */
+  html,
+  body {
+    background: white !important;
+  }
+
+  .backdrop,
+  nextjs-portal {
+    display: none !important;
+  }
+
   html.large-print {
     font-size: 140%;
   }
