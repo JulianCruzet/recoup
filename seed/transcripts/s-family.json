@@ -1,0 +1,20 @@
+[
+  { "speaker": "staff", "text": "Thanks for coming in, Sana. Can you tell me a bit about who's at home?" },
+  { "speaker": "client", "text": "Sure. My husband and I have been married for almost twenty years. We have one child, Adam." },
+  { "speaker": "staff", "text": "And how old are you both, roughly?" },
+  { "speaker": "client", "text": "I'm forty-one. Adam is twelve." },
+  { "speaker": "staff", "text": "How's Adam doing day to day?" },
+  { "speaker": "client", "text": "He has autism, and he needs a lot of help with routines and talking to people. I'm the one who looks after him day to day." },
+  { "speaker": "staff", "text": "How long have you known?" },
+  { "speaker": "client", "text": "We've known since he was a baby, since 2014." },
+  { "speaker": "staff", "text": "Has anyone ever helped you apply for the Disability Tax Credit for him?" },
+  { "speaker": "client", "text": "No, we've never applied for the Disability Tax Credit. He's never had the disability credit." },
+  { "speaker": "staff", "text": "Okay. And what does the household bring in, roughly? A range is fine." },
+  { "speaker": "client", "text": "Our household brings in about fifty-five thousand a year. I'm the only one working, so I make the full fifty-five. My job pays fifty-five thousand before tax." },
+  { "speaker": "staff", "text": "Are your taxes up to date?" },
+  { "speaker": "client", "text": "We did our taxes for 2025 already, back in the spring. We get the Canada Child Benefit every month." },
+  { "speaker": "staff", "text": "Do you rent or own, and do you have dental coverage?" },
+  { "speaker": "client", "text": "We rent, it's eighteen hundred a month. Our dental is through my job, so we have private coverage." },
+  { "speaker": "staff", "text": "And you're both citizens?" },
+  { "speaker": "client", "text": "Yes, we're both Canadian citizens." }
+]
