@@ -2,10 +2,15 @@ import { explainResult } from "@/lib/ai/followup";
 import { getFacts } from "@/lib/db/queries";
 import { EXPLAIN_LANGUAGES, type ExplainLanguage } from "@/lib/languages";
 import { evaluate } from "@/lib/rules";
+import { isStaff } from "@/lib/supabase/server";
+import { badRequest, readJson, signInFirst } from "@/lib/http";
 
 /** Explain one result in plain words, in the client's language. The numbers come from the rules, never the AI. */
 export async function POST(request: Request) {
-  const { clientId, program, language } = (await request.json()) as { clientId?: string; program?: string; language?: string };
+  if (!(await isStaff())) return signInFirst();
+  const body = await readJson<{ clientId: string; program: string; language: string }>(request);
+  if (!body) return badRequest("JSON body required");
+  const { clientId, program, language } = body;
   if (!clientId || !program) return Response.json({ error: "clientId and program required" }, { status: 400 });
   const lang = (EXPLAIN_LANGUAGES as readonly string[]).includes(language ?? "") ? (language as ExplainLanguage) : "English";
 

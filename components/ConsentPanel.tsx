@@ -2,7 +2,7 @@
 
 const SCRIPT = [
   "An assistant helps me take notes while we talk, so I can focus on you. It's software, and it can make mistakes, so I'll check everything with you.",
-  "It only listens to this conversation. It never asks for or keeps your SIN, and it doesn't share anything outside this centre.",
+  "It only listens to this conversation. It never asks for or keeps your SIN. The notes go to an AI service to pick out the facts, and nothing is sent to the government or anyone else.",
   "It gives us information about benefits you may qualify for. It isn't legal or tax advice, and nothing is decided by it.",
   "You stay in control: you sign every form yourself, and nothing is sent anywhere without you.",
   "If you'd rather I just type notes instead, that's completely fine.",

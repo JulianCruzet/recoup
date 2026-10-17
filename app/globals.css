@@ -16,6 +16,8 @@
   --paper: #fbfaf6;
   /* The landing page's lower sheet: a light sage that picks up the hills in the photo. */
   --sheet: #edf0e4;
+  /* "How it works": a warm paper sheet over the sage, like the receipt. */
+  --cream: #f7f0e1;
   --night: #1d1f21;
   --accent: #ecad45;
   --accent-ink: #c48a1a; /* deeper marigold, so gold text stays readable on light glass */
@@ -39,6 +41,7 @@
   --color-ink-soft: var(--ink-soft);
   --color-paper: var(--paper);
   --color-sheet: var(--sheet);
+  --color-cream: var(--cream);
   --color-night: var(--night);
   --color-accent: var(--accent);
   --color-accent-ink: var(--accent-ink);

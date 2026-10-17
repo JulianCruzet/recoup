@@ -103,8 +103,8 @@ function ListeningScore() {
         <h2 className="font-display text-xl font-bold">How well the AI listens</h2>
         <p className="mt-1">
           Tested on {t.transcripts} synthetic intakes written and labelled by hand, each with the client correcting
-          themselves partway through. {t.wrong} wrong {t.wrong === 1 ? "value" : "values"}, {t.missed} missed. Staff still
-          confirm every fact before it counts.
+          themselves partway through. {t.wrong} wrong {t.wrong === 1 ? "value" : "values"}, {t.missed} missed. Facts the AI
+          is unsure of wait for staff to confirm them, and staff can remove any fact.
         </p>
         <p className="mt-1 text-xs text-ink-soft">
           Run {new Date(evalResults.runAt).toLocaleDateString("en-CA", { month: "short", day: "numeric", year: "numeric" })} with{" "}

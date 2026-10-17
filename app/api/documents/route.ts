@@ -1,9 +1,13 @@
 import { readDocument } from "@/lib/ai/documents";
+import { isStaff } from "@/lib/supabase/server";
+import { badRequest, signInFirst } from "@/lib/http";
 
 const MAX_BYTES = 6 * 1024 * 1024;
 
 export async function POST(request: Request) {
-  const form = await request.formData();
+  if (!(await isStaff())) return signInFirst();
+  const form = await request.formData().catch(() => null);
+  if (!form) return badRequest("Upload a photo (JPG or PNG) under 6 MB.");
   const file = form.get("file");
   if (!(file instanceof File)) return Response.json({ error: "file required" }, { status: 400 });
   if (!file.type.startsWith("image/") || file.size > MAX_BYTES) {

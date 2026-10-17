@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { isStaff } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { getDb, schema } from "@/lib/db";
 import { addNote, listApplications, moveApplication, openApplications } from "@/lib/db/applications";
@@ -12,6 +13,7 @@ import { DEMO_LEG_DAYS, DEMO_LEGS, nextLeg } from "@/lib/tracker/demo";
 import { STAGE_LABEL, STAGES, type Stage } from "@/lib/tracker/stages";
 
 export async function startApplications(formData: FormData) {
+  if (!(await isStaff())) return;
   const clientId = String(formData.get("clientId") ?? "");
   if (!clientId) return;
   const { results } = evaluate(await getFacts(clientId));
@@ -22,6 +24,7 @@ export async function startApplications(formData: FormData) {
 }
 
 export async function advanceApplication(formData: FormData) {
+  if (!(await isStaff())) return;
   const id = String(formData.get("id") ?? "");
   const to = String(formData.get("to") ?? "") as Stage;
   if (!id || !STAGES.includes(to)) return;
@@ -36,6 +39,7 @@ export async function advanceApplication(formData: FormData) {
  * (lib/tracker/demo.ts). Two clicks play the whole story; after that this does nothing.
  */
 export async function fastForward() {
+  if (!(await isStaff())) return;
   const offset = await demoOffsetDays();
   if (offset >= DEMO_LEG_DAYS * DEMO_LEGS) return;
   // Hold for a moment so the board's time-lapse loader reads as weeks passing.
@@ -54,6 +58,7 @@ export async function fastForward() {
 
 /** Put the demo back to the start: the demo applications in To prepare, the clock at today. */
 export async function resetDemo() {
+  if (!(await isStaff())) return;
   const db = await getDb();
   await db.delete(schema.applications);
   await seedDemoApplications(db);
@@ -64,6 +69,7 @@ export async function resetDemo() {
 }
 
 export async function recordFollowUp(formData: FormData) {
+  if (!(await isStaff())) return;
   const id = String(formData.get("id") ?? "");
   if (!id) return;
   await addNote(id, "Status inquiry sent after staff approved the draft (simulated send)", await demoToday());
@@ -71,6 +77,7 @@ export async function recordFollowUp(formData: FormData) {
 }
 
 export async function confirmPayment(formData: FormData) {
+  if (!(await isStaff())) return;
   const id = String(formData.get("id") ?? "");
   const expected = Number(formData.get("expected") ?? 0);
   if (!id) return;

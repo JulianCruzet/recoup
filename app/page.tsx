@@ -1,19 +1,36 @@
 import Link from "next/link";
 import { AppNav } from "@/components/AppNav";
-import { Icon } from "@/components/ui/Icon";
+import { HowItWorks, type Sample } from "@/components/landing/HowItWorks";
 import { formatMoney } from "@/lib/format";
 import { PROGRAMS } from "@/lib/programs";
 import { evaluate } from "@/lib/rules";
 import { runMonth, type SimClient } from "@/lib/simulate/month";
 import clients from "@/seed/clients.json";
 import personas from "@/seed/personas.json";
-import type { Fact } from "@/lib/types";
+import type { Fact, ProgramId } from "@/lib/types";
 
 const month = runMonth(clients as unknown as SimClient[]);
 
 // The receipt is the real result for the demo family, not copy: it moves if the rules do.
 const family = evaluate((personas as { id: string; facts: Fact[] }[]).find((p) => p.id === "s-family")!.facts);
 const LINES = family.results.filter((r) => r.status === "likely" && (r.backPayEstimate ?? 0) > 0);
+
+// The examples beside "How it works": Sana's DTC, and the cards the tracker demo ends on.
+type Persona = { id: string; name: string; facts: Fact[] };
+const result = (personaId: string, program: ProgramId) => {
+  const persona = (personas as Persona[]).find((p) => p.id === personaId)!;
+  const r = evaluate(persona.facts).results.find((x) => x.program === program)!;
+  return { persona, r };
+};
+const card = (personaId: string, program: ProgramId) => {
+  const { persona, r } = result(personaId, program);
+  return { clientId: persona.id, clientName: persona.name, program: PROGRAMS[program].name, amount: Math.round((r.backPayEstimate ?? 0) + (r.annualEstimate ?? 0)) };
+};
+const sanaDtc = result("s-family", "dtc").r;
+const SAMPLE: Sample = {
+  dtc: { name: PROGRAMS.dtc.name, backPay: sanaDtc.backPayEstimate ?? 0 },
+  paid: card("mrs-k", "gis"),
+};
 
 const DAC_2024 = "https://www.canada.ca/en/revenue-agency/corporate/about-canada-revenue-agency-cra/disability-advisory-committee/2024-full-report.html";
 
@@ -119,24 +136,7 @@ export default function Landing() {
           </section>
         </div>
 
-        <section className="mx-auto mt-20 w-full max-w-3xl">
-          <h2 className="font-display text-3xl font-extrabold tracking-tight sm:text-4xl">How it works</h2>
-          <ol className="mt-8">
-            {STEPS.map((step, i) => (
-              <li key={step.title} className="relative grid grid-cols-[3rem_1fr] gap-5 pb-9 last:pb-0">
-                {/* A dashed thread from one step to the next, like the rule on the receipt. */}
-                {i < STEPS.length - 1 && <span aria-hidden className="absolute top-14 bottom-2 left-6 border-l-2 border-dashed border-ink/25" />}
-                <span className="grid size-12 place-items-center rounded-full border border-ink/15 bg-white shadow-[0_8px_20px_-12px_rgb(29_31_33/0.45)]">
-                  <Icon paths={step.icon} className="size-6 text-accent-ink" />
-                </span>
-                <div className="pt-2.5">
-                  <h3 className="font-display text-xl font-bold">{step.title}</h3>
-                  <p className="mt-1 text-ink-soft">{step.text}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </section>
+        <HowItWorks steps={STEPS} sample={SAMPLE} />
 
         <section className="mx-auto mt-20 w-full max-w-3xl">
           <p className="font-display text-3xl leading-tight font-extrabold tracking-tight text-balance sm:text-4xl">

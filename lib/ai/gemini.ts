@@ -28,11 +28,17 @@ async function call<T>(model: string, opts: { system: string; parts: Part[]; sch
       },
     }),
   });
-  if (res.status === 429 || res.status >= 500) throw new RateLimited(`${model} busy (${res.status})`);
+  // Busy, down or retired: try the next model.
+  if (res.status === 429 || res.status === 404 || res.status >= 500) throw new RateLimited(`${model} unavailable (${res.status})`);
   if (!res.ok) throw new Error(`Gemini ${model} ${res.status}: ${(await res.text()).slice(0, 200)}`);
   const body = await res.json();
   const text: string = body.candidates?.[0]?.content?.parts?.map((p: { text?: string }) => p.text ?? "").join("") ?? "";
-  return JSON.parse(text) as T;
+  try {
+    return JSON.parse(text) as T;
+  } catch {
+    // An empty or blocked reply isn't usable; the next model may do better.
+    throw new RateLimited(`${model} returned no usable JSON`);
+  }
 }
 
 export async function generateJson<T>(opts: { system: string; parts: Part[]; schema: object; temperature?: number; timeoutMs?: number }): Promise<T> {

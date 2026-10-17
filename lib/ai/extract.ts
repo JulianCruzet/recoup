@@ -66,11 +66,11 @@ const isBooleanField = (f: string) =>
 const isYearField = (f: string) => /(lastYearFiled|sinceYear|stoppedYear)$/.test(f);
 
 /** The value has the right type and a plausible size for its field. */
-function validValue(field: string, value: FactValue): boolean {
+export function validValue(field: string, value: FactValue): boolean {
   if (ENUMS[field]) return typeof value === "string" && ENUMS[field].includes(value);
   if (isBooleanField(field)) return typeof value === "boolean";
   if (typeof value !== "number" || value < 0) return false;
-  if (isYearField(field)) return value >= 1940 && value <= 2026;
+  if (isYearField(field)) return value >= 1940 && value <= new Date().getFullYear();
   if (field === "person.age") return value >= 16 && value <= 115;
   if (/^child\.\d+\.age$/.test(field)) return value <= 25;
   return true;
@@ -78,7 +78,9 @@ function validValue(field: string, value: FactValue): boolean {
 
 /** The model's value, or for number fields the number in the quote when the model's value is unusable. */
 function valueOf(f: Raw): FactValue {
-  const value = coerce(f.value);
+  const raw = coerce(f.value);
+  // "common law" and "common-law" both mean common_law.
+  const value = ENUMS[f.field] && typeof raw === "string" ? raw.replace(/[\s-]+/g, "_") : raw;
   if (validValue(f.field, value) || isBooleanField(f.field) || ENUMS[f.field]) return value;
   return numberInQuote(f.quote, f.field.startsWith("money.")) ?? value;
 }
@@ -115,16 +117,22 @@ function windows(lines: string[], size = 4, step = 3): string[] {
  * Extract facts from transcript text. "No quote, no fact": anything whose quote isn't actually in the
  * transcript is dropped. Facts below 0.75 confidence come back unconfirmed so staff check them.
  */
-export async function extractFacts(transcript: string): Promise<{ facts: Fact[]; dropped: Raw[] }> {
+// Anything shaped like a SIN (3-3-3 digits) is removed before the text leaves the server or lands in a quote.
+const SIN_LIKE = /\b\d{3}[ -]?\d{3}[ -]?\d{3}\b/g;
+
+export async function extractFacts(rawTranscript: string): Promise<{ facts: Fact[]; dropped: Raw[] }> {
+  const transcript = rawTranscript.replace(SIN_LIKE, "[number removed]");
   const lines = transcript.split("\n").filter((l) => l.trim());
   const perWindow = await mapLimit(windows(lines), 2, extractChunk);
   const found = perWindow.flatMap((facts, window) => facts.map((f) => ({ ...f, window })));
 
-  const haystack = normalize(transcript);
+  // Whole-word match, so a quote of "4" can't hide inside "14,000" and an empty or punctuation-only quote never counts.
+  const haystack = ` ${normalize(transcript)} `;
+  const quoted = (q: string) => q.length >= 2 && haystack.includes(` ${q} `);
   const grounded = (f: Raw) =>
     EXTRACTABLE_FIELDS.includes(f.field) &&
-    Boolean(f.quote) &&
-    haystack.includes(normalize(f.quote)) &&
+    typeof f.quote === "string" &&
+    quoted(normalize(f.quote)) &&
     validValue(f.field, valueOf(f));
   const dropped = found.filter((f) => !grounded(f));
 

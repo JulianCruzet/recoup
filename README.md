@@ -1,9 +1,5 @@
 <div align="center">
-  <img src="./public/recoup-mark.svg" alt="Recoup" width="96"/>
-
-  # Recoup
-
-  **Get people the money they're already owed.**
+  <img src="./docs/images/header.webp" alt="Recoup: Get people the money they're already owed." width="100%"/>
 
   [![Next.js](https://img.shields.io/badge/Next.js-16-black)](https://nextjs.org/)
   [![React](https://img.shields.io/badge/React-19-blue)](https://react.dev/)

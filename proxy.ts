@@ -51,6 +51,7 @@ function withCookies(target: NextResponse, source: NextResponse) {
 }
 
 export const config = {
-  // Skip build assets and public files (anything with an extension: photos, avatars, samples, icons).
-  matcher: ["/((?!_next/static|_next/image|.*\\.[a-z0-9]+$).*)"],
+  // Only real static file types skip the check: a catch-all "anything with a dot" would also skip page data (.rsc)
+  // and dotted paths like /clients/x.y that still reach pages and server actions.
+  matcher: ["/((?!_next/static|_next/image|.*\\.(?:svg|png|jpe?g|webp|gif|ico|txt|xml|woff2?)$).*)"],
 };

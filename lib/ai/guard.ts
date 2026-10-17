@@ -21,6 +21,10 @@ export function ruleNumbers(result: EligibilityResult): Set<number> {
 
 /** True when the AI's text only uses numbers the rules produced. Otherwise show the rules' own words. */
 export function onlyRuleNumbers(text: string, result: EligibilityResult): boolean {
+  // Digits from other scripts (Arabic-Indic, Gurmukhi, Tamil, full-width…) can't be checked, so they fail.
+  if (/(?![0-9])\p{Nd}/u.test(text)) return false;
+  // "12k", "12 thousand", "1.2万" hide a big number behind a small one.
+  if (/\d\s*(?:k\b|thousand|million|mille|lakh|crore|万|千|萬)/iu.test(text)) return false;
   const allowed = ruleNumbers(result);
   return [...text.matchAll(NUMBER)].every((m) => {
     const n = digitsOf(m[0]);

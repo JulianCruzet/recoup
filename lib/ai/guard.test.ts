@@ -28,6 +28,13 @@ describe("onlyRuleNumbers", () => {
     expect(onlyRuleNumbers("This goes back to 2012.", result)).toBe(false);
   });
 
+  it("rejects digits it can't read and big numbers written small", () => {
+    expect(onlyRuleNumbers("ستحصل على ٢٥٠٠٠ دولار", result)).toBe(false);
+    expect(onlyRuleNumbers("You could get about $25k back.", result)).toBe(false);
+    expect(onlyRuleNumbers("Around 25 thousand dollars.", result)).toBe(false);
+    expect(onlyRuleNumbers("Help for your 2 kids, about $2,292 a year.", result)).toBe(true);
+  });
+
   it("lets small counts through", () => {
     expect(onlyRuleNumbers("There are 2 forms to sign.", result)).toBe(true);
   });

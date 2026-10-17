@@ -3,9 +3,14 @@ import { demoToday } from "@/lib/db/demo-clock";
 import { draftFollowUp } from "@/lib/ai/followup";
 import { greetingName } from "@/lib/format";
 import { decisionDays } from "@/lib/tracker/timeline";
+import { isStaff } from "@/lib/supabase/server";
+import { badRequest, readJson, signInFirst } from "@/lib/http";
 
 export async function POST(request: Request) {
-  const { applicationId } = (await request.json()) as { applicationId?: string };
+  if (!(await isStaff())) return signInFirst();
+  const body = await readJson<{ applicationId: string }>(request);
+  if (!body) return badRequest("JSON body required");
+  const { applicationId } = body;
   const app = (await listApplications()).find((a) => a.id === applicationId);
   if (!app) return Response.json({ error: "application not found" }, { status: 404 });
   const today = await demoToday();

@@ -1,10 +1,14 @@
 import { eq } from "drizzle-orm";
 import { getDb, schema } from "@/lib/db";
+import { isStaff } from "@/lib/supabase/server";
+import { readJson, signInFirst } from "@/lib/http";
 
 /** Record that the client agreed, before anything is heard or typed. The audit row carries the time. */
 export async function POST(request: Request, ctx: RouteContext<"/api/clients/[id]/consent">) {
   const { id } = await ctx.params;
-  const { kind } = (await request.json()) as { kind?: string };
+  if (!(await isStaff())) return signInFirst();
+  const body = await readJson<{ kind: string }>(request);
+  const kind = body?.kind;
   if (kind !== "recording" && kind !== "notes") return Response.json({ error: "kind must be recording or notes" }, { status: 400 });
 
   const db = await getDb();
