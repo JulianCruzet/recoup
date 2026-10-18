@@ -8,12 +8,13 @@ export const TTS_MODELS = (process.env.GEMINI_TTS_MODELS ?? "gemini-3.8-flash-tt
   .map((m) => m.trim())
   .filter(Boolean);
 
-// A warm, clear prebuilt voice; Gemini picks the accent from the language of the text.
+// A warm, clear prebuilt voice. Gemini hears the language from the text itself, so we send only the words to
+// speak: any instruction in the prompt risks being read out to the client too.
 const VOICE = process.env.GEMINI_TTS_VOICE ?? "Kore";
 
 class Busy extends Error {}
 
-async function call(model: string, text: string, language: string): Promise<Uint8Array> {
+async function call(model: string, text: string): Promise<Uint8Array> {
   const key = process.env.GEMINI_API_KEY;
   if (!key) throw new Error("GEMINI_API_KEY is not set");
   const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
@@ -21,7 +22,7 @@ async function call(model: string, text: string, language: string): Promise<Uint
     headers: { "content-type": "application/json", "x-goog-api-key": key },
     signal: AbortSignal.timeout(30000),
     body: JSON.stringify({
-      contents: [{ role: "user", parts: [{ text: `Read this aloud in ${language}, warmly and clearly, at a calm pace:\n\n${text}` }] }],
+      contents: [{ role: "user", parts: [{ text }] }],
       generationConfig: {
         responseModalities: ["AUDIO"],
         speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: VOICE } } },
@@ -38,12 +39,12 @@ async function call(model: string, text: string, language: string): Promise<Uint
   return toWav(new Uint8Array(Buffer.from(audio.data, "base64")), sampleRateOf(audio.mimeType));
 }
 
-/** The text spoken aloud as a WAV file. */
-export async function speak(text: string, language: string): Promise<Uint8Array> {
+/** The text spoken aloud as a WAV file, exactly as written and nothing else. */
+export async function speak(text: string): Promise<Uint8Array> {
   let last: unknown;
   for (const model of TTS_MODELS) {
     try {
-      return await call(model, text, language);
+      return await call(model, text);
     } catch (error) {
       last = error;
       const timedOut = error instanceof Error && (error.name === "TimeoutError" || error.name === "AbortError");
