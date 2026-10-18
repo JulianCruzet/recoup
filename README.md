@@ -6,11 +6,27 @@
   [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)](https://www.typescriptlang.org/)
   [![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38bdf8)](https://tailwindcss.com/)
   [![Gemini](https://img.shields.io/badge/Gemini-API-8e75b2)](https://ai.google.dev/)
+  [![ElevenLabs](https://img.shields.io/badge/ElevenLabs-voices-000000)](https://elevenlabs.io/)
 
-  Built at Hack the Valley 11 · [Quick Start](#-quick-start) · [How it decides](#-trust)
+  Built at Hack the Valley 11 · [Live demo](https://recoup.finance) · [Demo video](https://www.youtube.com/watch?v=UUiUGNVZAsc) · [Quick Start](#-quick-start) · [How it decides](#-trust)
 </div>
 
 ---
+
+## 🎬 Demo
+
+**Try it live at [recoup.finance](https://recoup.finance).** Sign in with the demo staff account:
+
+| Email | Password |
+|---|---|
+| `demo@hotmail.com` | `123456` |
+
+Everything in it is synthetic demo data, shared by everyone using the demo, and it resets now and then.
+
+<div align="center">
+  <a href="https://www.youtube.com/watch?v=UUiUGNVZAsc"><img src="./docs/images/demo-video.webp" alt="Watch the Recoup demo video on YouTube" width="800"/></a>
+  <p><em>Watch the demo on YouTube: one family's intake, from the first conversation to the money arriving</em></p>
+</div>
 
 ## 🧭 Overview
 
@@ -130,6 +146,7 @@ is likely owed, prepare the paperwork, and follow each application until the mon
 
 ![Gemini](https://img.shields.io/badge/Google_Gemini-8E75B2?style=for-the-badge&logo=googlegemini&logoColor=white)
 ![Web Speech API](https://img.shields.io/badge/Web_Speech_API-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white)
+![ElevenLabs](https://img.shields.io/badge/ElevenLabs_%28demo_voices%29-000000?style=for-the-badge&logo=elevenlabs&logoColor=white)
 
 **Backend**
 
@@ -203,6 +220,15 @@ lib/
 eval/                        labelled transcripts and the extraction scorer
 seed/                        demo personas and 50 synthetic clients
 ```
+
+---
+
+## 🤖 AI Usage
+
+- **Building it:** we used Claude and Gemini to help write the code.
+- **Inside the app:** Gemini picks out facts with the client's own words, reads tax documents, explains results in 9
+  languages and drafts follow-ups. Rules, not AI, decide eligibility and amounts.
+- **Demo video:** voices by ElevenLabs.
 
 ---
 
