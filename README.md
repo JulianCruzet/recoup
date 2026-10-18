@@ -8,14 +8,14 @@
   [![Gemini](https://img.shields.io/badge/Gemini-API-8e75b2)](https://ai.google.dev/)
   [![ElevenLabs](https://img.shields.io/badge/ElevenLabs-voices-000000)](https://elevenlabs.io/)
 
-  Built at Hack the Valley 11 · [Live demo](https://recoup.finance) · [Demo video](https://www.youtube.com/watch?v=UUiUGNVZAsc) · [Quick Start](#-quick-start) · [How it decides](#-trust)
+  Built at Hack the Valley 11 · [Live demo](https://www.recoup.finance) · [Demo video](https://www.youtube.com/watch?v=UUiUGNVZAsc) · [Quick Start](#-quick-start) · [How it decides](#-trust)
 </div>
 
 ---
 
 ## 🎬 Demo
 
-**Try it live at [recoup.finance](https://recoup.finance).** Sign in with the demo staff account:
+**Try the live demo at [www.recoup.finance](https://www.recoup.finance).** Sign in with the demo staff account:
 
 | Email | Password |
 |---|---|
