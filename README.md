@@ -15,6 +15,11 @@
 
 ## 🎬 Demo
 
+<div align="center">
+  <a href="https://www.youtube.com/watch?v=UUiUGNVZAsc"><img src="./docs/images/demo-video.webp" alt="Watch the Recoup demo video on YouTube" width="800"/></a>
+  <p><em>Watch the demo on YouTube: one family's intake, from the first conversation to the money arriving</em></p>
+</div>
+
 **Try the live demo at [www.recoup.finance](https://www.recoup.finance).** Sign in with the demo staff account:
 
 | Email | Password |
@@ -22,11 +27,6 @@
 | `demo@hotmail.com` | `123456` |
 
 Everything in it is synthetic demo data, shared by everyone using the demo, and it resets now and then.
-
-<div align="center">
-  <a href="https://www.youtube.com/watch?v=UUiUGNVZAsc"><img src="./docs/images/demo-video.webp" alt="Watch the Recoup demo video on YouTube" width="800"/></a>
-  <p><em>Watch the demo on YouTube: one family's intake, from the first conversation to the money arriving</em></p>
-</div>
 
 ## 🧭 Overview
 
