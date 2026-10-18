@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { CountUp, PopItem, Stagger, StaggerItem } from "@/components/motion";
 import { ChatLine, fadeEdges, runEdges, ScrollCues, useFollowNewest } from "@/components/Chat";
@@ -46,12 +47,19 @@ export function SessionReplay({ turns, facts, clientId, clientName }: { turns: T
         <div className="flex items-center justify-between gap-3">
           <h2 className="font-display text-xl font-bold">Conversation with {clientName}</h2>
           <div className="flex gap-2">
-            <button
-              onClick={() => setPlaying((p) => !p)}
-              className="rounded-full bg-night px-4 py-2 text-sm font-semibold text-white"
-            >
-              {playing && played < turns.length ? "Pause" : played >= turns.length ? "Done" : played ? "Resume" : "Play intake"}
-            </button>
+            {/* Once the last line is heard, the main button moves on to the results instead of toggling a finished replay. */}
+            {played >= turns.length && played > 0 ? (
+              <Link href={`/clients/${clientId}`} className="rounded-full bg-night px-4 py-2 text-sm font-semibold text-white">
+                Done, see results
+              </Link>
+            ) : (
+              <button
+                onClick={() => setPlaying((p) => !p)}
+                className="rounded-full bg-night px-4 py-2 text-sm font-semibold text-white"
+              >
+                {playing ? "Pause" : played ? "Resume" : "Play intake"}
+              </button>
+            )}
             <button onClick={() => { setPlayed(0); setPlaying(false); }} className="rounded-full border border-ink/20 px-4 py-2 text-sm font-semibold">
               Restart
             </button>
