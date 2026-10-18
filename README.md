@@ -80,11 +80,12 @@ is likely owed, prepare the paperwork, and follow each application until the mon
 | **8 referral flags** | ODSP, CPP Disability, RDSP, Canada Learning Bond, OAS Allowance, OESP, Healthy Smiles Ontario and Ontario Seniors Dental Care, which the engine doesn't calculate yet |
 | **Sourced parameters** | Every number is stored as `{value, benefitYear, sourceUrl}` and shown on the "How it decides" page |
 | **Honest uncertainty** | Unconfirmed facts count as unknown, so a result stays "possible" until staff confirm them. Deadlines (like DTC years that expire on Dec 31) are flagged. |
-| **Explain to the client** | One click rewrites the reasons in plain words in Punjabi, Tamil, Arabic, Simplified Chinese, Urdu, Tagalog, French, Spanish or English. If the AI's text contains any number the rules didn't produce, the rule's own wording is shown instead. |
+| **Explain to the client** | One click rewrites the reasons in plain words in Simplified Chinese, Arabic, Tamil, Urdu, Tagalog, Punjabi, French, Spanish or English. If the AI's text contains any number the rules didn't produce, the rule's own wording is shown instead. |
+| **Read it aloud** | **Listen** reads the explanation to the client in their language with Gemini's text-to-speech, for clients who'd rather hear it than read it. The voice only reads text that passed the number check. |
 
 <div align="center">
-  <img src="./docs/images/explain.webp" alt="A result explained in Punjabi" width="800"/>
-  <p><em>A Disability Tax Credit result explained in Punjabi; every number checked against the rules</em></p>
+  <img src="./docs/images/explain.webp" alt="A result explained in Simplified Chinese, ready to read aloud" width="800"/>
+  <p><em>A Disability Tax Credit result explained in Simplified Chinese, with Listen to hear it read aloud; every number checked against the rules</em></p>
 </div>
 
 ### 📝 Paperwork
@@ -145,6 +146,7 @@ is likely owed, prepare the paperwork, and follow each application until the mon
 **AI**
 
 ![Gemini](https://img.shields.io/badge/Google_Gemini-8E75B2?style=for-the-badge&logo=googlegemini&logoColor=white)
+![Gemini TTS](https://img.shields.io/badge/Gemini_TTS-8E75B2?style=for-the-badge&logo=googlegemini&logoColor=white)
 ![Web Speech API](https://img.shields.io/badge/Web_Speech_API-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white)
 ![ElevenLabs](https://img.shields.io/badge/ElevenLabs_%28demo_voices%29-000000?style=for-the-badge&logo=elevenlabs&logoColor=white)
 
@@ -212,7 +214,7 @@ components/
   glass/                     Liquid Glass (SVG displacement)
 lib/
   rules/                     the rules engine, one file per program, params/*.json with sources
-  ai/                        Gemini client, fact extraction, document reader, follow-ups
+  ai/                        Gemini client, fact extraction, document reader, follow-ups, speech
   packages/                  form filling and the doctor brief
   tracker/  simulate/        application stages, the scripted demo and the simulated month
   db/                        PGlite schema, seed data and queries
@@ -227,7 +229,7 @@ seed/                        demo personas and 50 synthetic clients
 
 - **Building it:** we used Claude and Gemini to help write the code.
 - **Inside the app:** Gemini picks out facts with the client's own words, reads tax documents, explains results in 9
-  languages and drafts follow-ups. Rules, not AI, decide eligibility and amounts.
+  languages and reads them aloud, and drafts follow-ups. Rules, not AI, decide eligibility and amounts.
 - **Demo video:** voices by ElevenLabs.
 
 ---
