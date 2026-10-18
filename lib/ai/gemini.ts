@@ -2,7 +2,7 @@
 import "server-only";
 
 // Each free-tier model has its own rate limit, so when one is busy (429/5xx/timeout) we try the next.
-export const GEMINI_MODELS = (process.env.GEMINI_MODELS ?? "gemini-3.8-flash,gemini-3.5-flash,gemini-3.5-flash-lite")
+export const GEMINI_MODELS = (process.env.GEMINI_MODELS ?? "gemini-3.8-flash,gemini-3.7-flash,gemini-3-flash-preview,gemini-3.5-flash,gemini-3.5-flash-lite,gemini-3.1-flash-lite")
   .split(",")
   .map((m) => m.trim())
   .filter(Boolean);
