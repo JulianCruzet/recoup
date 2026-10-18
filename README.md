@@ -8,7 +8,7 @@
   [![Gemini](https://img.shields.io/badge/Gemini-API-8e75b2)](https://ai.google.dev/)
   [![ElevenLabs](https://img.shields.io/badge/ElevenLabs-voices-000000)](https://elevenlabs.io/)
 
-  Built at Hack the Valley 11 · [Live demo](https://www.recoup.finance) · [Demo video](https://www.youtube.com/watch?v=UUiUGNVZAsc) · [Quick Start](#-quick-start) · [How it decides](#-trust)
+  Built at Hack the Valley 11 · [Live demo](https://www.recoup.finance) · [Demo video](https://www.youtube.com/watch?v=5I_BiABXUfg) · [Quick Start](#-quick-start) · [How it decides](#-trust)
 </div>
 
 ---
@@ -16,7 +16,7 @@
 ## 🎬 Demo
 
 <div align="center">
-  <a href="https://www.youtube.com/watch?v=UUiUGNVZAsc"><img src="./docs/images/demo-video.webp" alt="Watch the Recoup demo video on YouTube" width="800"/></a>
+  <a href="https://www.youtube.com/watch?v=5I_BiABXUfg"><img src="./docs/images/demo-video.webp" alt="Watch the Recoup demo video on YouTube" width="800"/></a>
   <p><em>Watch the demo on YouTube: one family's intake, from the first conversation to the money arriving</em></p>
 </div>
 
