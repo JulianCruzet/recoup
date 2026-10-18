@@ -7,8 +7,8 @@ import { formatMoney } from "@/lib/format";
 /**
  * Entrance animations for the app's pages: things rise a little and settle as they arrive, lists
  * follow in a quick stagger. With "reduce motion" on, Motion drops the movement and only fades.
- * Glass panes only fade, rise and scale (no blur): a filter on a pane would switch off its
- * backdrop blur while it animates.
+ * Glass panes only fade and rise (no blur or scale): a filter would switch off a pane's backdrop
+ * blur while it animates, and scaling makes the browser redraw that blur every frame.
  */
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -30,8 +30,8 @@ export function Reveal({ children, className, delay = 0 }: { children: React.Rea
 }
 
 const list: Variants = {
-  hidden: { opacity: 0, y: 18, scale: 0.985 },
-  shown: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, ease: EASE, delayChildren: 0.15, staggerChildren: 0.08 } },
+  hidden: { opacity: 0, y: 18 },
+  shown: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE, delayChildren: 0.15, staggerChildren: 0.08 } },
 };
 const item: Variants = {
   hidden: { opacity: 0, y: 10 },
@@ -62,9 +62,10 @@ const group: Variants = {
   hidden: {},
   shown: (delay: number = 0.1) => ({ transition: { delayChildren: delay, staggerChildren: 0.08 } }),
 };
+// Rise and fade only: scaling a glass pane makes the browser redraw its backdrop blur every frame.
 const rise: Variants = {
-  hidden: { opacity: 0, y: 18, scale: 0.985 },
-  shown: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, ease: EASE } },
+  hidden: { opacity: 0, y: 18 },
+  shown: { opacity: 1, y: 0, transition: { duration: 0.55, ease: EASE } },
 };
 
 type Tag = "div" | "section" | "ul" | "ol" | "header" | "article" | "p" | "li" | "aside";

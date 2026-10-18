@@ -146,6 +146,8 @@ async function AuditLog() {
         return `Demo data loaded: ${d.personas ?? 0} clients`;
       case "demo.reset":
         return "Reset the demo applications";
+      case "client.added":
+        return "Added a new client";
       case "consent.recorded":
         return `Recorded consent for a client (${d.kind === "recording" ? "recording" : "typed notes"})`;
       case "facts.saved":

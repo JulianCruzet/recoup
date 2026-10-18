@@ -2,6 +2,7 @@ import Link from "next/link";
 import { connection } from "next/server";
 import { Suspense } from "react";
 import { Reveal, RevealItem, RevealList } from "@/components/motion";
+import { NewClient } from "@/components/NewClient";
 import { ClientAvatar } from "@/components/ui/ClientAvatar";
 import { getFacts, listClients } from "@/lib/db/queries";
 
@@ -9,7 +10,9 @@ export default function ClientsPage() {
   return (
     <>
       <Reveal>
-        <h1 className="font-display text-4xl font-extrabold tracking-tight">Clients</h1>
+        <NewClient>
+          <h1 className="font-display text-4xl font-extrabold tracking-tight">Clients</h1>
+        </NewClient>
       </Reveal>
       <Suspense fallback={<p className="mt-8 text-ink-soft">Loading clients…</p>}>
         <ClientList />

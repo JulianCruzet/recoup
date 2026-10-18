@@ -42,6 +42,8 @@ export function LiquidGlass({ children, className = "", style, radius = 28, beze
     const element = ref.current;
     let url: string | null = null;
     let frame = 0;
+    let settle: ReturnType<typeof setTimeout> | undefined;
+    let built = false;
 
     const build = () => {
       const { width, height } = element.getBoundingClientRect();
@@ -60,14 +62,23 @@ export function LiquidGlass({ children, className = "", style, radius = 28, beze
       });
     };
 
+    // Painting the map is heavy, so while the pane is being resized (a nav button morphing, links
+    // changing between pages) keep the current map and rebuild once the size has settled.
     const observer = new ResizeObserver(() => {
       cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(build);
+      clearTimeout(settle);
+      if (!built) {
+        built = true;
+        frame = requestAnimationFrame(build);
+      } else {
+        settle = setTimeout(() => (frame = requestAnimationFrame(build)), 120);
+      }
     });
     observer.observe(element);
     return () => {
       observer.disconnect();
       cancelAnimationFrame(frame);
+      clearTimeout(settle);
       if (url) URL.revokeObjectURL(url);
     };
   }, [refract, radius, bezel]);
