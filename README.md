@@ -240,6 +240,6 @@ the Canada Revenue Agency, Service Canada or the Government of Ontario.
 
 ## 👥 Team
 
-Built at Hack the Valley 11 by [Julian Cruzet](https://github.com/JulianCruzet) and [Ali](https://github.com/shambo2).
+Built at Hack the Valley 11 by [Julian Cruzet](https://github.com/JulianCruzet) and [Ali Shamsi](https://github.com/shambo2).
 
 Background photo by [Jimmy Liu](https://unsplash.com/photos/green-hills-and-a-beautiful-blue-sky-Kn1eMkcZ1BU) on Unsplash.
