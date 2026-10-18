@@ -17,7 +17,7 @@
 Recoup is a tool for **community centres and free tax clinics** that helps staff find the government benefits a client
 is likely owed, prepare the paperwork, and follow each application until the money actually arrives.
 
-> *Sana's son Adam has autism. In one intake conversation, Recoup found about **$31,107** in Disability Tax Credit and
+> *Sana's son Adam has autism. In one intake conversation, Recoup found about **$27,627** in Disability Tax Credit and
 > Child Disability Benefit back pay the family never claimed, filled in Part A of the T2201, and wrote a one-page
 > summary for Adam's doctor.* (Demo persona; synthetic data.)
 

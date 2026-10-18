@@ -22,10 +22,10 @@ describe("evaluateChildDisabilityBenefit", () => {
     "benefits.receivesCcb": true,
   });
 
-  it("S. family: $10,213 automatic, $3,480 a year, $20,292 more by request (not counted)", () => {
+  it("S. family: $6,733 back pay, $3,480 a year, $20,292 more by request (not counted)", () => {
     const result = evaluateChildDisabilityBenefit(sFamily, defaultContext())!;
     expect(result.status).toBe("likely");
-    expect(result.backPayEstimate).toBe(10213);
+    expect(result.backPayEstimate).toBe(6733);
     expect(result.annualEstimate).toBe(3480);
     expect(result.reasons.join(" ")).toMatch(/\$20,292 more for 2017-18 to 2023-24/);
   });

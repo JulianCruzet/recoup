@@ -63,7 +63,7 @@ export function evaluateChildDisabilityBenefit(book: FactBook, ctx: RuleContext)
   const requestAmount = sum(requestable.map((by) => childDisabilityBenefit(by, kids.length, income) ?? 0));
 
   r.because(
-    `Once the Disability Tax Credit is approved, CRA pays this for ${kids.length === 1 ? "the child" : `${kids.length} children`} for ${automatic.join(", ")} automatically.`,
+    `Once the Disability Tax Credit is approved, CRA pays this for ${kids.length === 1 ? "the child" : `${kids.length} children`} automatically: back pay for ${automatic.slice(1).join(" and ")}, then ${automatic[0]} onward as it comes.`,
   );
   if (requestAmount > 0) {
     r.because(
@@ -72,8 +72,9 @@ export function evaluateChildDisabilityBenefit(book: FactBook, ctx: RuleContext)
   }
   r.assume("Family net income stayed about the same in every base year.");
 
+  // The current benefit year is the yearly amount, so back pay is only the years before it.
   return r.done("likely", {
     annual: round2(autoAmounts[0]),
-    backPay: round2(sum(autoAmounts)),
+    backPay: round2(sum(autoAmounts.slice(1))),
   });
 }

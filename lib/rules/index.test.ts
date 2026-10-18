@@ -6,9 +6,9 @@ import { evaluate } from "./index";
 const factsOf = (id: string) => (personas as { id: string; facts: Fact[] }[]).find((p) => p.id === id)!.facts;
 
 describe("evaluate: demo personas end to end", () => {
-  it("S. family: $31,107 back pay + $5,772 a year, dental not eligible, Dec 31 deadline", () => {
+  it("S. family: $27,627 back pay + $5,772 a year, dental not eligible, Dec 31 deadline", () => {
     const { results, totals } = evaluate(factsOf("s-family"));
-    expect(totals.backPay).toBe(31107);
+    expect(totals.backPay).toBe(27627);
     expect(totals.annual).toBe(5772);
     expect(results.map((r) => [r.program, r.status])).toEqual([
       ["dtc", "likely"],
